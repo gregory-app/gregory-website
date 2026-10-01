@@ -3,371 +3,813 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gregory — every assumption, with its receipts</title>
-<meta name="description" content="Gregory sits beside a fractional CFO's Excel or Google Sheets model and keeps the register: where every number came from, who confirmed it, and what changed. Nothing writes without your approval.">
-<meta property="og:title" content="Gregory — every assumption, with its receipts">
-<meta property="og:description" content="Provenance, review loop, and checks for driver-based financial models. The workbook stays yours; nothing writes without your approval.">
+<title>Gregory — the AI on the cell</title>
+<meta name="description" content="Gregory is an AI that lives in Excel, on the number you have open. Ask it. It has read the file, the call, and what is signed. A figure it cannot point at, it withholds. You sign. It never writes the cell itself.">
+<meta property="og:title" content="Gregory — the AI on the cell">
+<meta property="og:description" content="An AI in the model. Ask the cell you have open. It answers from the file and what is signed, and it never writes without you.">
 <meta property="og:url" content="https://gregory.work">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23061527'/><text x='50' y='70' font-size='58' text-anchor='middle' fill='%23E8894A' font-family='Georgia,serif' font-weight='bold'>G</text></svg>">
+<meta name="theme-color" content="#f4f4f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2306775a'/%3E%3Cpath d='M8.2 12.6 10.6 15l4.2-4.6' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M17.4 12.2h6.2M8.2 17.6h15.2M8.2 21.2h9.4' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-:root{
-  --ground:#061527;--ground-hi:#0A1E33;--navy-deep:#08203A;--navy:#0F3660;--navy-lt:#2E6B9E;
-  --ink:#E6EDF4;--ink-dim:rgba(230,237,244,.72);--ink-fade:rgba(230,237,244,.48);
-  --orange:#E8894A;--orange-hot:#D9581A;--orange-deep:#A8410E;
-  --green:#4CBF8B;
-  --glass:linear-gradient(155deg,rgba(20,44,70,.72),rgba(12,30,50,.5));
-  --glass-lo:linear-gradient(155deg,rgba(20,44,70,.45),rgba(12,30,50,.3));
-  --edge:rgba(190,215,238,.28);--edge-hi:rgba(190,215,238,.45);
-  --hair:rgba(122,168,214,.16);--hair-soft:rgba(122,168,214,.1);
-  --blur:blur(24px) saturate(150%);
-  --sans:'Geist',-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',system-ui,sans-serif;
-  --mono:'Geist Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
-  --gut:clamp(20px,5vw,60px);--pad:clamp(22px,2.4vw,32px);--sec:clamp(54px,7vw,96px);
-  --maxw:1240px;--r:24px;--r-sm:16px;
+:root {
+  color-scheme: light;
+  --canvas: #f4f4f1;
+  --ink: #0c0d10;
+  --muted: #575c64;
+  --faint: #62666e;
+  --surface: #ffffff;
+  --surface-2: #f6f6f3;
+  --hairline: rgba(12, 13, 16, 0.08);
+  --accent: #06775a;
+  --accent-text: #05684e;
+  --accent-soft: rgba(6, 119, 90, 0.1);
+  --fill: #0c0d10;
+  --fill-hover: #26282e;
+  --on-fill: #ffffff;
+  --warn: #d69e2e;
+  --warn-text: #8a6116;
+  --danger: #b42318;
+  --card-shadow: 0 1px 2px rgba(12, 13, 16, 0.04), 0 8px 24px -8px rgba(12, 13, 16, 0.12);
+  --lift: 0 1px 2px rgba(12, 13, 16, 0.04), 0 30px 70px -28px rgba(12, 13, 16, 0.38), 0 12px 28px -16px rgba(59, 91, 255, 0.22);
+  --header: rgba(244, 244, 241, 0.78);
+  --island: linear-gradient(170deg, rgba(255, 255, 255, 0.74) 0%, rgba(255, 255, 255, 0.56) 55%, rgba(250, 250, 248, 0.66) 100%);
+  --island-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), inset 0 1.5px 1px rgba(255, 255, 255, 0.95), 0 0 0 0.5px rgba(12, 13, 16, 0.12), 0 10px 26px -8px rgba(12, 13, 16, 0.16);
+  --aurora-1: #10b981;
+  --aurora-2: #06b6d4;
+  --aurora-3: #3b5bff;
+  --aurora-4: #8b5cf6;
+  --aurora: linear-gradient(100deg, var(--aurora-1), var(--aurora-2) 30%, var(--aurora-3) 62%, var(--aurora-4) 82%, var(--aurora-1));
+  --wash-1: rgba(16, 185, 129, 0.34);
+  --wash-2: rgba(6, 182, 212, 0.26);
+  --wash-3: rgba(59, 91, 255, 0.22);
+  --wash-4: rgba(139, 92, 246, 0.22);
+  --pane-wash-1: rgba(16, 185, 129, 0.5);
+  --pane-wash-2: rgba(6, 182, 212, 0.38);
+  --pane-wash-3: rgba(59, 91, 255, 0.34);
+  --pane-wash-4: rgba(139, 92, 246, 0.34);
+  --font: Aptos, Calibri, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --gut: clamp(20px, 5vw, 56px);
+  --max: 1120px;
+  --r: 18px;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
-  *,*::before,*::after{animation:none!important;transition:none!important}}
-body{
-  background:var(--ground);color:var(--ink);font-family:var(--sans);
-  font-size:17px;line-height:1.6;letter-spacing:-.008em;
-  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --canvas: #0a0b0d;
+    --ink: #f2f3f5;
+    --muted: #a6abb3;
+    --faint: #8f949c;
+    --surface: #15171b;
+    --surface-2: #1c1f24;
+    --hairline: rgba(255, 255, 255, 0.09);
+    --accent: #34c08b;
+    --accent-text: #5fd6a6;
+    --accent-soft: rgba(52, 192, 139, 0.16);
+    --fill: #f2f3f5;
+    --fill-hover: #ffffff;
+    --on-fill: #0c0d10;
+    --warn: #e2b13c;
+    --warn-text: #e2b13c;
+    --danger: #e0655a;
+    --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 24px -8px rgba(0, 0, 0, 0.5);
+    --lift: 0 1px 2px rgba(0, 0, 0, 0.35), 0 30px 70px -24px rgba(0, 0, 0, 0.7), 0 12px 36px -16px rgba(59, 91, 255, 0.35);
+    --header: rgba(10, 11, 13, 0.78);
+    --island: linear-gradient(180deg, rgba(48, 51, 58, 0.58), rgba(24, 26, 31, 0.64));
+    --island-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.22), inset 0 -1px 1px rgba(255, 255, 255, 0.06), 0 0 0 0.5px rgba(255, 255, 255, 0.12), 0 10px 26px -6px rgba(0, 0, 0, 0.6);
+    --wash-1: rgba(16, 185, 129, 0.32);
+    --wash-2: rgba(6, 182, 212, 0.24);
+    --wash-3: rgba(59, 91, 255, 0.3);
+    --wash-4: rgba(139, 92, 246, 0.28);
+    --pane-wash-1: rgba(16, 185, 129, 0.46);
+    --pane-wash-2: rgba(6, 182, 212, 0.34);
+    --pane-wash-3: rgba(59, 91, 255, 0.42);
+    --pane-wash-4: rgba(139, 92, 246, 0.38);
+  }
 }
-/* layered ground: grid + aurora + particle field */
-.grid-bg{position:fixed;inset:0;z-index:-4;pointer-events:none;
-  background-image:linear-gradient(rgba(122,168,214,.05) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(122,168,214,.05) 1px,transparent 1px);
-  background-size:44px 44px;
-  -webkit-mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 30%,transparent 78%);
-  mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 30%,transparent 78%)}
-.aurora{position:fixed;inset:0;z-index:-3;pointer-events:none;overflow:hidden}
-.aurora span{position:absolute;border-radius:50%;filter:blur(70px);will-change:transform;opacity:.85}
-.aurora .a1{width:62vw;height:62vw;max-width:880px;max-height:880px;top:-28vw;right:-16vw;
-  background:radial-gradient(circle,rgba(217,88,26,.22),rgba(217,88,26,.05) 55%,transparent 72%);
-  animation:drift1 26s ease-in-out infinite alternate}
-.aurora .a2{width:54vw;height:54vw;max-width:760px;max-height:760px;top:22vh;left:-24vw;
-  background:radial-gradient(circle,rgba(46,107,158,.28),rgba(46,107,158,.06) 55%,transparent 72%);
-  animation:drift2 34s ease-in-out infinite alternate}
-.aurora .a3{width:46vw;height:46vw;max-width:640px;max-height:640px;bottom:-20vw;right:8vw;
-  background:radial-gradient(circle,rgba(232,137,74,.12),rgba(15,54,96,.1) 50%,transparent 72%);
-  animation:drift3 40s ease-in-out infinite alternate}
-@keyframes drift1{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(-6vw,7vh,0) scale(1.12)}}
-@keyframes drift2{from{transform:translate3d(0,0,0) scale(1.05)}to{transform:translate3d(7vw,-6vh,0) scale(.95)}}
-@keyframes drift3{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(-5vw,-5vh,0) scale(1.1)}}
-#field{position:fixed;inset:0;z-index:-2;pointer-events:none;width:100%;height:100%}
-.vignette{position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(ellipse 120% 90% at 50% 30%,transparent 55%,rgba(4,13,24,.55) 100%)}
-a{color:var(--orange);text-decoration:none}
-a:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:4px}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut)}
-h1{font-size:clamp(38px,5.8vw,72px);line-height:1.04;letter-spacing:-.034em;font-weight:600;color:#F4F8FC;text-wrap:balance}
-h2{font-size:clamp(27px,3.6vw,44px);line-height:1.12;letter-spacing:-.028em;font-weight:600;color:#F4F8FC;text-wrap:balance}
-.accent{color:var(--orange)}
-
-/* ---- nav ---- */
-header{position:sticky;top:0;z-index:10;background:rgba(6,21,39,.78);
-  -webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-bottom:1px solid var(--hair-soft)}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:15px}
-.wordmark{font-weight:600;font-size:21px;letter-spacing:-.02em;color:#F4F8FC}
-.wordmark .dot{color:var(--orange)}
-.btn{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-size:15px;font-weight:500;
-  letter-spacing:-.012em;padding:12px 22px;border-radius:999px;border:1px solid transparent;
-  background:var(--orange-hot);color:#FFF6EE;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 12px 30px -12px rgba(217,88,26,.7);
-  transition:transform .22s cubic-bezier(.2,.7,.3,1),box-shadow .22s,background .22s;white-space:nowrap}
-.btn:hover{transform:translateY(-1px);background:var(--orange-deep);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 16px 34px -12px rgba(217,88,26,.8)}
-
-/* ---- hero ---- */
-.hero{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,6fr);gap:clamp(32px,5vw,64px);
-  align-items:center;padding-block:var(--sec)}
-.badge{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12.5px;
-  letter-spacing:.09em;text-transform:uppercase;color:var(--orange);margin-bottom:18px}
-.badge::before{content:"";width:7px;height:7px;border-radius:999px;background:var(--orange);
-  box-shadow:0 0 10px rgba(232,137,74,.8)}
-.hero .lede{margin-top:24px;font-size:clamp(16.5px,1.6vw,19px);color:var(--ink-dim);max-width:33em}
-.hero .actions{margin-top:34px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.platforms{font-family:var(--mono);font-size:13px;color:var(--ink-fade);letter-spacing:.02em}
-
-/* ---- the cell exhibit: dark terminal ---- */
-.exhibit{min-width:0}
-.sheet{position:relative;background:var(--glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
-  border:1px solid var(--edge);border-radius:var(--r);overflow:hidden;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 20px 50px -26px rgba(0,0,0,.6),0 0 60px -20px rgba(217,88,26,.2);
-  font-family:var(--mono);font-size:12.5px;letter-spacing:0}
-.titlebar{display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--hair-soft);color:var(--ink-fade)}
-.titlebar .dots{display:flex;gap:6px}
-.titlebar .dots span{width:9px;height:9px;border-radius:999px;background:rgba(122,168,214,.25)}
-.titlebar .fname{margin-left:6px;font-size:11.5px;letter-spacing:.04em}
-.formula-bar{display:flex;gap:12px;padding:10px 16px;border-bottom:1px solid var(--hair-soft);color:var(--ink-fade)}
-.formula-bar .ref{color:var(--green);font-weight:500}
-.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
-.grid td,.grid th{border:1px solid var(--hair-soft);padding:9px 14px;text-align:left;font-weight:400;white-space:nowrap}
-.grid th{color:var(--ink-fade);font-size:11px;text-align:center;width:34px;background:rgba(10,30,51,.5)}
-.grid td.num{text-align:right}
-.grid td.bound{border:1.5px solid var(--orange);color:#FFDCC2;font-weight:500;position:relative;
-  background:rgba(217,88,26,.09);box-shadow:0 0 18px -6px rgba(217,88,26,.5)}
-.grid td.bound::after{content:"";position:absolute;top:-1.5px;right:-1.5px;width:8px;height:8px;
-  background:var(--orange);clip-path:polygon(100% 0,0 0,100% 100%)}
-.grid td.dim{color:var(--ink-dim)}
-.note{margin:14px 16px 16px;border-left:2px solid var(--orange);background:rgba(10,30,51,.6);
-  padding:13px 16px;border-radius:0 var(--r-sm) var(--r-sm) 0;line-height:1.65}
-.note .k{color:var(--ink-fade)}
-.note .q{color:#CFE0EF}
-.note .stamp{display:inline-block;margin-top:9px;padding:3px 12px;border:1px solid rgba(76,191,139,.5);
-  border-radius:999px;color:var(--green);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
-.exhibit figcaption{margin-top:14px;font-family:var(--mono);font-size:12px;color:var(--ink-fade);letter-spacing:.02em}
-
-/* ---- sections ---- */
-section{padding:var(--sec) 0;position:relative}
-.tag{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--orange);margin-bottom:16px}
-.tag::before{content:"// ";color:var(--ink-fade)}
-.section-lede{margin-top:16px;color:var(--ink-dim);max-width:38em}
-
-/* three functions: glass cards */
-.cards{margin-top:40px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.card{position:relative;background:var(--glass-lo);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
-  border:1px solid var(--edge);border-radius:var(--r);padding:var(--pad);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 20px 50px -26px rgba(0,0,0,.6);
-  transition:transform .25s cubic-bezier(.2,.7,.3,1),box-shadow .25s}
-.card:hover{transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 28px 60px -26px rgba(0,0,0,.7)}
-.card .idx{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-fade)}
-.card h3{font-size:20px;font-weight:600;margin:12px 0 10px;color:#F4F8FC}
-.card p{font-size:15px;color:var(--ink-dim)}
-.card p strong{color:var(--ink);font-weight:500}
-
-/* sources strip */
-.sources{margin-top:16px;background:rgba(10,30,51,.55);border:1px solid var(--hair);
-  border-radius:var(--r);padding:var(--pad)}
-.sources p{color:var(--ink-dim);font-size:15.5px;max-width:46em}
-.sources p strong{color:#F4F8FC;font-weight:500}
-.chips{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;list-style:none}
-.chips li{font-family:var(--mono);font-size:12px;letter-spacing:.02em;color:var(--ink-dim);
-  border:1px solid var(--hair);border-radius:999px;padding:6px 13px;background:rgba(6,21,39,.42)}
-
-/* cycle: terminal log */
-.cycle{margin-top:40px;max-width:47em;background:var(--glass-lo);border:1px solid var(--edge);
-  border-radius:var(--r);overflow:hidden;counter-reset:step;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 20px 50px -26px rgba(0,0,0,.6)}
-.step{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;align-items:baseline;
-  padding:17px var(--pad);border-bottom:1px solid var(--hair-soft)}
-.step:last-child{border-bottom:none}
-.step::before{counter-increment:step;content:"0" counter(step);
-  font-family:var(--mono);font-size:12.5px;color:var(--orange);font-weight:500;letter-spacing:.05em}
-.step p{color:var(--ink-dim);font-size:15.5px}
-.step p strong{color:#F4F8FC;font-weight:500}
-.step p .flag{color:var(--orange);font-weight:500}
-
-/* non-negotiables */
-.rules{margin-top:40px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.rule-card{position:relative;background:rgba(10,30,51,.55);border:1px solid var(--hair);
-  border-radius:var(--r);padding:var(--pad)}
-.rule-card::before{content:"";position:absolute;left:0;top:var(--pad);bottom:var(--pad);width:2px;
-  background:var(--orange);border-radius:2px}
-.rule-card .rid{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-fade)}
-.rule-card h3{font-size:18.5px;font-weight:600;color:#F4F8FC;margin:8px 0 8px}
-.rule-card p{font-size:14.5px;color:var(--ink-dim)}
-.rules .rule-card:last-child:nth-child(odd){grid-column:1/-1}
-
-/* about + contact */
-.about{margin-top:40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);
-  gap:16px;align-items:start}
-.about-copy p{color:var(--ink-dim);font-size:15.5px;max-width:36em}
-.about-copy p+p{margin-top:15px}
-.about-copy p strong{color:#F4F8FC;font-weight:500}
-.contact-card{background:var(--glass-lo);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
-  border:1px solid var(--edge);border-radius:var(--r);padding:var(--pad);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 20px 50px -26px rgba(0,0,0,.6)}
-.contact-card dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:13px 20px;
-  font-family:var(--mono);font-size:13px;line-height:1.5}
-.contact-card dt{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
-  color:var(--ink-fade);padding-top:3px}
-.contact-card dd{color:var(--ink)}
-
-/* cta */
-.cta{padding-block:var(--sec)}
-.cta-card{position:relative;overflow:hidden;background:var(--glass);
-  -webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
-  border:1px solid var(--edge);border-radius:var(--r);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 20px 50px -26px rgba(0,0,0,.6);
-  padding:var(--pad);max-width:52em}
-.cta-card::after{content:"";position:absolute;right:-120px;top:-120px;width:320px;height:320px;
-  border-radius:50%;background:radial-gradient(circle,rgba(217,88,26,.18),transparent 70%);pointer-events:none}
-.cta .actions{margin-top:28px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.cta .mail{font-family:var(--mono);font-size:14.5px;letter-spacing:0}
-
-footer{border-top:1px solid var(--hair-soft);padding:26px 0 40px}
-.foot{display:flex;justify-content:space-between;gap:12px 28px;flex-wrap:wrap;
-  font-family:var(--mono);font-size:12.5px;color:var(--ink-fade);letter-spacing:.02em}
-.foot a{color:var(--ink-dim)}
-.foot a:hover{color:var(--orange)}
-
-@media (max-width:860px){
-  .hero{grid-template-columns:1fr;gap:36px}
-  .cards{grid-template-columns:1fr}
-  .rules{grid-template-columns:1fr}
-  .about{grid-template-columns:1fr}
-  .step{grid-template-columns:40px minmax(0,1fr);gap:12px}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }
-@media (max-width:420px){
-  .nav{gap:10px}
-  .nav .btn{padding:10px 15px;font-size:13.5px}
-  .wordmark{font-size:19px}
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.55;
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+::selection { background: var(--accent-soft); color: var(--ink); }
+a { color: var(--accent-text); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible, .btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -40px;
+  z-index: 30;
+  background: var(--fill);
+  color: var(--on-fill);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+.skip:focus { top: 12px; }
+
+/* The colour moves. The type stays ink. Blooms sit behind the hero and scroll away with it. */
+.aurora {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 760px;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(#000 8%, transparent 78%);
+  mask-image: linear-gradient(#000 8%, transparent 78%);
+}
+.aurora::before, .aurora::after {
+  content: "";
+  position: absolute;
+  inset: -18% -8%;
+  background:
+    radial-gradient(520px 340px at 78% 22%, var(--wash-3), transparent 70%),
+    radial-gradient(440px 300px at 96% 58%, var(--wash-4), transparent 72%);
+  animation: drift 23s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.aurora::after {
+  background:
+    radial-gradient(480px 320px at 62% 8%, var(--wash-1), transparent 70%),
+    radial-gradient(420px 280px at 40% 36%, var(--wash-2), transparent 72%);
+  animation: drift-2 31s ease-in-out infinite alternate;
+}
+@keyframes drift {
+  0% { transform: translate3d(-4%, -3%, 0) rotate(-4deg) scale(1); }
+  50% { transform: translate3d(3%, 4%, 0) rotate(3deg) scale(1.08); }
+  100% { transform: translate3d(6%, -2%, 0) rotate(-2deg) scale(0.96); }
+}
+@keyframes drift-2 {
+  0% { transform: translate3d(5%, 3%, 0) rotate(5deg) scale(1.04); }
+  50% { transform: translate3d(-4%, -4%, 0) rotate(-3deg) scale(0.94); }
+  100% { transform: translate3d(-7%, 2%, 0) rotate(2deg) scale(1.08); }
+}
+@media (forced-colors: active) {
+  .aurora, .pane-aurora { display: none; }
+}
+
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gut); position: relative; z-index: 1; }
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--header);
+  -webkit-backdrop-filter: blur(22px) saturate(1.6);
+  backdrop-filter: blur(22px) saturate(1.6);
+  border-bottom: 1px solid var(--hairline);
+}
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 14px;
+}
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; }
+.brand:hover { text-decoration: none; }
+.mark {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 36%, transparent);
+}
+.mark svg { display: block; }
+.word {
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.03em;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  padding: 11px 18px;
+  background: var(--fill);
+  color: var(--on-fill);
+  font: inherit;
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 1px 2px rgba(12, 13, 16, 0.16), 0 6px 14px -6px rgba(12, 13, 16, 0.32);
+  transition: background 160ms ease, box-shadow 220ms ease, transform 160ms ease;
+}
+.btn:hover {
+  text-decoration: none;
+  background: var(--fill-hover);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 1px 2px rgba(12, 13, 16, 0.16),
+    0 10px 22px -8px color-mix(in srgb, var(--aurora-3) 70%, transparent),
+    6px 8px 18px -10px color-mix(in srgb, var(--aurora-1) 75%, transparent);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 400px);
+  gap: clamp(36px, 5vw, 80px);
+  align-items: center;
+  padding-block: clamp(40px, 6vw, 88px) clamp(12px, 2vw, 28px);
+}
+.hero figure { min-width: 0; }
+.pane { width: 100%; }
+.eyebrow {
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin-bottom: 16px;
+}
+h1 {
+  font-size: clamp(42px, 5.6vw, 72px);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  font-weight: 650;
+  text-wrap: balance;
+}
+h2 {
+  font-size: clamp(30px, 3.6vw, 46px);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  font-weight: 640;
+  text-wrap: balance;
+}
+.lede {
+  margin-top: 22px;
+  max-width: 36em;
+  color: var(--muted);
+  font-size: clamp(16.5px, 1.5vw, 18.5px);
+  line-height: 1.5;
+}
+.actions { margin-top: 28px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.platforms { color: var(--faint); font-size: 13.5px; letter-spacing: 0.01em; }
+
+/* The pane, drawn with the same materials as the add-in. */
+.pane {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  background: var(--canvas);
+  box-shadow: var(--lift);
+  border: 1px solid var(--hairline);
+}
+.pane-aurora {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 168px;
+  pointer-events: none;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(#000 30%, transparent 94%);
+  mask-image: linear-gradient(#000 30%, transparent 94%);
+}
+.pane-aurora::before, .pane-aurora::after {
+  content: "";
+  position: absolute;
+  inset: -40% -20%;
+  background:
+    radial-gradient(180px 120px at 22% 42%, var(--pane-wash-1), transparent 72%),
+    radial-gradient(190px 120px at 78% 28%, var(--pane-wash-3), transparent 72%);
+  animation: drift 23s ease-in-out infinite alternate;
+}
+.pane-aurora::after {
+  background:
+    radial-gradient(160px 100px at 50% 50%, var(--pane-wash-2), transparent 72%),
+    radial-gradient(150px 100px at 92% 56%, var(--pane-wash-4), transparent 72%);
+  animation: drift-2 31s ease-in-out infinite alternate;
+}
+.pane-top { position: relative; padding: 16px 16px 0; }
+.file {
+  font-size: 12px;
+  color: var(--faint);
+  margin-bottom: 10px;
+  padding-left: 4px;
+}
+.island {
+  display: flex;
+  gap: 2px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--island);
+  box-shadow: var(--island-shadow);
+  -webkit-backdrop-filter: blur(18px) saturate(1.65);
+  backdrop-filter: blur(18px) saturate(1.65);
+}
+.island span {
+  padding: 6px 11px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 550;
+  letter-spacing: -0.02em;
+  color: var(--muted);
+}
+.island .on {
+  background: var(--fill);
+  color: var(--on-fill);
+  font-weight: 650;
+}
+.cell { position: relative; padding: 22px 18px 18px; }
+.addr {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--faint);
+  letter-spacing: 0;
+}
+.cell h3 {
+  margin-top: 6px;
+  font-size: 22px;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+}
+.num {
+  margin-top: 2px;
+  font-size: 52px;
+  line-height: 1;
+  font-weight: 640;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums;
+}
+.signed {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 13.5px;
+  color: var(--ink);
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+  flex: none;
+}
+.box {
+  margin-top: 16px;
+  background: var(--surface);
+  border-radius: var(--r);
+  box-shadow: var(--card-shadow);
+  padding: 14px 14px 13px;
+}
+.box .k {
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+.quote {
+  margin-top: 6px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+.moves {
+  margin-top: 10px;
+  background: var(--surface);
+  border-radius: 14px;
+  box-shadow: var(--card-shadow);
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+  font-size: 13.5px;
+}
+.moves b { font-weight: 650; letter-spacing: -0.02em; }
+.moves span { color: var(--accent-text); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.thread { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+.msg {
+  max-width: 92%;
+  padding: 10px 12px;
+  border-radius: 14px;
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+.msg.g { align-self: flex-start; background: var(--accent-soft); border-bottom-left-radius: 5px; }
+.msg.you { align-self: flex-end; background: var(--surface); box-shadow: var(--card-shadow); border-bottom-right-radius: 5px; }
+.who {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+.msg.g .who { color: var(--accent-text); }
+.msg.you .who { color: var(--faint); justify-content: flex-end; }
+.msg .quote { margin-top: 6px; }
+.withheld { color: var(--faint); }
+.compose {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: var(--card-shadow);
+  color: var(--faint);
+  font-size: 13px;
+}
+.suggest { margin-top: 10px; gap: 6px; }
+.suggest li { font-size: 12px; background: var(--surface); box-shadow: var(--card-shadow); }
+
+.ask {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+.ask > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    var(--aurora) border-box;
+  background-size: auto, 200% 100%;
+  box-shadow: 0 4px 14px -6px color-mix(in srgb, var(--aurora-3) 45%, transparent);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  animation: rim 6s linear infinite;
+}
+.spark {
+  background: var(--aurora);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: var(--accent-text);
+  animation: flow 6s linear infinite;
+}
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .spark { color: transparent; }
+}
+@keyframes flow { to { background-position: 200% 0; } }
+@keyframes rim { to { background-position: 0 0, 200% 0; } }
+figcaption.note {
+  margin-top: 14px;
+  color: var(--faint);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+section { padding: clamp(56px, 8vw, 104px) 0; scroll-margin-top: 72px; }
+.section-lede { margin-top: 14px; max-width: 38em; color: var(--muted); }
+
+.cards {
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.card, .rule, .contact, .cta-card, .wide {
+  background: var(--surface);
+  border-radius: var(--r);
+  box-shadow: var(--card-shadow);
+}
+.card { padding: 22px 22px 24px; }
+.card h3, .rule h3, .wide h3 {
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  margin: 10px 0 8px;
+}
+.card p, .rule p, .wide p, .about-copy p { color: var(--muted); font-size: 15.5px; }
+.card p strong, .about-copy p strong { color: var(--ink); font-weight: 600; }
+
+.band {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 14px;
+}
+.stack { display: grid; gap: 14px; align-content: start; }
+.wide { padding: 22px 22px 20px; }
+.chips { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
+.chips li {
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--surface-2);
+  border-radius: 999px;
+  padding: 6px 12px;
+}
+
+.steps { margin-top: 32px; display: grid; gap: 10px; max-width: 760px; counter-reset: step; }
+.step {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  background: var(--surface);
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  padding: 16px 18px;
+}
+.step::before {
+  counter-increment: step;
+  content: counter(step);
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+  font-size: 13px;
+  color: var(--accent-text);
+  padding-top: 2px;
+}
+.step p { color: var(--muted); font-size: 15.5px; }
+.step strong { color: var(--ink); font-weight: 620; }
+
+.rules {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.rule { padding: 22px; }
+.rules .rule:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+.about {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+  gap: 14px;
+  align-items: start;
+}
+.about-copy p + p { margin-top: 14px; }
+.contact { padding: 8px 22px; }
+.contact div { display: grid; grid-template-columns: 92px minmax(0, 1fr); }
+.contact dt, .contact dd { padding: 13px 0; border-bottom: 1px solid var(--hairline); font-size: 14.5px; }
+.contact div:last-child dt, .contact div:last-child dd { border-bottom: 0; }
+.contact dt { color: var(--faint); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding-top: 16px; }
+.contact dd { color: var(--ink); }
+
+.cta { padding-top: 8px; }
+.cta-card { position: relative; overflow: hidden; padding: clamp(28px, 4vw, 40px); }
+.cta-card .glow {
+  position: absolute;
+  inset: auto -80px -120px auto;
+  width: 380px;
+  height: 380px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 40% 40%, var(--wash-3), transparent 62%),
+    radial-gradient(circle at 70% 60%, var(--wash-1), transparent 60%);
+  animation: drift 26s ease-in-out infinite alternate;
+}
+.cta-card .inner { position: relative; max-width: 38em; }
+.cta .actions { margin-top: 22px; }
+.mail { font-size: 15px; }
+
+footer { padding: 28px 0 40px; }
+.foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px 24px;
+  flex-wrap: wrap;
+  padding-top: 22px;
+  border-top: 1px solid var(--hairline);
+  color: var(--faint);
+  font-size: 13px;
+}
+.foot a { color: var(--muted); }
+
+@media (prefers-reduced-transparency: reduce) {
+  header, .island { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  header { background: var(--canvas); }
+  .island { background: var(--surface); }
+}
+@media (max-width: 880px) {
+  .hero, .cards, .band, .rules, .about { grid-template-columns: 1fr; }
+  .hero { padding-top: 36px; }
+  .pane { max-width: 440px; }
+}
+@media (max-width: 420px) {
+  .btn { padding: 10px 14px; font-size: 13.5px; }
+  .num { font-size: 44px; }
+  .island span { padding: 6px 9px; }
 }
 </style>
 </head>
 <body>
-<div class="grid-bg" aria-hidden="true"></div>
-<div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
-<canvas id="field" aria-hidden="true"></canvas>
-<div class="vignette" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+<div class="aurora" aria-hidden="true"></div>
 
 <header>
   <div class="wrap nav">
-    <a class="wordmark" href="/">Gregory<span class="dot">.</span></a>
+    <a class="brand" href="/">
+      <span class="mark" aria-hidden="true">
+        <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 7.2 6 9.2l3.4-3.8"/>
+          <path d="M12.4 7h4M4 12.5h12M4 15.6h7.5"/>
+        </svg>
+      </span>
+      <span class="word">Gregory</span>
+    </a>
     <a class="btn" href="mailto:hello@gregory.work?subject=Early%20access">Request early access</a>
   </div>
 </header>
 
-<main>
+<main id="main">
   <div class="wrap hero">
     <div>
-      <p class="badge">For fractional CFOs</p>
-      <h1>Every assumption, <span class="accent">with its receipts.</span></h1>
-      <p class="lede">Gregory sits beside your Excel or Google&nbsp;Sheets model and keeps the register: where every number came from, who confirmed it, and what changed &mdash; and it never writes a cell without your approval.</p>
+      <p class="eyebrow">AI, in the model</p>
+      <h1>Ask Gregory.</h1>
+      <p class="lede">It&rsquo;s the AI on the cell you have open. It has read the file, the call, the email, and what is signed. Ask what moves the answer. It answers from that &mdash; and a figure it cannot point at, it withholds. You sign. It never writes the cell itself.</p>
       <div class="actions">
         <a class="btn" href="mailto:hello@gregory.work?subject=Early%20access">Request early access</a>
-        <span class="platforms">EXCEL &middot; GOOGLE SHEETS</span>
+        <span class="platforms">Excel &middot; Google Sheets &middot; Claude &middot; ChatGPT</span>
       </div>
     </div>
-    <figure class="exhibit">
-      <div class="sheet" role="img" aria-label="A spreadsheet cell holding a 50% deposit assumption, with Gregory's provenance note: source, the client's own words, and confirmation status.">
-        <div class="titlebar"><span class="dots"><span></span><span></span><span></span></span><span class="fname">acme_2027_model.xlsx &mdash; register</span></div>
-        <div class="formula-bar"><span class="ref">Inputs!B7</span><span>deposit_pct_po_1_3</span></div>
-        <table class="grid">
-          <tr><th></th><th>A</th><th>B</th></tr>
-          <tr><th>6</th><td class="dim">Payment terms &mdash; PO 1&ndash;3</td><td class="num dim">net 30</td></tr>
-          <tr><th>7</th><td class="dim">Supplier deposit &mdash; PO 1&ndash;3</td><td class="num bound">50%</td></tr>
-          <tr><th>8</th><td class="dim">Lead time (days)</td><td class="num dim">45</td></tr>
-        </table>
-        <div class="note">
-          <div><span class="k">source:</span> founder call &middot; 2026&#8209;08&#8209;12</div>
-          <div><span class="k">quote:</span> <span class="q">&ldquo;for the first three POs they want fifty percent up front&rdquo;</span></div>
-          <div class="stamp">confirmed &middot; 2026&#8209;08&#8209;14</div>
+    <figure>
+      <div class="pane">
+      <div class="pane-aurora" aria-hidden="true"></div>
+      <div class="pane-top">
+        <p class="file">acme_2027_model.xlsx</p>
+        <div class="island" aria-hidden="true">
+          <span>Cell</span>
+          <span>Model</span>
+          <span class="on">Chat</span>
+          <span>Review</span>
         </div>
       </div>
-      <figcaption>the note gregory keeps on a bound cell &mdash; native workbook features only. no macros, no add-ins.</figcaption>
+      <div class="cell">
+        <p class="addr">Inputs!B7 &middot; Supplier deposit</p>
+        <div class="thread">
+          <div class="msg g">
+            <p class="who"><span class="spark" aria-hidden="true">&#10022;</span> Gregory</p>
+            <p>Signed, 12 Aug, off the founder call. It feeds cash.</p>
+            <p class="quote">&ldquo;for the first three POs they want fifty percent up front&rdquo;</p>
+          </div>
+          <div class="msg you">
+            <p class="who">You</p>
+            <p>What moves cash?</p>
+          </div>
+          <div class="msg g">
+            <p class="who"><span class="spark" aria-hidden="true">&#10022;</span> Gregory</p>
+            <p>Deposit, price, and doors. Deposit is signed. <span class="withheld">Price has no source on the record, so there is no number from me.</span></p>
+          </div>
+        </div>
+        <div class="compose"><span class="spark" aria-hidden="true">&#10022;</span> Ask Gregory about this cell&hellip;</div>
+        <ul class="chips suggest">
+          <li>Where it came from</li>
+          <li>What it feeds</li>
+          <li>What&rsquo;s unsigned</li>
+        </ul>
+      </div>
+      </div>
+      <figcaption class="note">Ask Gregory, on the cell. The answer comes from the file and what is signed. The last signature also travels in the workbook, so the model still opens without Gregory.</figcaption>
     </figure>
   </div>
 
   <section id="what">
     <div class="wrap">
-      <p class="tag">What Gregory does</p>
-      <h2>The workbook stays the model. Gregory keeps the record beside it.</h2>
-      <p class="section-lede">Driver-based models live or die on their assumptions &mdash; and the assumptions live in emails, call notes, and someone&rsquo;s memory. Gregory gives them a register of their own.</p>
+      <p class="eyebrow">What Gregory does</p>
+      <h2>In the model. Not a chat you paste a file into.</h2>
+      <p class="section-lede">Gregory is already on the cell, with the workbook open. Ask it there. The same question works from Claude or ChatGPT &mdash; it reads what is signed, and it still cannot write the model.</p>
       <div class="cards">
-        <div class="card">
-          <span class="idx">Register</span>
-          <h3>Provenance</h3>
-          <p>Every assumption carries a <strong>source, a date, an owner, and a confidence level</strong> &mdash; down to the line it was quoted from. Stale and unconfirmed assumptions are flagged before they become the forecast.</p>
-        </div>
-        <div class="card">
-          <span class="idx">Cycle</span>
-          <h3>Review loop</h3>
-          <p>Gregory drafts the client review request <strong>from the register, not from memory</strong>, turns the reply and call transcripts into proposed cell changes with the quote behind each one, and shows you the diff. You approve, edit, or reject &mdash; item by item.</p>
-        </div>
-        <div class="card">
-          <span class="idx">Findings</span>
-          <h3>Checks</h3>
-          <p>The line-by-line checks you already run by hand &mdash; hardcoded numbers inside formulas, broken references, rows that stopped reconciling &mdash; run on every cycle and come back as <strong>findings, never silent fixes</strong>.</p>
-        </div>
+        <article class="card">
+          <p class="eyebrow">Ask</p>
+          <h3>On the cell you have open</h3>
+          <p>Ask Gregory about this cell, or under the drivers that move an output. It opens on what the cell is, whether it is signed, what it feeds, and what to check. <strong>A figure the record does not hold is withheld.</strong></p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Read</p>
+          <h3>The call, the email, the file</h3>
+          <p>A transcript, a contract, an export. Gregory reads them and proposes the change, with the quote beside it. <strong>Fill with Gregory</strong> drafts the source into the signature. What it cannot ground, it flags.</p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Sign</p>
+          <h3>The answer you keep</h3>
+          <p>The inputs that move the output are the ones that get a signature &mdash; who, when, from what, and what it replaced. Stale is one click: <strong>Still true?</strong> The AI proposes. You decide. Nothing reaches the cell until you say so.</p>
+        </article>
       </div>
-      <div class="sources">
-        <p><strong>Every source, structured or not.</strong> Half of what a model rests on never arrives as a table &mdash; it&rsquo;s a signed contract, a recorded call, a one-line email. Gregory reads them all into one register, so a number said out loud is held to the same standard as one pulled from an export.</p>
-        <ul class="chips">
-          <li>accounting &amp; ERP exports</li>
-          <li>bank statements</li>
-          <li>CSVs &amp; workbooks</li>
-          <li>contracts &amp; PDFs</li>
-          <li>email threads</li>
-          <li>call transcripts</li>
-          <li>chat messages</li>
-          <li>your own notes</li>
-        </ul>
+      <div class="band">
+        <article class="wide">
+          <p class="eyebrow">Sources</p>
+          <h3>Said on a call, held to the same standard.</h3>
+          <p>A deposit agreed out loud, a term in a contract, a line in an email. Gregory reads them beside the exports, and a proposed number has to point at the words it came from.</p>
+          <ul class="chips">
+            <li>Accounting &amp; ERP exports</li>
+            <li>Bank statements</li>
+            <li>CSVs &amp; workbooks</li>
+            <li>Contracts &amp; PDFs</li>
+            <li>Email threads</li>
+            <li>Call transcripts</li>
+            <li>Chat messages</li>
+            <li>Your own notes</li>
+          </ul>
+        </article>
+        <div class="stack">
+          <article class="wide">
+            <p class="eyebrow">The month</p>
+            <h3>A package, signed.</h3>
+            <p>The metrics you chose, actuals through the month beside the forecast, signed, for the person it goes to.</p>
+          </article>
+          <article class="wide">
+            <p class="eyebrow">Claude &amp; ChatGPT</p>
+            <h3>The same Gregory, in the chat you already have.</h3>
+            <p>Ask from the assistant you use. It reads the signed model and can draft. Deciding and writing stay in the pane, with you.</p>
+          </article>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="cycle">
+  <section id="day">
     <div class="wrap">
-      <p class="tag">One cycle, end to end</p>
-      <h2>From &ldquo;the client replied&rdquo; to a model you can defend.</h2>
-      <div class="cycle">
-        <div class="step"><p><strong>Register the source.</strong> The reply, the transcript, the PDF &mdash; filed against the engagement.</p></div>
-        <div class="step"><p><strong>Extraction proposes changes.</strong> Each proposed value carries the exact quote it came from; anything that can&rsquo;t be grounded in the source&rsquo;s own words is <span class="flag">flagged, not trusted</span>.</p></div>
-        <div class="step"><p><strong>You decide every item.</strong> Approve, edit, or reject &mdash; with the diff and the reasons in front of you.</p></div>
-        <div class="step"><p><strong>Approved changes are applied</strong> &mdash; with a snapshot before and after, so any apply can be rolled back.</p></div>
-        <div class="step"><p><strong>The trail is written into the workbook.</strong> Cell notes with source and status, a change note for the client, and a fresh run of the checks.</p></div>
+      <p class="eyebrow">A question</p>
+      <h2>From asking the cell to a number you can defend.</h2>
+      <div class="steps">
+        <div class="step"><p><strong>Ask, on the cell.</strong> What it is, where it stands, what it feeds, what moves the output. Gregory speaks first, from the model in front of you.</p></div>
+        <div class="step"><p><strong>It answers from the record.</strong> The file, the call, the email, the signature. A number it cannot point at is withheld, not invented.</p></div>
+        <div class="step"><p><strong>A reply becomes proposed changes.</strong> The transcript, the contract, the PDF. Each value carries the quote it came from. What cannot be grounded is flagged.</p></div>
+        <div class="step"><p><strong>You sign what moves the answer.</strong> Approve, edit, or reject. Stale is &ldquo;Still true?&rdquo;. Approved changes are applied with a snapshot before and after.</p></div>
+        <div class="step"><p><strong>The file still opens.</strong> The last signature travels as a note and a hidden sheet. No macros. Remove Gregory and the model still opens.</p></div>
       </div>
     </div>
   </section>
 
   <section id="rules">
     <div class="wrap">
-      <p class="tag">Non-negotiables</p>
-      <h2>Product rules, enforced in code &mdash; not preferences.</h2>
+      <p class="eyebrow">Non-negotiables</p>
+      <h2>Product rules, enforced in code.</h2>
       <div class="rules">
-        <div class="rule-card">
-          <span class="rid">N1</span>
+        <article class="rule">
           <h3>Nothing writes without approval.</h3>
-          <p>The only write path runs through changes a human decided. There is no auto-apply, and no way to bypass the gate.</p>
-        </div>
-        <div class="rule-card">
-          <span class="rid">N2</span>
+          <p>The only path that changes a workbook runs through changes a person decided. There is no auto-apply, and no way around the gate.</p>
+        </article>
+        <article class="rule">
           <h3>The workbook stays yours.</h3>
-          <p>Provenance uses native features &mdash; named ranges, notes, a hidden sheet. No macros, no add-in dependency. Remove Gregory and the model still opens everywhere.</p>
-        </div>
-        <div class="rule-card">
-          <span class="rid">N3</span>
-          <h3>Excel in, Excel out.</h3>
-          <p>A model lives on one platform for its whole life. Gregory never converts your file or moves it to a format your client can&rsquo;t open.</p>
-        </div>
-        <div class="rule-card">
-          <span class="rid">N4</span>
+          <p>What Gregory leaves in the file uses native features &mdash; named ranges, notes, a hidden sheet. No macros, and no add-in required to open it.</p>
+        </article>
+        <article class="rule">
+          <h3>Excel in, Excel out. Sheets in, Sheets out.</h3>
+          <p>A model lives on one platform for its whole life. Gregory never converts the file into something the client cannot open.</p>
+        </article>
+        <article class="rule">
           <h3>No number without a quote.</h3>
-          <p>Extraction can only propose a value it can point to in the source, word for word. What it can&rsquo;t ground it flags as a gap &mdash; it never fills one in. And approved changes reach the cell through deterministic code, not through a model writing a formula: the number in your workbook is the number you approved.</p>
-        </div>
-        <div class="rule-card">
-          <span class="rid">N5</span>
+          <p>A proposed value has to point at the source, word for word. What cannot be grounded is flagged as a gap. Approved changes reach the cell as the number you approved.</p>
+        </article>
+        <article class="rule">
           <h3>Client data stays where the engagement allows.</h3>
           <p>Per-engagement flags control cloud processing and AI use. Calls send the minimum text needed, and client values never appear in logs.</p>
-        </div>
+        </article>
       </div>
     </div>
   </section>
 
   <section id="about">
     <div class="wrap">
-      <p class="tag">About</p>
-      <h2>Built with its first users, not for a hypothetical one.</h2>
+      <p class="eyebrow">About</p>
+      <h2>Built with its first users.</h2>
       <div class="about">
         <div class="about-copy">
-          <p>Gregory is an independent product built around a single problem: <strong>a financial model keeps its numbers and loses its reasoning.</strong> A driver-based forecast is only as defensible as the assumptions underneath it, and those assumptions scatter into emails, call notes, and memory the moment the workbook is saved.</p>
-          <p>It is built hands-on with a working fractional CFO practice as its first user &mdash; every cycle of the product runs against real client engagements before it ships. <strong>The product is in development</strong>, and access is by request while we work with a small group of early practices.</p>
-          <p>If you keep client models honest for a living, we&rsquo;d like to hear how you work. Write to us &mdash; the reply comes from the people building it.</p>
+          <p>Gregory is an AI built into the model, around one problem: <strong>a forecast keeps its numbers and loses why anyone believed them.</strong> The inputs that move it scatter into emails, calls, and memory the moment the file is saved. Ask, and the answer has to come from those &mdash; or it does not come.</p>
+          <p>The daily surface is the Excel pane. It is built hands-on with a working fractional CFO practice &mdash; the cycles run against real client work before they ship. <strong>The product is in development</strong>, and access is by request while that work continues with a small group of practices.</p>
+          <p>If you keep client models honest for a living, write to us. The reply comes from the people building it.</p>
         </div>
-        <div class="contact-card">
+        <div class="contact">
           <dl>
-            <dt>Contact</dt><dd><a href="mailto:hello@gregory.work">hello@gregory.work</a></dd>
-            <dt>Web</dt><dd>gregory.work</dd>
-            <dt>Stage</dt><dd>In development &middot; early access by request</dd>
-            <dt>Platforms</dt><dd>Excel &middot; Google Sheets</dd>
+            <div><dt>Contact</dt><dd><a href="mailto:hello@gregory.work">hello@gregory.work</a></dd></div>
+            <div><dt>Web</dt><dd>gregory.work</dd></div>
+            <div><dt>Stage</dt><dd>In development &middot; early access</dd></div>
+            <div><dt>Where</dt><dd>Excel task pane &middot; Google Sheets</dd></div>
           </dl>
         </div>
       </div>
@@ -376,12 +818,15 @@ footer{border-top:1px solid var(--hair-soft);padding:26px 0 40px}
 
   <div class="wrap cta">
     <div class="cta-card">
-      <p class="tag">Early access</p>
-      <h2>Built hands-on with fractional CFOs.</h2>
-      <p class="section-lede">Gregory is in development with a working fractional CFO practice as its first user. If you keep client models honest for a living and want a hand in shaping it, write to us.</p>
-      <div class="actions">
-        <a class="btn" href="mailto:hello@gregory.work?subject=Early%20access">Request early access</a>
-        <a class="mail" href="mailto:hello@gregory.work">hello@gregory.work</a>
+      <div class="glow" aria-hidden="true"></div>
+      <div class="inner">
+        <p class="eyebrow">Early access</p>
+        <h2>An AI in the grid, with the CFOs who use it.</h2>
+        <p class="section-lede">Gregory is in development with a working practice as its first user. If you want a hand in shaping it, write to us.</p>
+        <div class="actions">
+          <a class="btn" href="mailto:hello@gregory.work?subject=Early%20access">Request early access</a>
+          <a class="mail" href="mailto:hello@gregory.work">hello@gregory.work</a>
+        </div>
       </div>
     </div>
   </div>
@@ -390,63 +835,8 @@ footer{border-top:1px solid var(--hair-soft);padding:26px 0 40px}
 <footer>
   <div class="wrap foot">
     <span>&copy; 2026 Gregory &mdash; a product of Aether Growth Partners LLC</span>
-    <span><a href="mailto:hello@gregory.work">hello@gregory.work</a></span>
-    <span>gregory.work</span>
+    <a href="mailto:hello@gregory.work">hello@gregory.work</a>
   </div>
 </footer>
-
-<script>
-(function(){
-  var c=document.getElementById('field'),x=c.getContext('2d');
-  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var dpr=Math.min(window.devicePixelRatio||1,2),W,H,pts=[];
-  var LINK=150, N;
-  function resize(){
-    W=window.innerWidth;H=window.innerHeight;
-    c.width=W*dpr;c.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0);
-    N=Math.min(90,Math.max(36,Math.round(W*H/26000)));
-    while(pts.length<N)pts.push(spawn());
-    pts.length=N;
-  }
-  function spawn(){
-    return {x:Math.random()*W,y:Math.random()*H,
-      vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22,
-      r:Math.random()*1.4+.6,
-      hot:Math.random()<.14};
-  }
-  function frame(){
-    x.clearRect(0,0,W,H);
-    for(var i=0;i<pts.length;i++){
-      var p=pts[i];
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<-20)p.x=W+20;if(p.x>W+20)p.x=-20;
-      if(p.y<-20)p.y=H+20;if(p.y>H+20)p.y=-20;
-    }
-    x.lineWidth=1;
-    for(var i=0;i<pts.length;i++){
-      for(var j=i+1;j<pts.length;j++){
-        var a=pts[i],b=pts[j],dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy;
-        if(d2<LINK*LINK){
-          var t=1-Math.sqrt(d2)/LINK;
-          x.strokeStyle=(a.hot&&b.hot)?'rgba(232,137,74,'+(t*.22)+')':'rgba(122,168,214,'+(t*.13)+')';
-          x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke();
-        }
-      }
-    }
-    for(var i=0;i<pts.length;i++){
-      var p=pts[i];
-      x.fillStyle=p.hot?'rgba(232,137,74,.8)':'rgba(158,193,226,.55)';
-      x.beginPath();x.arc(p.x,p.y,p.r,0,6.2832);x.fill();
-      if(p.hot){
-        x.fillStyle='rgba(232,137,74,.12)';
-        x.beginPath();x.arc(p.x,p.y,p.r*4,0,6.2832);x.fill();
-      }
-    }
-  }
-  function loop(){frame();requestAnimationFrame(loop);}
-  resize();window.addEventListener('resize',resize);
-  if(reduced){frame();}else{loop();}
-})();
-</script>
 </body>
 </html>

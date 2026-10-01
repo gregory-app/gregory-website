@@ -1,7 +1,9 @@
 # gregory.work
 
-Marketing site for Gregory — provenance, review loop, and checks for
-driver-based financial models. Single static page, no build step.
+Marketing site for Gregory — the AI on the cell. Ask it in Excel. It
+answers from the file and what is signed, and it never writes the model
+itself. Single static page, no build step. Visual family follows the pane:
+paper and ink, emerald for a signature, aurora on Gregory's own moments.
 
 Served by GitHub Pages at https://gregory.work (custom domain via `CNAME`).
 
