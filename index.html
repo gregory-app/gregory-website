@@ -165,6 +165,20 @@ h2 { font-weight: 650; font-size: clamp(32px, 4vw, 52px); letter-spacing: -0.04e
   display: inline-flex; align-items: center; justify-content: center;
 }
 .logo-row img { height: 26px; width: auto; max-width: 132px; object-fit: contain; display: block; }
+.loves { margin-top: 36px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.loves article {
+  padding: 22px; border-radius: 18px; border: 1px solid var(--line);
+  background: rgba(255,255,255,.03);
+}
+.loves h3 { font-size: 18px; font-weight: 650; letter-spacing: -0.03em; margin-bottom: 8px; }
+.loves p { color: var(--muted); font-size: 15px; }
+.scores { margin-top: 40px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.scores div { padding: 22px 20px 0 0; }
+.scores strong {
+  display: block; font-weight: 650; letter-spacing: -0.05em; line-height: 0.95;
+  font-size: clamp(44px, 5vw, 68px);
+}
+.scores span { display: block; margin-top: 10px; color: var(--muted); max-width: 16em; }
 .rules { margin-top: 28px; }
 .rule { padding: 20px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 20px; }
 .rule:last-child { border-bottom: 1px solid var(--line); }
@@ -190,7 +204,7 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
 }
 @media (max-width: 900px) {
   .links { display: none; }
-  .hero, .connects, .rule, .about, .scene-pair { grid-template-columns: 1fr; }
+  .hero, .connects, .rule, .about, .scene-pair, .loves, .scores { grid-template-columns: 1fr; }
   .reel-track figure { flex-basis: 78vw; }
   .reel-head { flex-direction: column; align-items: flex-start; }
   .hero { min-height: 0; }
@@ -211,6 +225,7 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
     </a>
     <div class="links">
       <a href="#work">Work</a>
+      <a href="#why">Why</a>
       <a href="#connect">Connect</a>
       <a href="#rules">Rules</a>
       <a href="#who">Who</a>
@@ -309,6 +324,32 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
           <figcaption>Chat<span>Ask about the finding. The cell is not changed.</span></figcaption>
         </figure>
       </div>
+      </div>
+    </div>
+  </section>
+  <section id="why">
+    <div class="wrap">
+      <p class="kicker">Why it stays</p>
+      <h2>Why it stays open.</h2>
+      <p class="intro">The book stays yours. A number without a source does not land.</p>
+      <div class="loves">
+        <article>
+          <h3>On the cell you have open.</h3>
+          <p>Ask there. The answer is the file, the call, or what was signed. It does not take you to another model.</p>
+        </article>
+        <article>
+          <h3>No source, no number.</h3>
+          <p>A figure it cannot point at, it withholds. The gap stays a gap.</p>
+        </article>
+        <article>
+          <h3>You still sign.</h3>
+          <p>Fill can draft where a number came from. The cell changes only when a person decides.</p>
+        </article>
+      </div>
+      <div class="scores">
+        <div><strong>0</strong><span>Writes without you. Nothing applies on its own.</span></div>
+        <div><strong>1</strong><span>Path that can change the workbook. It runs through the gate.</span></div>
+        <div><strong>A quote</strong><span>Or the number does not land. Word for word, from the source.</span></div>
       </div>
     </div>
   </section>
