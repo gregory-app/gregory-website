@@ -105,8 +105,14 @@ h2 { font-weight: 650; font-size: clamp(32px, 4vw, 52px); letter-spacing: -0.04e
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
-.track { display: flex; width: max-content; animation: reel 36s linear infinite; }
-.track span { padding-right: 48px; font-size: 22px; font-weight: 650; letter-spacing: -0.04em; color: var(--faint); }
+.track { display: flex; align-items: center; gap: 12px; width: max-content; animation: reel 46s linear infinite; padding-left: 12px; }
+.track span {
+  height: 52px; min-width: 52px; padding: 0 14px; border-radius: 14px; background: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: 0 10px 28px rgba(0,0,0,.22);
+}
+.track img { height: 22px; width: auto; max-width: 112px; object-fit: contain; display: block; }
+.track .word { color: #1c1c1c; font-size: 14px; font-weight: 650; letter-spacing: -0.03em; }
 @keyframes reel { to { transform: translateX(-50%); } }
 .connects { margin-top: 36px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .connects article {
@@ -117,6 +123,11 @@ h2 { font-weight: 650; font-size: clamp(32px, 4vw, 52px); letter-spacing: -0.04e
 .connects article:hover { transform: translateY(-4px); border-color: rgba(95, 214, 166, 0.45); }
 .connects h3 { font-size: 18px; font-weight: 650; letter-spacing: -0.03em; margin-bottom: 8px; }
 .connects p { color: var(--muted); font-size: 15px; }
+.connects .logo {
+  height: 52px; padding: 0 12px; margin-bottom: 16px; border-radius: 12px; background: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.connects .logo img { height: 26px; width: auto; max-width: 168px; object-fit: contain; display: block; }
 .later { margin-top: 72px; }
 .soon { font-size: 11px; font-weight: 650; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
 .later .connects article { background: transparent; }
@@ -199,8 +210,26 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
   </div>
   <div class="marquee" aria-hidden="true">
     <div class="track">
-      <span>Excel</span><span>Google Sheets</span><span>Claude</span><span>ChatGPT</span><span>Microsoft 365</span><span>OneDrive</span><span>Google Drive</span><span>Email</span><span>Calls</span><span>PDFs</span>
-      <span>Excel</span><span>Google Sheets</span><span>Claude</span><span>ChatGPT</span><span>Microsoft 365</span><span>OneDrive</span><span>Google Drive</span><span>Email</span><span>Calls</span><span>PDFs</span>
+      <span><img src="media/logos/microsoftexcel.svg" alt="Excel"></span>
+      <span><img src="media/logos/googlesheets.svg" alt="Google Sheets"></span>
+      <span><img src="media/logos/anthropic.svg" alt="Claude"></span>
+      <span><img src="media/logos/openai.svg" alt="ChatGPT"></span>
+      <span><img src="media/logos/microsoft.svg" alt="Microsoft 365"></span>
+      <span><img src="media/logos/microsoftonedrive.svg" alt="OneDrive"></span>
+      <span><img src="media/logos/googledrive-color.svg" alt="Google Drive"></span>
+      <span class="word">Email</span>
+      <span class="word">Calls</span>
+      <span class="word">PDFs</span>
+      <span><img src="media/logos/microsoftexcel.svg" alt=""></span>
+      <span><img src="media/logos/googlesheets.svg" alt=""></span>
+      <span><img src="media/logos/anthropic.svg" alt=""></span>
+      <span><img src="media/logos/openai.svg" alt=""></span>
+      <span><img src="media/logos/microsoft.svg" alt=""></span>
+      <span><img src="media/logos/microsoftonedrive.svg" alt=""></span>
+      <span><img src="media/logos/googledrive-color.svg" alt=""></span>
+      <span class="word">Email</span>
+      <span class="word">Calls</span>
+      <span class="word">PDFs</span>
     </div>
   </div>
   <section id="work">
@@ -231,20 +260,29 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
       <p class="intro">The names are the places the work already lives. Gregory connects where a signature has to travel.</p>
       <div class="connects">
         <article>
+          <div class="logo"><img src="media/logos/anthropic.svg" alt=""></div>
           <h3>Claude</h3>
           <p>Paste Gregory in as a connector. It reads what is signed, drafts, and proposes. It never approves, signs, or writes the workbook.</p>
         </article>
         <article>
+          <div class="logo"><img src="media/logos/openai.svg" alt=""></div>
           <h3>ChatGPT</h3>
           <p>The same door. ChatGPT asks before anything is written into Gregory. The number in the file still waits for you.</p>
         </article>
         <article>
+          <div class="logo"><img src="media/logos/microsoft.svg" alt=""></div>
           <h3>Microsoft 365</h3>
           <p>Excel is the daily surface. A connected account opens the spreadsheets in OneDrive — your files, a folder, a search.</p>
         </article>
         <article>
+          <div class="logo"><img src="media/logos/googledrive-color.svg" alt=""></div>
           <h3>Google Drive</h3>
           <p>Choose a Sheet in Drive, or the files already picked for that client. Sheets in, Sheets out. Gregory never converts the file.</p>
+        </article>
+        <article>
+          <div class="logo"><img src="media/logos/microsoftexcel.svg" alt=""></div>
+          <h3>Excel</h3>
+          <p>The book you already run. Reads, proposes, writes back only through the gate.</p>
         </article>
         <article>
           <h3>The sources</h3>
@@ -257,34 +295,64 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
         <p class="intro">Not connected yet. A weekly distributor or POS export can already be read into the month. A live feed from the system that produced it is the work ahead.</p>
         <div class="connects">
           <article>
+            <div class="logo"><img src="media/logos/quickbooks.svg" alt=""></div>
             <p class="soon">Later</p>
             <h3>QuickBooks</h3>
             <p>The books, as a feed. Today they arrive as an export.</p>
           </article>
           <article>
+            <div class="logo"><img src="media/logos/confido-on-light.svg" alt=""></div>
             <p class="soon">Later</p>
             <h3>Confido</h3>
             <p>Deductions, cash application, trade. Gregory does not talk to it yet.</p>
           </article>
           <article>
+            <div class="logo"><img src="media/logos/drivepoint.svg" alt=""></div>
             <p class="soon">Later</p>
             <h3>Drivepoint</h3>
             <p>The planning agent in the sheet. Not a connector.</p>
           </article>
           <article>
+            <div class="logo"><img src="media/logos/kehe.png" alt=""></div>
             <p class="soon">Later</p>
-            <h3>KeHE and UNFI</h3>
+            <h3>KeHE</h3>
             <p>Distributor reports. A file can be read now. A standing connection is not built.</p>
           </article>
           <article>
+            <div class="logo"><img src="media/logos/unfi.svg" alt=""></div>
             <p class="soon">Later</p>
-            <h3>SPINS and Crisp</h3>
-            <p>Retail measurement. Same rule: the export can land, the feed cannot.</p>
+            <h3>UNFI</h3>
+            <p>The other wholesale book. Same rule: a file can land, a live feed cannot.</p>
           </article>
           <article>
+            <div class="logo"><img src="media/logos/spins.png" alt=""></div>
             <p class="soon">Later</p>
-            <h3>Walmart, Shopify, Amazon</h3>
-            <p>The portals a brand sells through. Named here so the list is the whole stack, not a promise.</p>
+            <h3>SPINS</h3>
+            <p>Natural-channel scans. The export can land. The feed is not built.</p>
+          </article>
+          <article>
+            <div class="logo"><img src="media/logos/crisp.png" alt=""></div>
+            <p class="soon">Later</p>
+            <h3>Crisp</h3>
+            <p>Retailer portals in one place. Still a feed Gregory does not have.</p>
+          </article>
+          <article>
+            <div class="logo"><img src="media/logos/walmart.svg" alt=""></div>
+            <p class="soon">Later</p>
+            <h3>Walmart</h3>
+            <p>Retailer data with a name on it. Named here, not connected.</p>
+          </article>
+          <article>
+            <div class="logo"><img src="media/logos/shopify.svg" alt=""></div>
+            <p class="soon">Later</p>
+            <h3>Shopify</h3>
+            <p>DTC orders next to wholesale. Two channels, still an export.</p>
+          </article>
+          <article>
+            <div class="logo"><img src="media/logos/amazon.svg" alt=""></div>
+            <p class="soon">Later</p>
+            <h3>Amazon</h3>
+            <p>Marketplace movement. On the list so the stack is the whole one.</p>
           </article>
         </div>
       </div>
