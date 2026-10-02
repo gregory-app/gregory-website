@@ -2,8 +2,8 @@
 
 Marketing site for Gregory — the AI on the cell. Ask it in Excel. It
 answers from the file and what is signed, and it never writes the model
-itself. Single static page, no build step. Visual family follows the pane:
-paper and ink, emerald for a signature, aurora on Gregory's own moments.
+itself. Single static page, no build step. The page is a dark stage: a display headline, a living aurora, and the
+pane floating in it. Emerald is still a signature. Aurora is still Gregory.
 
 Served by GitHub Pages at https://gregory.work (custom domain via `CNAME`).
 
