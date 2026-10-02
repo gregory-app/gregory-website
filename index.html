@@ -129,8 +129,22 @@ h2 { font-weight: 650; font-size: clamp(32px, 4vw, 52px); letter-spacing: -0.04e
 }
 .connects .logo img { height: 26px; width: auto; max-width: 168px; object-fit: contain; display: block; }
 .later { margin-top: 72px; }
-.soon { font-size: 11px; font-weight: 650; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
-.later .connects article { background: transparent; }
+.logo-row { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.logo-row span {
+  height: 64px; padding: 0 18px; border-radius: 16px; background: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.logo-row img { height: 26px; width: auto; max-width: 132px; object-fit: contain; display: block; }
+.who { margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.who article {
+  border-radius: 22px; border: 1px solid var(--line); background: rgba(255,255,255,.03); overflow: hidden;
+}
+.who img {
+  width: 100%; display: block; aspect-ratio: 320 / 460; object-fit: cover; object-position: top center;
+}
+.who div { padding: 22px 22px 26px; }
+.who h3 { font-size: clamp(26px, 3vw, 34px); font-weight: 650; letter-spacing: -0.04em; line-height: 1.05; }
+.who p { margin-top: 10px; color: var(--muted); }
 .rules { margin-top: 28px; }
 .rule { padding: 20px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 20px; }
 .rule:last-child { border-bottom: 1px solid var(--line); }
@@ -156,7 +170,7 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
 }
 @media (max-width: 900px) {
   .links { display: none; }
-  .hero, .gallery, .connects, .rule, .about { grid-template-columns: 1fr; }
+  .hero, .gallery, .connects, .rule, .about, .who { grid-template-columns: 1fr; }
   .hero { min-height: 0; }
   .stage { max-width: 420px; }
 }
@@ -177,9 +191,9 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
       <a href="#work">Work</a>
       <a href="#connect">Connect</a>
       <a href="#rules">Rules</a>
-      <a href="#about">About</a>
+      <a href="#who">Who</a>
     </div>
-    <a class="btn" href="mailto:hello@gregory.work?subject=Early%20access">Request early access</a>
+    <a class="btn" href="mailto:hello@gregory.work?subject=Gregory">Get Gregory</a>
   </div>
 </header>
 <main id="main">
@@ -195,7 +209,7 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
       </h1>
       <p class="lede">The AI on the number a forecast actually turns on. It has read the file, the call, and what is signed. A figure it cannot point at, it withholds. You sign. It never writes the cell itself.</p>
       <div class="actions">
-        <a class="btn" href="mailto:hello@gregory.work?subject=Early%20access">Request early access</a>
+        <a class="btn" href="mailto:hello@gregory.work?subject=Gregory">Get Gregory</a>
         <a class="btn ghost" href="#work">See it work</a>
       </div>
       <p class="mono">Excel · Google Sheets · Claude · ChatGPT</p>
@@ -291,69 +305,19 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
       </div>
       <div class="later">
         <p class="kicker">Later</p>
-        <h2>The CPG stack, when the feed is live.</h2>
-        <p class="intro">Not connected yet. A weekly distributor or POS export can already be read into the month. A live feed from the system that produced it is the work ahead.</p>
-        <div class="connects">
-          <article>
-            <div class="logo"><img src="media/logos/quickbooks.svg" alt=""></div>
-            <p class="soon">Later</p>
-            <h3>QuickBooks</h3>
-            <p>The books, as a feed. Today they arrive as an export.</p>
-          </article>
-          <article>
-            <div class="logo"><img src="media/logos/confido-on-light.svg" alt=""></div>
-            <p class="soon">Later</p>
-            <h3>Confido</h3>
-            <p>Deductions, cash application, trade. Gregory does not talk to it yet.</p>
-          </article>
-          <article>
-            <div class="logo"><img src="media/logos/drivepoint.svg" alt=""></div>
-            <p class="soon">Later</p>
-            <h3>Drivepoint</h3>
-            <p>The planning agent in the sheet. Not a connector.</p>
-          </article>
-          <article>
-            <div class="logo"><img src="media/logos/kehe.png" alt=""></div>
-            <p class="soon">Later</p>
-            <h3>KeHE</h3>
-            <p>Distributor reports. A file can be read now. A standing connection is not built.</p>
-          </article>
-          <article>
-            <div class="logo"><img src="media/logos/unfi.svg" alt=""></div>
-            <p class="soon">Later</p>
-            <h3>UNFI</h3>
-            <p>The other wholesale book. Same rule: a file can land, a live feed cannot.</p>
-          </article>
-          <article>
-            <div class="logo"><img src="media/logos/spins.png" alt=""></div>
-            <p class="soon">Later</p>
-            <h3>SPINS</h3>
-            <p>Natural-channel scans. The export can land. The feed is not built.</p>
-          </article>
-          <article>
-            <div class="logo"><img src="media/logos/crisp.png" alt=""></div>
-            <p class="soon">Later</p>
-            <h3>Crisp</h3>
-            <p>Retailer portals in one place. Still a feed Gregory does not have.</p>
-          </article>
-          <article>
-            <div class="logo"><img src="media/logos/walmart.svg" alt=""></div>
-            <p class="soon">Later</p>
-            <h3>Walmart</h3>
-            <p>Retailer data with a name on it. Named here, not connected.</p>
-          </article>
-          <article>
-            <div class="logo"><img src="media/logos/shopify.svg" alt=""></div>
-            <p class="soon">Later</p>
-            <h3>Shopify</h3>
-            <p>DTC orders next to wholesale. Two channels, still an export.</p>
-          </article>
-          <article>
-            <div class="logo"><img src="media/logos/amazon.svg" alt=""></div>
-            <p class="soon">Later</p>
-            <h3>Amazon</h3>
-            <p>Marketplace movement. On the list so the stack is the whole one.</p>
-          </article>
+        <h2>Named. Not connected.</h2>
+        <p class="intro">A weekly export can already be read into the month. A live feed from the system that produced it is not built.</p>
+        <div class="logo-row">
+          <span><img src="media/logos/quickbooks.svg" alt="QuickBooks"></span>
+          <span><img src="media/logos/confido-on-light.svg" alt="Confido"></span>
+          <span><img src="media/logos/drivepoint.svg" alt="Drivepoint"></span>
+          <span><img src="media/logos/kehe.png" alt="KeHE"></span>
+          <span><img src="media/logos/unfi.svg" alt="UNFI"></span>
+          <span><img src="media/logos/spins.png" alt="SPINS"></span>
+          <span><img src="media/logos/crisp.png" alt="Crisp"></span>
+          <span><img src="media/logos/walmart.svg" alt="Walmart"></span>
+          <span><img src="media/logos/shopify.svg" alt="Shopify"></span>
+          <span><img src="media/logos/amazon.svg" alt="Amazon"></span>
         </div>
       </div>
     </div>
@@ -371,29 +335,34 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
       </div>
     </div>
   </section>
-  <section id="about">
+  <section id="who">
     <div class="wrap">
-      <p class="kicker">About</p>
-      <h2>Built with the people who keep the model honest.</h2>
-      <div class="about">
-        <div>
-          <p>Gregory is an AI built into the model, around one problem: <strong>a forecast keeps its numbers and loses why anyone believed them.</strong> Ask, and the answer has to come from the file, the call, or what was signed — or it does not come.</p>
-          <p>The daily surface is the Excel pane, built with a working fractional CFO practice. <strong>The product is in development.</strong> Access is by request.</p>
-        </div>
-        <dl class="contact">
-          <div><dt>Contact</dt><dd><a href="mailto:hello@gregory.work">hello@gregory.work</a></dd></div>
-          <div><dt>Web</dt><dd>gregory.work</dd></div>
-          <div><dt>Stage</dt><dd>Early access</dd></div>
-          <div><dt>Where</dt><dd>Excel · Google Sheets</dd></div>
-        </dl>
+      <p class="kicker">Live</p>
+      <h2>For one person. For a finance team.</h2>
+      <p class="intro">Gregory is live. The same pane, two ways in: open it on your own file, or run it on the book a team already keeps.</p>
+      <div class="who">
+        <article>
+          <img src="media/model.png" alt="The Excel pane on Model: what moves the answer, the drivers under Cash.">
+          <div>
+            <h3>On your own.</h3>
+            <p>Excel or Sheets. Ask the cell you have open. It answers from the file, the call, and what is signed. You sign. It never writes the cell itself.</p>
+          </div>
+        </article>
+        <article>
+          <img src="media/cell.png" alt="A signed cell, price per unit, with its source.">
+          <div>
+            <h3>A finance team.</h3>
+            <p>The model the team already runs. What moves the answer, who signed it, and the source it came from. The number stays in the file they open.</p>
+          </div>
+        </article>
       </div>
     </div>
   </section>
   <div class="wrap cta">
-    <p class="kicker">Early access</p>
-    <h2>An AI in the grid, with the CFOs who use it.</h2>
+    <p class="kicker">Live</p>
+    <h2>Gregory is live in the grid.</h2>
     <div class="actions">
-      <a class="btn" href="mailto:hello@gregory.work?subject=Early%20access">Request early access</a>
+      <a class="btn" href="mailto:hello@gregory.work?subject=Gregory">Get Gregory</a>
       <a class="btn ghost" href="mailto:hello@gregory.work">hello@gregory.work</a>
     </div>
   </div>
