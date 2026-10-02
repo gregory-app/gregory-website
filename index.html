@@ -91,15 +91,42 @@ h1 em { display: inline-block; font-style: normal; color: var(--accent); transfo
 section { position: relative; z-index: 1; padding: clamp(64px, 9vw, 112px) 0; scroll-margin-top: 72px; }
 h2 { font-weight: 650; font-size: clamp(32px, 4vw, 52px); letter-spacing: -0.04em; line-height: 1.05; }
 .intro { margin-top: 14px; max-width: 36em; color: var(--muted); }
-.gallery { margin-top: 40px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-.gallery figure { margin: 0; }
-.gallery img {
-  width: 100%; border-radius: 22px; display: block; aspect-ratio: 320 / 520;
-  object-fit: cover; object-position: top center;
-  box-shadow: 0 24px 60px -28px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.06);
+.reel-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; }
+.reel-ctrl { display: flex; align-items: center; gap: 8px; flex: none; }
+.reel-ctrl button {
+  width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--line);
+  background: rgba(255,255,255,.04); color: var(--ink); font-size: 18px; cursor: pointer;
 }
-.gallery figcaption { margin-top: 12px; font-weight: 650; letter-spacing: -0.02em; }
-.gallery figcaption span { display: block; margin-top: 2px; font-weight: 400; color: var(--muted); font-size: 14px; }
+.reel-ctrl button:hover { border-color: rgba(95, 214, 166, 0.55); }
+.reel-count { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; color: var(--faint); min-width: 4.5em; text-align: center; }
+.reel { margin: 28px calc(50% - 50vw) 0; }
+.reel-track {
+  display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory;
+  scrollbar-width: none; padding: 8px 6vw 36px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.reel-track::-webkit-scrollbar { display: none; }
+.reel-track figure { flex: 0 0 300px; scroll-snap-align: center; margin: 0; }
+.reel-track img {
+  width: 100%; display: block; aspect-ratio: 320 / 560; object-fit: cover; object-position: top center;
+  border-radius: 28px;
+  box-shadow: 0 36px 80px -32px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.08);
+}
+.reel-track figcaption { margin-top: 14px; font-weight: 650; letter-spacing: -0.02em; }
+.reel-track figcaption span { display: block; margin-top: 2px; font-weight: 400; color: var(--muted); font-size: 14px; }
+.live { padding: 0 0 clamp(64px, 9vw, 112px); }
+.scene { position: relative; overflow: hidden; display: flex; align-items: flex-end; min-height: 460px; border-radius: 28px; }
+.scene-wide { min-height: 78vh; border-radius: 0; margin-bottom: 18px; }
+.scene .place { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.scene-wide .place { object-position: center 40%; }
+.scene-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,7,8,.12) 10%, rgba(7,7,8,.28) 42%, rgba(7,7,8,.88) 100%); }
+.scene-copy { position: relative; z-index: 1; padding: 40px 28px 36px; max-width: 38em; }
+.scene-copy h2, .scene-copy h3 { text-shadow: 0 8px 30px rgba(0,0,0,.35); }
+.scene-copy .lede, .scene-copy p { color: #e4e4e8; }
+.scene-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.scene-pair h3 { font-size: clamp(28px, 3vw, 40px); font-weight: 650; letter-spacing: -0.04em; line-height: 1.05; }
+.scene-pair p { margin-top: 10px; font-size: 16px; }
 .marquee {
   position: relative; z-index: 1; overflow: hidden; border-block: 1px solid var(--line); padding: 18px 0;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
@@ -135,16 +162,6 @@ h2 { font-weight: 650; font-size: clamp(32px, 4vw, 52px); letter-spacing: -0.04e
   display: inline-flex; align-items: center; justify-content: center;
 }
 .logo-row img { height: 26px; width: auto; max-width: 132px; object-fit: contain; display: block; }
-.who { margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-.who article {
-  border-radius: 22px; border: 1px solid var(--line); background: rgba(255,255,255,.03); overflow: hidden;
-}
-.who img {
-  width: 100%; display: block; aspect-ratio: 320 / 460; object-fit: cover; object-position: top center;
-}
-.who div { padding: 22px 22px 26px; }
-.who h3 { font-size: clamp(26px, 3vw, 34px); font-weight: 650; letter-spacing: -0.04em; line-height: 1.05; }
-.who p { margin-top: 10px; color: var(--muted); }
 .rules { margin-top: 28px; }
 .rule { padding: 20px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 20px; }
 .rule:last-child { border-bottom: 1px solid var(--line); }
@@ -170,7 +187,9 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
 }
 @media (max-width: 900px) {
   .links { display: none; }
-  .hero, .gallery, .connects, .rule, .about, .who { grid-template-columns: 1fr; }
+  .hero, .connects, .rule, .about, .scene-pair { grid-template-columns: 1fr; }
+  .reel-track figure { flex-basis: 78vw; }
+  .reel-head { flex-direction: column; align-items: flex-start; }
   .hero { min-height: 0; }
   .stage { max-width: 420px; }
 }
@@ -248,10 +267,20 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
   </div>
   <section id="work">
     <div class="wrap">
-      <p class="kicker">The pane</p>
-      <h2>Shot in the app.</h2>
-      <p class="intro">The same screens, from the Excel task pane. Model ranks what moves the answer. The table measures the drivers together. Review says what is worth checking. Chat is where you ask.</p>
-      <div class="gallery">
+      <div class="reel-head">
+        <div>
+          <p class="kicker">The pane</p>
+          <h2>Shot in the app.</h2>
+          <p class="intro">The same screens, from the Excel task pane. Model ranks what moves the answer. The table measures the drivers together. Review says what is worth checking. Chat is where you ask.</p>
+        </div>
+        <div class="reel-ctrl">
+          <button type="button" id="reel-prev" aria-label="Previous screen">‹</button>
+          <span class="reel-count" id="reel-count">01 / 06</span>
+          <button type="button" id="reel-next" aria-label="Next screen">›</button>
+        </div>
+      </div>
+      <div class="reel">
+      <div class="reel-track" id="reel">
         <figure>
           <img src="media/model.png" alt="What moves the answer, with the drivers under Cash.">
           <figcaption>What moves the answer<span>The inputs that move Cash, and how far.</span></figcaption>
@@ -276,6 +305,7 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
           <img src="media/chat.png" alt="Chat about a finding: a question, Gregory's answer, the cell unchanged.">
           <figcaption>Chat<span>Ask about the finding. The cell is not changed.</span></figcaption>
         </figure>
+      </div>
       </div>
     </div>
   </section>
@@ -347,37 +377,41 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
       </div>
     </div>
   </section>
-  <section id="who">
-    <div class="wrap">
-      <p class="kicker">Live</p>
-      <h2>For one person. For a finance team.</h2>
-      <p class="intro">Gregory is live. The same pane, two ways in: open it on your own file, or run it on the book a team already keeps.</p>
-      <div class="who">
-        <article>
-          <img src="media/model.png" alt="The Excel pane on Model: what moves the answer, the drivers under Cash.">
-          <div>
-            <h3>On your own.</h3>
-            <p>Excel or Sheets. Ask the cell you have open. It answers from the file, the call, and what is signed. You sign. It never writes the cell itself.</p>
-          </div>
-        </article>
-        <article>
-          <img src="media/cell.png" alt="A signed cell, price per unit, with its source.">
-          <div>
-            <h3>A finance team.</h3>
-            <p>The model the team already runs. What moves the answer, who signed it, and the source it came from. The number stays in the file they open.</p>
-          </div>
-        </article>
+  <section id="who" class="live">
+    <article class="scene scene-wide">
+      <img class="place" src="media/places/nyc.jpg" alt="Manhattan at dusk, the Empire State Building over the city.">
+      <div class="scene-shade"></div>
+      <div class="wrap">
+      <div class="scene-copy">
+        <p class="kicker">Live</p>
+        <h2>Gregory is live in the grid.</h2>
+        <p class="lede">Open it on your own file, or run it on the book a finance team already keeps. You sign. It never writes the cell itself.</p>
+        <div class="actions">
+          <a class="btn" href="mailto:hello@gregory.work?subject=Gregory">Get Gregory</a>
+          <a class="btn ghost" href="mailto:hello@gregory.work">hello@gregory.work</a>
+        </div>
       </div>
+      </div>
+    </article>
+    <div class="wrap scene-pair">
+      <article class="scene">
+        <img class="place" src="media/places/tower.jpg" alt="Glass towers in a financial district, looking up.">
+        <div class="scene-shade"></div>
+        <div class="scene-copy">
+          <h3>On your own.</h3>
+          <p>Excel or Sheets. Ask the cell you have open. It answers from the file, the call, and what is signed.</p>
+        </div>
+      </article>
+      <article class="scene">
+        <img class="place" src="media/places/board.jpg" alt="A long conference table in a high-floor office.">
+        <div class="scene-shade"></div>
+        <div class="scene-copy">
+          <h3>A finance team.</h3>
+          <p>The model the team already runs. What moves the answer, who signed it, and the source it came from.</p>
+        </div>
+      </article>
     </div>
   </section>
-  <div class="wrap cta">
-    <p class="kicker">Live</p>
-    <h2>Gregory is live in the grid.</h2>
-    <div class="actions">
-      <a class="btn" href="mailto:hello@gregory.work?subject=Gregory">Get Gregory</a>
-      <a class="btn ghost" href="mailto:hello@gregory.work">hello@gregory.work</a>
-    </div>
-  </div>
 </main>
 <footer>
   <div class="wrap foot">
@@ -416,6 +450,32 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
   }
   show("model");
   if (!reduced) setTimeout(turn, 2800);
+})();
+(function () {
+  var track = document.getElementById("reel");
+  var count = document.getElementById("reel-count");
+  if (!track) return;
+  var figs = track.querySelectorAll("figure");
+  var i = 0;
+  var timer = 0;
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  function go(n) {
+    i = (n + figs.length) % figs.length;
+    var fig = figs[i];
+    var left = fig.offsetLeft - (track.clientWidth - fig.offsetWidth) / 2;
+    track.scrollTo({ left: left, behavior: reduced ? "auto" : "smooth" });
+    if (count) count.textContent = pad(i + 1) + " / 0" + figs.length;
+  }
+  function arm() {
+    if (reduced) return;
+    clearInterval(timer);
+    timer = setInterval(function () { go(i + 1); }, 3400);
+  }
+  document.getElementById("reel-next").addEventListener("click", function () { go(i + 1); arm(); });
+  document.getElementById("reel-prev").addEventListener("click", function () { go(i - 1); arm(); });
+  track.addEventListener("pointerdown", function () { clearInterval(timer); });
+  arm();
 })();
 </script>
 </body>
