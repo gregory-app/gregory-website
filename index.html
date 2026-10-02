@@ -13,7 +13,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2306775a'/%3E%3Cpath d='M8.2 12.6 10.6 15l4.2-4.6' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M17.4 12.2h6.2M8.2 17.6h15.2M8.2 21.2h9.4' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root {
   color-scheme: dark;
@@ -22,387 +22,123 @@
   --muted: #b7b7be;
   --faint: #8e8e98;
   --line: rgba(255, 255, 255, 0.12);
-  --paper: #f4f4f1;
-  --paper-ink: #0c0d10;
-  --paper-muted: #5c6168;
   --accent: #5fd6a6;
-  --aurora: linear-gradient(100deg, #10b981, #22d3ee 28%, #7c8cff 58%, #c4b5fd 82%, #10b981);
-  --serif: "Instrument Serif", "Iowan Old Style", Palatino, Georgia, serif;
-  --sans: "IBM Plex Sans", Aptos, "Helvetica Neue", Arial, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --sans: Aptos, Calibri, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
   --gut: clamp(20px, 4vw, 48px);
   --max: 1180px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--sans);
-  font-size: 17px;
-  line-height: 1.5;
-  letter-spacing: -0.014em;
+  background: var(--bg); color: var(--ink); font-family: var(--sans);
+  font-size: 17px; line-height: 1.5; letter-spacing: -0.014em;
   -webkit-font-smoothing: antialiased;
 }
-::selection { background: rgba(16, 185, 129, 0.35); color: #fff; }
+::selection { background: rgba(16, 185, 129, 0.35); }
 a { color: inherit; text-decoration: none; }
 a:hover { text-decoration: underline; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.skip {
-  position: absolute; left: 12px; top: -48px; z-index: 40;
-  background: #fff; color: #000; padding: 8px 12px; border-radius: 8px;
-}
+.skip { position: absolute; left: 12px; top: -48px; z-index: 40; background: #fff; color: #000; padding: 8px 12px; border-radius: 8px; }
 .skip:focus { top: 12px; }
-
-.field {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
-}
-.field span {
-  position: absolute; border-radius: 50%; filter: blur(40px);
-  will-change: transform;
-}
-.field .a {
-  width: 58vw; height: 58vw; left: -12vw; top: -18vw;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.55), transparent 68%);
-  animation: drift 22s ease-in-out infinite alternate;
-}
-.field .b {
-  width: 48vw; height: 48vw; right: -8vw; top: -6vw;
-  background: radial-gradient(circle, rgba(124, 140, 255, 0.5), transparent 70%);
-  animation: drift2 28s ease-in-out infinite alternate;
-}
-.field .c {
-  width: 36vw; height: 36vw; right: 18vw; top: 28vh;
-  background: radial-gradient(circle, rgba(196, 181, 253, 0.38), transparent 70%);
-  animation: drift 34s ease-in-out infinite alternate-reverse;
-}
-@keyframes drift {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to { transform: translate3d(6vw, 8vh, 0) scale(1.12); }
-}
-@keyframes drift2 {
-  from { transform: translate3d(0, 0, 0) scale(1.05); }
-  to { transform: translate3d(-7vw, 6vh, 0) scale(0.92); }
-}
-@media (forced-colors: active) { .field { display: none; } }
-
+.field { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.field span { position: absolute; border-radius: 50%; filter: blur(40px); }
+.field .a { width: 58vw; height: 58vw; left: -12vw; top: -18vw; background: radial-gradient(circle, rgba(16,185,129,.45), transparent 68%); animation: drift 22s ease-in-out infinite alternate; }
+.field .b { width: 48vw; height: 48vw; right: -8vw; top: -6vw; background: radial-gradient(circle, rgba(124,140,255,.4), transparent 70%); animation: drift2 28s ease-in-out infinite alternate; }
+.field .c { width: 36vw; height: 36vw; right: 12vw; top: 36vh; background: radial-gradient(circle, rgba(196,181,253,.28), transparent 70%); animation: drift 34s ease-in-out infinite alternate-reverse; }
+@keyframes drift { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(6vw,8vh,0) scale(1.12); } }
+@keyframes drift2 { from { transform: translate3d(0,0,0) scale(1.05); } to { transform: translate3d(-7vw,6vh,0) scale(.92); } }
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gut); position: relative; z-index: 1; }
-header {
-  position: sticky; top: 0; z-index: 20;
-  background: rgba(7, 7, 8, 0.55);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
-  backdrop-filter: blur(16px) saturate(1.4);
-  border-bottom: 1px solid transparent;
-}
-.nav {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 20px; padding-block: 16px;
-}
-.brand { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.03em; }
+header { position: sticky; top: 0; z-index: 20; background: rgba(7,7,8,.55); -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4); }
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 650; letter-spacing: -0.03em; }
 .brand:hover { text-decoration: none; }
-.mark {
-  width: 26px; height: 26px; border-radius: 8px; background: #06775a; color: #fff;
-  display: grid; place-items: center;
-}
+.mark { width: 26px; height: 26px; border-radius: 8px; background: #06775a; color: #fff; display: grid; place-items: center; }
 .links { display: flex; gap: 22px; color: var(--muted); font-size: 14px; }
 .links a:hover { color: var(--ink); text-decoration: none; }
-.btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: #fff; color: #0c0d10; border-radius: 999px;
-  padding: 11px 16px; font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
-  box-shadow: 0 8px 30px -12px rgba(255, 255, 255, 0.45);
-  transition: transform 180ms ease, box-shadow 180ms ease;
-}
-.btn:hover {
-  text-decoration: none; transform: translateY(-1px);
-  box-shadow: 0 12px 36px -10px rgba(124, 140, 255, 0.55), 8px 10px 28px -14px rgba(16, 185, 129, 0.6);
-}
-.btn.ghost {
-  background: transparent; color: var(--ink);
-  box-shadow: inset 0 0 0 1px var(--line);
-}
-
+.btn { display: inline-flex; align-items: center; background: #fff; color: #0c0d10; border-radius: 999px; padding: 11px 16px; font-size: 14px; font-weight: 650; letter-spacing: -0.01em; }
+.btn:hover { text-decoration: none; }
+.btn.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
 .hero {
   min-height: calc(100svh - 64px);
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
-  gap: clamp(28px, 4vw, 64px);
-  align-items: center;
-  padding-block: clamp(28px, 5vh, 64px) 36px;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+  gap: clamp(28px, 5vw, 72px); align-items: center;
+  padding-block: clamp(28px, 6vh, 72px) 48px;
 }
-.kicker {
-  font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em;
-  text-transform: uppercase; color: var(--accent); margin-bottom: 18px;
-}
+.kicker { font-size: 12px; font-weight: 650; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
 h1 {
   display: flex; flex-direction: column; align-items: flex-start;
-  font-family: var(--serif); font-weight: 400;
-  font-size: clamp(76px, 9.2vw, 128px);
-  line-height: 0.84; letter-spacing: -0.035em;
+  font-weight: 650; font-size: clamp(56px, 6.4vw, 88px);
+  line-height: 0.96; letter-spacing: -0.045em;
 }
-.cycle-row { display: flex; align-items: baseline; gap: 18px; }
-.cycle-slot { display: inline-block; perspective: 700px; min-width: 5.6ch; }
-h1 em {
-  display: inline-block; font-style: italic; color: var(--accent);
-  transform-origin: 50% 60%;
-}
+.cycle-row { display: flex; align-items: baseline; gap: 16px; }
+.cycle-slot { display: inline-block; perspective: 700px; min-width: 5.2ch; }
+h1 em { display: inline-block; font-style: normal; color: var(--accent); transform-origin: 50% 60%; }
 .period { color: var(--accent); }
-.cycle-index {
-  font-family: var(--mono); font-size: 13px; font-weight: 400;
-  letter-spacing: 0.12em; color: var(--faint);
-}
-@keyframes flow { to { background-position: 220% 0; } }
-.lede { margin-top: 22px; max-width: 28em; color: var(--muted); font-size: 18px; }
+.cycle-index { font-family: var(--mono); font-size: 13px; font-weight: 400; letter-spacing: 0.12em; color: var(--faint); }
+.lede { margin-top: 22px; max-width: 34em; color: var(--muted); font-size: 18px; }
 .actions { margin-top: 28px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-.mono { font-family: var(--mono); font-size: 12.5px; color: var(--faint); letter-spacing: 0.02em; }
-
-.stage { position: relative; min-height: 560px; display: grid; place-items: center; }
-.ring {
-  position: absolute; width: min(640px, 120%); aspect-ratio: 1;
-  border-radius: 50%;
-  background: conic-gradient(from 0deg, transparent 0 18%, #10b981 32%, #22d3ee 46%, #7c8cff 62%, #c4b5fd 74%, transparent 88%);
-  filter: blur(6px);
-  -webkit-mask: radial-gradient(circle, transparent 56%, #000 61% 70%, transparent 76%);
-  mask: radial-gradient(circle, transparent 56%, #000 61% 70%, transparent 76%);
-  animation: spin 22s linear infinite;
-  opacity: 0.9;
-}
-@keyframes spin { to { transform: rotate(1turn); } }
-.device, .mini {
-  position: relative; z-index: 1; width: min(400px, 100%);
-  border-radius: 28px; background: #101114; color: #f2f3f5;
-  overflow: hidden; padding: 14px 14px 16px;
-  box-shadow: 0 40px 90px -28px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
-}
-.device-aurora {
-  position: absolute; inset: 0 0 auto 0; height: 150px; pointer-events: none;
-  background:
-    radial-gradient(140px 90px at 20% 40%, rgba(16, 185, 129, 0.55), transparent 70%),
-    radial-gradient(150px 90px at 78% 20%, rgba(124, 140, 255, 0.45), transparent 70%),
-    radial-gradient(120px 80px at 55% 70%, rgba(34, 211, 238, 0.35), transparent 70%);
-  -webkit-mask-image: linear-gradient(#000 20%, transparent 95%);
-  mask-image: linear-gradient(#000 20%, transparent 95%);
-  animation: wash 10s ease-in-out infinite alternate;
-}
-@keyframes wash { to { transform: translate3d(8%, -6%, 0) scale(1.08); } }
-.file { position: relative; font-size: 13px; font-weight: 650; letter-spacing: -0.02em; color: #f2f3f5; margin: 2px 0 10px 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.island {
-  position: relative; display: flex; width: 100%; padding: 6px 4px 7px;
-  border-radius: 22px;
-  background: linear-gradient(180deg, rgba(62, 66, 74, 0.55), rgba(22, 24, 28, 0.72));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 0 0 0.5px rgba(255, 255, 255, 0.08);
-}
-.room {
-  position: relative; display: flex; flex-direction: column; align-items: center; gap: 1px;
-  flex: 1; min-width: 0; color: #b7bcc4; font-size: 9px; font-weight: 550; letter-spacing: -0.03em;
-}
-.room.menu { border-left: 1px solid rgba(255, 255, 255, 0.12); }
-.room svg {
-  width: 26px; height: 26px; padding: 5px; box-sizing: border-box; border-radius: 50%;
-  fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
-}
-.room svg .fill { fill: currentColor; stroke: none; }
-.room.on { color: #fff; font-weight: 700; }
-.room.on svg { background: #f4f5f7; color: #121316; box-shadow: none; }
-.room .badge { position: absolute; top: 1px; right: calc(50% - 12px); width: 6px; height: 6px; border-radius: 50%; background: #e2b13c; box-shadow: 0 0 0 1.5px #1a1c20; }
-.screen { position: relative; min-height: 292px; margin-top: 16px; animation: rise 0.45s ease; }
-@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-.addr { font-family: var(--sans); font-size: 12px; color: #9aa0a8; line-height: 1.35; }
-.h-title { position: relative; margin: 16px 0 0; font-size: 22px; font-weight: 700; letter-spacing: -0.03em; }
-.meta { position: relative; margin-top: 4px; font-size: 12px; color: #9aa0a8; line-height: 1.35; }
-.sens {
-  position: relative; display: grid; grid-template-columns: 28px 1fr auto; gap: 10px; align-items: center;
-  margin-top: 12px; padding: 12px; border-radius: 16px; background: #1c1e24;
-}
-.sens b { display: block; font-size: 14px; }
-.sens small { display: block; color: #9aa0a8; font-size: 12px; line-height: 1.3; }
-.swatch { width: 22px; height: 22px; border-radius: 5px; background:
-  linear-gradient(#e0655a, #e0655a) 0 0 / 10px 10px no-repeat,
-  linear-gradient(#3b5bff, #3b5bff) 12px 0 / 10px 10px no-repeat,
-  linear-gradient(#e2b13c, #e2b13c) 0 12px / 10px 10px no-repeat,
-  linear-gradient(#34c08b, #34c08b) 12px 12px / 10px 10px no-repeat; }
-.chev { color: #9aa0a8; font-size: 18px; }
-.krow { position: relative; display: flex; justify-content: space-between; gap: 8px; margin-top: 14px; font-size: 11px; letter-spacing: 0.08em; color: #8f949c; }
-.krow em { font-style: normal; text-transform: none; letter-spacing: 0; }
-.hint { position: relative; margin-top: 4px; font-size: 13px; color: #b7bcc4; }
-.drv-head { position: relative; display: flex; justify-content: space-between; align-items: center; margin-top: 14px; font-size: 11px; letter-spacing: 0.08em; color: #8f949c; }
-.pills { display: flex; gap: 4px; letter-spacing: 0; }
-.pills b, .pills span { border-radius: 999px; padding: 4px 9px; font-size: 11px; font-weight: 600; }
-.pills b { background: #2c3038; color: #fff; }
-.pills span { color: #9aa0a8; }
-.follow { position: relative; margin: 10px 0 4px; font-size: 14px; font-weight: 700; }
-.cell-name { margin-top: 4px; font-size: 20px; font-weight: 750; letter-spacing: -0.03em; }
-.numeral {
-  margin-top: 2px; font-size: 56px; font-weight: 640; letter-spacing: -0.045em; line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-.signed { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 13.5px; }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: #06775a; box-shadow: 0 0 0 4px rgba(6, 119, 90, 0.12); flex: none; }
-.dot.wait { background: #d69e2e; box-shadow: 0 0 0 4px rgba(214, 158, 46, 0.16); }
-.ask {
-  margin: 14px auto 0; display: flex; width: fit-content; align-items: center; gap: 7px;
-  padding: 8px 14px; border-radius: 999px; border: 1px solid transparent; color: #f2f3f5;
-  background: linear-gradient(#1c1e24, #1c1e24) padding-box, var(--aurora) border-box;
-  background-size: auto, 200% 100%; animation: rim 6s linear infinite;
-  font-size: 13px; font-weight: 600; letter-spacing: -0.01em;
-}
-@keyframes rim { to { background-position: 0 0, 200% 0; } }
-.spark {
-  background: var(--aurora) 0 0 / 200% 100%;
-  -webkit-background-clip: text; background-clip: text; color: #06775a;
-  animation: flow 6s linear infinite;
-}
-@supports ((-webkit-background-clip: text) or (background-clip: text)) { .spark { color: transparent; } }
-.thread { display: flex; flex-direction: column; gap: 8px; }
-.msg { max-width: 94%; padding: 9px 11px; border-radius: 14px; font-size: 13px; line-height: 1.4; }
-.msg.g { align-self: flex-start; background: rgba(52, 192, 139, 0.12); border-bottom-left-radius: 5px; }
-.msg.you { align-self: flex-end; background: #1c1e24; border-bottom-right-radius: 5px; }
-.who { font-size: 11px; font-weight: 650; margin-bottom: 3px; color: #5fd6a6; }
-.msg.you .who { text-align: right; color: #9aa0a8; }
-.quote { margin-top: 5px; font-family: var(--mono); font-size: 12px; color: #c5c8ce; letter-spacing: 0; }
-.withheld { color: #9aa0a8; }
-.drivers { display: grid; gap: 8px; }
-.driver {
-  display: grid; grid-template-columns: 16px 1fr auto; gap: 8px; align-items: center;
-  padding: 8px 2px; border-top: 1px solid rgba(12, 13, 16, 0.08);
-}
-.driver b { display: block; font-size: 14px; font-weight: 640; letter-spacing: -0.02em; }
-.driver small { display: block; font-family: var(--mono); font-size: 11px; color: var(--paper-muted); }
-.driver .move { font-variant-numeric: tabular-nums; font-size: 13px; font-weight: 600; }
-.ok { color: #05684e; }
-.wait-word { color: #8a6116; }
-.log {
-  position: relative; display: flex; align-items: center; gap: 8px;
-  margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.08);
-  font-family: var(--mono); font-size: 11.5px; color: #9aa0a8; letter-spacing: 0;
-}
-.pulse { width: 7px; height: 7px; border-radius: 50%; background: #06775a; box-shadow: 0 0 0 0 rgba(6, 119, 90, 0.6); animation: ping 1.6s ease-out infinite; }
-@keyframes ping { 70% { box-shadow: 0 0 0 6px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
-.beat { margin-top: 14px; text-align: center; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); }
-
-.marquee {
-  position: relative; z-index: 1; overflow: hidden;
-  border-block: 1px solid var(--line);
-  padding: 14px 0;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-.track { display: flex; width: max-content; gap: 0; animation: reel 32s linear infinite; }
-.track span {
-  font-family: var(--mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--faint); padding-right: 28px;
-}
-@keyframes reel { to { transform: translateX(-50%); } }
-
-section { position: relative; z-index: 1; padding: clamp(72px, 10vw, 120px) 0; scroll-margin-top: 72px; }
-h2 {
-  font-family: var(--serif); font-weight: 400;
-  font-size: clamp(40px, 5vw, 68px); line-height: 0.96; letter-spacing: -0.03em;
-}
-.intro { margin-top: 16px; max-width: 34em; color: var(--muted); }
-
-.film {
-  margin-top: 56px;
-  display: flex; justify-content: center; align-items: center; gap: 22px;
-  perspective: 1400px;
-}
+.mono { margin-top: 16px; font-family: var(--mono); font-size: 12.5px; color: var(--faint); }
+.stage { position: relative; }
 .shot {
-  width: min(300px, 78vw); flex: none;
-  transition: transform 0.7s cubic-bezier(.16, .85, .16, 1);
+  width: 100%; border-radius: 28px; display: block;
+  box-shadow: 0 40px 100px -36px rgba(0,0,0,.85), 0 0 0 1px rgba(255,255,255,.06);
 }
-.shot:first-child { transform: scale(0.9) rotateY(16deg); }
-.shot:last-child { transform: scale(0.9) rotateY(-16deg); }
-.shot.on { transform: scale(1.04) rotateY(0deg); z-index: 2; }
-.shot-cap {
-  margin-top: 14px; display: flex; gap: 10px; align-items: baseline;
-  font-family: var(--serif); font-size: 22px; letter-spacing: -0.03em;
+.stack { position: relative; }
+.stack img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; opacity: 0; transition: opacity 0.55s ease; }
+.stack img.on { opacity: 1; }
+.stack { aspect-ratio: 320 / 560; }
+section { position: relative; z-index: 1; padding: clamp(64px, 9vw, 112px) 0; scroll-margin-top: 72px; }
+h2 { font-weight: 650; font-size: clamp(32px, 4vw, 52px); letter-spacing: -0.04em; line-height: 1.05; }
+.intro { margin-top: 14px; max-width: 36em; color: var(--muted); }
+.gallery { margin-top: 40px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.gallery figure { margin: 0; }
+.gallery img {
+  width: 100%; border-radius: 22px; display: block; aspect-ratio: 320 / 520;
+  object-fit: cover; object-position: top center;
+  box-shadow: 0 24px 60px -28px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.06);
 }
-.shot-cap span { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.08em; }
-.mini {
-  width: 100%; min-height: 420px; border-radius: 24px; padding: 12px 12px 14px;
-}
-.mini .island { transform: scale(0.92); transform-origin: left center; }
-.mini .numeral { font-size: 44px; }
-.rank { position: relative; margin-top: 8px; display: grid; gap: 12px; }
-.rank-row { display: grid; grid-template-columns: 8px 1fr auto; gap: 2px 8px; align-items: center; }
-.rank-row .dot { grid-row: 1 / span 2; align-self: center; width: 7px; height: 7px; box-shadow: none; background: #e2b13c; }
-.rank-row b { font-size: 13.5px; font-weight: 700; letter-spacing: -0.02em; }
-.rank-row small { display: block; font-size: 11px; color: #8f949c; }
-.rank-row .move { font-size: 12px; font-weight: 500; color: #c5c8ce; font-variant-numeric: tabular-nums; }
-.bar { grid-column: 2 / -1; height: 3px; border-radius: 99px; background: #2a2d33; overflow: hidden; }
-.bar i { display: block; height: 100%; width: 0; border-radius: 99px; background: #6b7078; }
-.bar.em i { background: #34c08b; }
-.shot.on .bar i, .device .bar i { width: var(--w); transition: width 0.9s cubic-bezier(.16, .85, .16, 1); }
-.pair { display: flex; gap: 8px; margin-top: 14px; }
-.pair .ask { margin: 0; font-size: 12px; padding: 8px 12px; }
-.ink {
-  border: 0; border-radius: 999px; background: #f2f3f5; color: #101114;
-  font: inherit; font-size: 12.5px; font-weight: 650; padding: 8px 14px;
-}
-
-.sources { margin-top: 28px; color: var(--faint); font-family: var(--mono); font-size: 13px; letter-spacing: 0.01em; }
-
-.rules { margin-top: 36px; }
-.rule { padding: 22px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 24px; }
+.gallery figcaption { margin-top: 12px; font-weight: 650; letter-spacing: -0.02em; }
+.gallery figcaption span { display: block; margin-top: 2px; font-weight: 400; color: var(--muted); font-size: 14px; }
+.rules { margin-top: 28px; }
+.rule { padding: 20px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 20px; }
 .rule:last-child { border-bottom: 1px solid var(--line); }
-.rule h3 { font-size: 20px; font-weight: 560; letter-spacing: -0.02em; }
+.rule h3 { font-size: 18px; font-weight: 650; letter-spacing: -0.02em; }
 .rule p { color: var(--muted); }
-
-.about { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(240px, 0.7fr); gap: 28px; margin-top: 28px; }
+.about { display: grid; grid-template-columns: minmax(0,1.3fr) minmax(240px,.7fr); gap: 28px; margin-top: 24px; }
 .about p { color: var(--muted); }
 .about p + p { margin-top: 14px; }
-.about strong { color: var(--ink); font-weight: 600; }
+.about strong { color: var(--ink); font-weight: 650; }
 .contact div { display: grid; grid-template-columns: 88px 1fr; gap: 8px; padding: 12px 0; border-top: 1px solid var(--line); font-size: 14.5px; }
 .contact div:last-child { border-bottom: 1px solid var(--line); }
 .contact dt { color: var(--faint); font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; }
 .contact a { color: var(--accent); }
-
-.cta { padding-bottom: 40px; }
-.cta h2 { max-width: 12em; }
-.cta .actions { margin-top: 26px; }
-
+.cta { padding-bottom: 28px; }
+.cta h2 { max-width: 16em; }
+.cta .actions { margin-top: 22px; }
 footer { position: relative; z-index: 1; padding: 8px 0 36px; }
-.foot {
-  display: flex; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap;
-  padding-top: 18px; border-top: 1px solid var(--line);
-  color: var(--faint); font-size: 13px;
-}
+.foot { display: flex; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; padding-top: 18px; border-top: 1px solid var(--line); color: var(--faint); font-size: 13px; }
 .foot a { color: var(--muted); }
-
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after { animation: none !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }
-@media (prefers-reduced-transparency: reduce) {
-  header { background: var(--bg); -webkit-backdrop-filter: none; backdrop-filter: none; }
-}
-@media (max-width: 980px) {
+@media (max-width: 900px) {
   .links { display: none; }
-  .hero { grid-template-columns: 1fr; min-height: 0; }
-  .stage { min-height: 0; margin-top: 28px; }
-  .ring { width: 140%; opacity: 0.7; }
-  .film { overflow-x: auto; justify-content: flex-start; scroll-snap-type: x mandatory; padding: 0 var(--gut) 8px; gap: 14px; }
-  .shot, .shot.on, .shot:first-child, .shot:last-child { transform: none; scroll-snap-align: center; }
-  .rule, .about { grid-template-columns: 1fr; gap: 8px; }
-}
-@media (max-width: 640px) {
-  h1 { font-size: 64px; }
-  .ring { display: none; }
-  .room { min-width: 52px; }
+  .hero, .gallery, .rule, .about { grid-template-columns: 1fr; }
+  .hero { min-height: 0; }
+  .stage { max-width: 420px; }
 }
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="field" aria-hidden="true"><span class="a"></span><span class="b"></span><span class="c"></span></div>
-
 <header>
   <div class="wrap nav">
     <a class="brand" href="/">
       <span class="mark" aria-hidden="true">
-        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 7.2 6 9.2l3.4-3.8"/><path d="M12.4 7h4M4 12.5h12M4 15.6h7.5"/>
-        </svg>
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.2 6 9.2l3.4-3.8"/><path d="M12.4 7h4M4 12.5h12M4 15.6h7.5"/></svg>
       </span>
       Gregory
     </a>
@@ -414,7 +150,6 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
     <a class="btn" href="mailto:hello@gregory.work?subject=Early%20access">Request early access</a>
   </div>
 </header>
-
 <main id="main">
   <div class="wrap hero">
     <div>
@@ -431,130 +166,68 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
         <a class="btn" href="mailto:hello@gregory.work?subject=Early%20access">Request early access</a>
         <a class="btn ghost" href="#work">See it work</a>
       </div>
-      <p class="mono" style="margin-top:16px">Excel &middot; Google Sheets &middot; Claude &middot; ChatGPT</p>
+      <p class="mono">Excel · Google Sheets · Claude · ChatGPT</p>
     </div>
-
     <div class="stage">
-      <div class="ring" aria-hidden="true"></div>
-      <div class="device" id="device"></div>
+      <div class="stack" id="stack">
+        <img class="shot on" data-shot="model" src="media/model.png" alt="The Excel pane on Model: what moves the answer, the drivers under Cash.">
+        <img class="shot" data-shot="cell" src="media/cell.png" alt="The Excel pane on a signed cell: price per unit, its source, Ask Gregory.">
+        <img class="shot" data-shot="call" src="media/sign.png" alt="An unsigned cell: Fill with Gregory, then Sign.">
+      </div>
     </div>
   </div>
-
-  <div class="marquee" aria-hidden="true">
-    <div class="track">
-      <span>Ask the cell &middot; Read the call &middot; Withhold the guess &middot; You sign &middot; Nothing writes itself &middot;</span>
-      <span>Ask the cell &middot; Read the call &middot; Withhold the guess &middot; You sign &middot; Nothing writes itself &middot;</span>
-      <span>Ask the cell &middot; Read the call &middot; Withhold the guess &middot; You sign &middot; Nothing writes itself &middot;</span>
-      <span>Ask the cell &middot; Read the call &middot; Withhold the guess &middot; You sign &middot; Nothing writes itself &middot;</span>
-    </div>
-  </div>
-
   <section id="work">
     <div class="wrap">
-      <p class="kicker">The work</p>
-      <h2>The pane, on the number.</h2>
-      <p class="intro">Ask it there, with the workbook open. It ranks what moves the answer, reads the call, and waits for you to sign.</p>
-    </div>
-    <div class="film" id="film">
-      <article class="shot">
-        <div class="mini">
-          <div class="device-aurora" aria-hidden="true"></div>
-          <p class="file">acme_2027_model.xlsx</p>
-          <div class="island"><span class="room on"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="2.5" width="15" height="15" rx="2.5"/><rect class="fill" x="10.5" y="10.5" width="7" height="7" rx="1.5"/><path d="M2.5 10.5h15M10.5 2.5v15"/></svg>Cell</span><span class="room"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 16.5V9M7.67 16.5V4.5M12.33 16.5v-5M17 16.5V7"/></svg>Model</span><span class="room"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.6l6.5 3.4v8L10 17.4 3.5 14V6z"/><path d="M3.5 6l6.5 3.4L16.5 6M10 9.4v8"/></svg>Package</span></div>
-          <p class="addr">Inputs!B7</p>
-          <p class="cell-name">Supplier deposit</p>
-          <p class="numeral">50%</p>
-          <p class="signed"><span class="dot"></span>Signed · Founder call · 12 Aug</p>
-          <div class="ask"><span class="spark">✦</span> Ask Gregory about this cell</div>
-        </div>
-        <p class="shot-cap"><span>01</span> Ask the cell</p>
-      </article>
-      <article class="shot on">
-        <div class="mini">
-          <div class="device-aurora" aria-hidden="true"></div>
-          <p class="file">August forecast.xlsx</p>
-          <div class="island"><span class="room"><svg viewBox="0 0 20 20"><rect x="2.5" y="2.5" width="15" height="15" rx="2.5"/><path d="M2.5 10.5h15M10.5 2.5v15"/></svg>Cell</span><span class="room on"><svg viewBox="0 0 20 20"><path d="M3 16.5V9M7.67 16.5V4.5M12.33 16.5v-5M17 16.5V7"/></svg>Model</span><span class="room"><svg viewBox="0 0 20 20"><path d="M7 2.8l1.3 3.4L11.7 7.5 8.3 8.8 7 12.2 5.7 8.8 2.3 7.5l3.4-1.3z"/></svg><i class="badge"></i>Review</span><span class="room"><svg viewBox="0 0 20 20"><path d="M10 2.6l6.5 3.4v8L10 17.4 3.5 14V6z"/></svg>Package</span></div>
-          <p class="h-title">What moves the answer</p>
-          <p class="meta">8 of the tested inputs move gross margin · 0 signed · ±20%</p>
-          <div class="sens"><span class="swatch"></span><span><b>Sensitivity table</b><small>Two to ten drivers at once, every point measured in Excel</small></span><span class="chev">›</span></div>
-          <div class="krow"><span>TARGET <em>calculated</em></span><span>base 138,671</span></div>
-          <p class="cell-name">GROSS MARGIN</p>
-          <p class="hint">Move a driver below to see the target move.</p>
-          <div class="drv-head"><span>DRIVERS <em>inputs</em></span><span class="pills"><b>Top 10</b><span>Top 20</span></span></div>
-          <p class="follow">Move a driver; gross margin follows</p>
-          <div class="rank">
-            <div class="rank-row"><span class="dot"></span><span><b>DTC sales</b><small>P&amp;L!B8:S8</small></span><span class="move">1% → +2,300</span><div class="bar"><i style="--w:88%"></i></div></div>
-            <div class="rank-row"><span class="dot"></span><span><b>Wholesale sales</b><small>P&amp;L!B11:S11</small></span><span class="move">1% → +1,960</span><div class="bar"><i style="--w:74%"></i></div></div>
-            <div class="rank-row"><span class="dot"></span><span><b>Product COGS</b><small>P&amp;L!I27:S27</small></span><span class="move">1% → −1,810</span><div class="bar"><i style="--w:66%"></i></div></div>
-          </div>
-        </div>
-        <p class="shot-cap"><span>02</span> What moves it</p>
-      </article>
-      <article class="shot">
-        <div class="mini">
-          <div class="device-aurora" aria-hidden="true"></div>
-          <p class="file">Founder call · 12 Aug 2026</p>
-          <p class="quote" style="margin-top:14px">&ldquo;for the first three POs they want fifty percent up front&rdquo;</p>
-          <p class="cell-name" style="margin-top:14px">50% <span style="font-size:14px;font-weight:500;color:#5c6168">on Inputs!B7</span></p>
-          <p class="signed"><span class="dot wait"></span>Unsigned until you say so</p>
-          <div class="pair">
-            <div class="ask"><span class="spark">✦</span> Fill with Gregory</div>
-            <button class="ink" type="button">Sign</button>
-          </div>
-        </div>
-        <p class="shot-cap"><span>03</span> You sign</p>
-      </article>
+      <p class="kicker">The pane</p>
+      <h2>Shot in the app.</h2>
+      <p class="intro">The same screens, from the Excel task pane. Model ranks what moves the answer. The cell shows who signed it. An unsigned number waits for you.</p>
+      <div class="gallery">
+        <figure>
+          <img src="media/model.png" alt="What moves the answer, with the drivers under Cash.">
+          <figcaption>What moves the answer<span>The inputs that move Cash, and how far.</span></figcaption>
+        </figure>
+        <figure>
+          <img src="media/cell.png" alt="A signed cell, price per unit, with its source.">
+          <figcaption>The cell<span>Signed, with the source, and Ask Gregory.</span></figcaption>
+        </figure>
+        <figure>
+          <img src="media/sign.png" alt="An unsigned cell, with Fill with Gregory and Sign.">
+          <figcaption>You sign<span>Fill with Gregory drafts the source. You still sign.</span></figcaption>
+        </figure>
+      </div>
     </div>
   </section>
-
   <section id="rules">
     <div class="wrap">
       <p class="kicker">Non-negotiables</p>
       <h2>Enforced in code.</h2>
       <div class="rules">
-        <article class="rule">
-          <h3>Nothing writes without approval.</h3>
-          <p>The only path that changes a workbook runs through changes a person decided. There is no auto-apply, and no way around the gate.</p>
-        </article>
-        <article class="rule">
-          <h3>The workbook stays yours.</h3>
-          <p>What Gregory leaves in the file uses native features &mdash; named ranges, notes, a hidden sheet. No macros, and no add-in required to open it.</p>
-        </article>
-        <article class="rule">
-          <h3>Excel in, Excel out. Sheets in, Sheets out.</h3>
-          <p>A model lives on one platform for its whole life. Gregory never converts the file into something the client cannot open.</p>
-        </article>
-        <article class="rule">
-          <h3>No number without a quote.</h3>
-          <p>A proposed value has to point at the source, word for word. What cannot be grounded is flagged as a gap. Approved changes reach the cell as the number you approved.</p>
-        </article>
-        <article class="rule">
-          <h3>Client data stays where the engagement allows.</h3>
-          <p>Per-engagement flags control cloud processing and AI use. Calls send the minimum text needed, and client values never appear in logs.</p>
-        </article>
+        <article class="rule"><h3>Nothing writes without approval.</h3><p>The only path that changes a workbook runs through changes a person decided. There is no auto-apply, and no way around the gate.</p></article>
+        <article class="rule"><h3>The workbook stays yours.</h3><p>What Gregory leaves in the file uses native features — named ranges, notes, a hidden sheet. No macros, and no add-in required to open it.</p></article>
+        <article class="rule"><h3>Excel in, Excel out. Sheets in, Sheets out.</h3><p>A model lives on one platform for its whole life. Gregory never converts the file into something the client cannot open.</p></article>
+        <article class="rule"><h3>No number without a quote.</h3><p>A proposed value has to point at the source, word for word. What cannot be grounded is flagged as a gap. Approved changes reach the cell as the number you approved.</p></article>
+        <article class="rule"><h3>Client data stays where the engagement allows.</h3><p>Per-engagement flags control cloud processing and AI use. Calls send the minimum text needed, and client values never appear in logs.</p></article>
       </div>
     </div>
   </section>
-
   <section id="about">
     <div class="wrap">
       <p class="kicker">About</p>
       <h2>Built with the people who keep the model honest.</h2>
       <div class="about">
         <div>
-          <p>Gregory is an AI built into the model, around one problem: <strong>a forecast keeps its numbers and loses why anyone believed them.</strong> Ask, and the answer has to come from the file, the call, or what was signed &mdash; or it does not come.</p>
+          <p>Gregory is an AI built into the model, around one problem: <strong>a forecast keeps its numbers and loses why anyone believed them.</strong> Ask, and the answer has to come from the file, the call, or what was signed — or it does not come.</p>
           <p>The daily surface is the Excel pane, built with a working fractional CFO practice. <strong>The product is in development.</strong> Access is by request.</p>
         </div>
         <dl class="contact">
           <div><dt>Contact</dt><dd><a href="mailto:hello@gregory.work">hello@gregory.work</a></dd></div>
           <div><dt>Web</dt><dd>gregory.work</dd></div>
           <div><dt>Stage</dt><dd>Early access</dd></div>
-          <div><dt>Where</dt><dd>Excel &middot; Google Sheets</dd></div>
+          <div><dt>Where</dt><dd>Excel · Google Sheets</dd></div>
         </dl>
       </div>
     </div>
   </section>
-
   <div class="wrap cta">
     <p class="kicker">Early access</p>
     <h2>An AI in the grid, with the CFOs who use it.</h2>
@@ -564,83 +237,29 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
     </div>
   </div>
 </main>
-
 <footer>
   <div class="wrap foot">
-    <span>&copy; 2026 Gregory &mdash; a product of Aether Growth Partners LLC</span>
+    <span>© 2026 Gregory — a product of Aether Growth Partners LLC</span>
     <a href="mailto:hello@gregory.work">hello@gregory.work</a>
   </div>
 </footer>
 <script>
 (function () {
   var WORDS = ["model", "cell", "call"];
-  var ROOMS = [
-    ["cell", "Cell"],
-    ["model", "Model"],
-    ["review", "Review"],
-    ["package", "Package"],
-    ["sources", "Sources"],
-    ["chat", "Chat"],
-    ["menu", "Menu"]
-  ];
-  var ICONS = {
-    cell: '<rect x="2.5" y="2.5" width="15" height="15" rx="2.5"/><rect class="fill" x="10.5" y="10.5" width="7" height="7" rx="1.5"/><path d="M2.5 10.5h15M10.5 2.5v15"/>',
-    model: '<path d="M3 16.5V9M7.67 16.5V4.5M12.33 16.5v-5M17 16.5V7"/>',
-    review: '<path d="M7 2.8l1.3 3.4L11.7 7.5 8.3 8.8 7 12.2 5.7 8.8 2.3 7.5l3.4-1.3z"/><path d="M14.5 11l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>',
-    package: '<path d="M10 2.6l6.5 3.4v8L10 17.4 3.5 14V6z"/><path d="M3.5 6l6.5 3.4L16.5 6M10 9.4v8"/>',
-    sources: '<path d="M5 3.2h7l3.2 3.2v10.4H5z"/><path d="M12 3.2V6.4h3.2"/><path d="M7.5 10.2h5M7.5 13.2h5"/>',
-    chat: '<path d="M3.5 4.5h13v8.5H9.2L5.5 16v-3h-2z"/><path d="M6.8 8.2h6.4M6.8 10.6h4.2"/>',
-    menu: '<circle class="fill" cx="4.6" cy="10" r="1.35"/><circle class="fill" cx="10" cy="10" r="1.35"/><circle class="fill" cx="15.4" cy="10" r="1.35"/>'
-  };
-  var SCENES = {
-    model: {
-      room: "model",
-      lines: ["8 inputs move gross margin", "0 signed · ±20%", "price withheld — no source"],
-      body: '<p class="h-title">What moves the answer</p><p class="meta">8 of the tested inputs move gross margin · 0 signed · ±20%</p><div class="sens"><span class="swatch"></span><span><b>Sensitivity table</b><small>Two to ten drivers at once, every point measured in Excel</small></span><span class="chev">›</span></div><div class="krow"><span>TARGET <em>calculated</em></span><span>base 138,671</span></div><p class="cell-name">GROSS MARGIN</p><p class="hint">Move a driver below to see the target move.</p><div class="drv-head"><span>DRIVERS <em>inputs</em></span><span class="pills"><b>Top 10</b><span>Top 20</span></span></div><p class="follow">Move a driver; gross margin follows</p><div class="rank"><div class="rank-row"><span class="dot"></span><span><b>DTC sales</b><small>P&amp;L!B8:S8</small></span><span class="move">1% → +2,300</span><div class="bar"><i style="--w:88%"></i></div></div><div class="rank-row"><span class="dot"></span><span><b>Wholesale sales</b><small>P&amp;L!B11:S11</small></span><span class="move">1% → +1,960</span><div class="bar"><i style="--w:74%"></i></div></div><div class="rank-row"><span class="dot"></span><span><b>Product COGS</b><small>P&amp;L!I27:S27</small></span><span class="move">1% → −1,810</span><div class="bar"><i style="--w:66%"></i></div></div><div class="rank-row"><span class="dot"></span><span><b>Shipping income</b><small>P&amp;L!B13:S13</small></span><span class="move">1% → +326</span><div class="bar"><i style="--w:22%"></i></div></div></div>'
-    },
-    cell: {
-      room: "cell",
-      lines: ["Inputs!B7 · supplier deposit", "signed · founder call · 12 Aug", "it feeds cash"],
-      body: '<p class="addr">Inputs!B7</p><p class="cell-name">Supplier deposit</p><p class="numeral">50%</p><p class="signed"><span class="dot" style="background:#34c08b"></span>Signed · Founder call · 12 Aug 2026</p><div class="ask"><span class="spark">✦</span> Ask Gregory about this cell</div>'
-    },
-    call: {
-      room: "chat",
-      lines: ["reading the founder call", "“fifty percent up front”", "proposed 50% · you still sign"],
-      body: '<p class="h-title">Founder call</p><p class="meta">12 Aug 2026 · on Inputs!B7</p><div class="thread" style="margin-top:12px"><div class="msg g"><p class="who"><span class="spark">✦</span> Gregory</p><p class="quote">“for the first three POs they want fifty percent up front”</p></div><div class="msg g"><p class="who"><span class="spark">✦</span> Gregory</p><p>That is 50%. <span class="withheld">Nothing else in the call names a number.</span></p></div></div><div class="pair"><div class="ask"><span class="spark">✦</span> Fill with Gregory</div><button class="ink" type="button">Sign</button></div>'
-    }
-  };
+  var SHOTS = { model: "model", cell: "cell", call: "call" };
   var word = document.getElementById("cycle-word");
   var counter = document.getElementById("cycle-index");
-  var device = document.getElementById("device");
+  var pics = document.querySelectorAll("#stack img");
   var index = 0;
-  var timers = [];
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  function island(active) {
-    return '<div class="island">' + ROOMS.map(function (room) {
-      var badge = room[0] === "review" ? '<i class="badge"></i>' : "";
-    var menu = room[0] === "menu" ? " menu" : "";
-    return '<span class="room' + menu + (room[0] === active ? " on" : "") + '"><svg viewBox="0 0 20 20" aria-hidden="true">' + ICONS[room[0]] + '</svg>' + badge + room[1] + '</span>';
-    }).join("") + '</div>';
-  }
-
-  function later(fn, ms) {
-    timers.push(setTimeout(fn, ms));
-  }
-
-  function show(name) {
-    timers.forEach(clearTimeout);
-    timers = [];
-    var scene = SCENES[name];
-    device.innerHTML = '<div class="device-aurora" aria-hidden="true"></div><p class="file">August forecast.xlsx</p>' + island(scene.room) + '<div class="screen">' + scene.body + '</div>';
-  }
-
   function pad(n) { return (n < 10 ? "0" : "") + n; }
-
+  function show(name) {
+    pics.forEach(function (img) { img.classList.toggle("on", img.getAttribute("data-shot") === SHOTS[name]); });
+  }
   async function turn() {
     if (reduced || !word.animate) return;
     await word.animate([
-      { opacity: 1, transform: "translateY(0) rotateX(0deg)", filter: "blur(0)" },
+      { opacity: 1, transform: "translateY(0) rotateX(0)", filter: "blur(0)" },
       { opacity: 0, transform: "translateY(-42%) rotateX(26deg)", filter: "blur(5px)" }
     ], { duration: 260, easing: "cubic-bezier(.55,0,1,.45)", fill: "forwards" }).finished;
     index = (index + 1) % WORDS.length;
@@ -649,20 +268,12 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
     show(WORDS[index]);
     await word.animate([
       { opacity: 0, transform: "translateY(48%) rotateX(-24deg)", filter: "blur(5px)" },
-      { opacity: 1, transform: "translateY(0) rotateX(0deg)", filter: "blur(0)" }
+      { opacity: 1, transform: "translateY(0) rotateX(0)", filter: "blur(0)" }
     ], { duration: 430, easing: "cubic-bezier(.16,.85,.16,1)", fill: "forwards" }).finished;
-    later(turn, 2600);
+    setTimeout(turn, 2800);
   }
-
   show("model");
-  if (!reduced) later(turn, 2800);
-
-  var shots = document.querySelectorAll("#film .shot");
-  var si = 1;
-  function arm() {
-    shots.forEach(function (shot, i) { shot.classList.toggle("on", i === si); });
-  }
-  if (!reduced && shots.length) setInterval(function () { si = (si + 1) % shots.length; arm(); }, 3400);
+  if (!reduced) setTimeout(turn, 2800);
 })();
 </script>
 </body>
