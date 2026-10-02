@@ -76,7 +76,7 @@ h1 {
 h1 em { display: inline-block; font-style: normal; color: var(--accent); transform-origin: 50% 60%; }
 .period { color: var(--accent); }
 .cycle-index { font-family: var(--mono); font-size: 13px; font-weight: 400; letter-spacing: 0.12em; color: var(--faint); }
-.lede { margin-top: 22px; max-width: 34em; color: var(--muted); font-size: 18px; }
+.lede { margin-top: 22px; max-width: 40em; color: var(--muted); font-size: 18px; }
 .actions { margin-top: 28px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 .mono { margin-top: 16px; font-family: var(--mono); font-size: 12.5px; color: var(--faint); }
 .stage { position: relative; }
@@ -90,8 +90,9 @@ h1 em { display: inline-block; font-style: normal; color: var(--accent); transfo
 .stack { aspect-ratio: 320 / 560; }
 section { position: relative; z-index: 1; padding: clamp(64px, 9vw, 112px) 0; scroll-margin-top: 72px; }
 h2 { font-weight: 650; font-size: clamp(32px, 4vw, 52px); letter-spacing: -0.04em; line-height: 1.05; }
-.intro { margin-top: 14px; max-width: 36em; color: var(--muted); }
-.reel-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; }
+.intro { margin-top: 14px; color: var(--muted); max-width: 100%; }
+.reel-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+.reel-head .intro { margin-top: 14px; }
 .reel-ctrl { display: flex; align-items: center; gap: 8px; flex: none; }
 .reel-ctrl button {
   width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--line);
@@ -121,7 +122,9 @@ h2 { font-weight: 650; font-size: clamp(32px, 4vw, 52px); letter-spacing: -0.04e
 .scene .place { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .scene-wide .place { object-position: center 40%; }
 .scene-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,7,8,.12) 10%, rgba(7,7,8,.28) 42%, rgba(7,7,8,.88) 100%); }
-.scene-copy { position: relative; z-index: 1; padding: 40px 28px 36px; max-width: 38em; }
+.scene-copy { position: relative; z-index: 1; padding: 40px 28px 36px; }
+.scene-wide .scene-copy { max-width: none; padding-left: 0; padding-right: 0; }
+.scene-wide .lede { max-width: none; }
 .scene-copy h2, .scene-copy h3 { text-shadow: 0 8px 30px rgba(0,0,0,.35); }
 .scene-copy .lede, .scene-copy p { color: #e4e4e8; }
 .scene-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
@@ -271,7 +274,6 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
         <div>
           <p class="kicker">The pane</p>
           <h2>Shot in the app.</h2>
-          <p class="intro">The same screens, from the Excel task pane. Model ranks what moves the answer. The table measures the drivers together. Review says what is worth checking. Chat is where you ask.</p>
         </div>
         <div class="reel-ctrl">
           <button type="button" id="reel-prev" aria-label="Previous screen">‹</button>
@@ -279,6 +281,7 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
           <button type="button" id="reel-next" aria-label="Next screen">›</button>
         </div>
       </div>
+      <p class="intro">The Excel pane. Model, the cell, the signature, the table, Review, and Chat.</p>
       <div class="reel">
       <div class="reel-track" id="reel">
         <figure>
