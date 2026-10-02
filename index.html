@@ -277,17 +277,45 @@ h2 {
 }
 .intro { margin-top: 16px; max-width: 34em; color: var(--muted); }
 
-.moments { margin-top: 48px; }
-.moment {
-  display: grid; grid-template-columns: 72px minmax(0, 0.7fr) minmax(0, 1fr);
-  gap: 18px; align-items: baseline;
-  padding: 28px 0; border-top: 1px solid var(--line);
+.film {
+  margin-top: 56px;
+  display: flex; justify-content: center; align-items: center; gap: 22px;
+  perspective: 1400px;
 }
-.moment:last-child { border-bottom: 1px solid var(--line); }
-.num { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.08em; }
-.moment h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 3vw, 40px); letter-spacing: -0.03em; }
-.moment p { color: var(--muted); }
-.moment strong { color: var(--ink); font-weight: 600; }
+.shot {
+  width: min(300px, 78vw); flex: none;
+  transition: transform 0.7s cubic-bezier(.16, .85, .16, 1);
+}
+.shot:first-child { transform: scale(0.9) rotateY(16deg); }
+.shot:last-child { transform: scale(0.9) rotateY(-16deg); }
+.shot.on { transform: scale(1.04) rotateY(0deg); z-index: 2; }
+.shot-cap {
+  margin-top: 14px; display: flex; gap: 10px; align-items: baseline;
+  font-family: var(--serif); font-size: 22px; letter-spacing: -0.03em;
+}
+.shot-cap span { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.08em; }
+.mini {
+  position: relative; overflow: hidden; border-radius: 24px; background: var(--paper); color: var(--paper-ink);
+  padding: 14px 14px 16px; min-height: 340px;
+  box-shadow: 0 30px 70px -28px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+.mini .island { transform: scale(0.92); transform-origin: left center; }
+.mini .numeral { font-size: 44px; }
+.rank { margin-top: 12px; display: grid; gap: 11px; }
+.rank-row { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; align-items: baseline; }
+.rank-row b { font-size: 13.5px; font-weight: 640; letter-spacing: -0.02em; }
+.rank-row small { display: block; font-family: var(--mono); font-size: 11px; color: var(--paper-muted); }
+.rank-row .move { font-variant-numeric: tabular-nums; font-size: 12.5px; font-weight: 600; }
+.bar { grid-column: 1 / -1; height: 5px; border-radius: 99px; background: rgba(12, 13, 16, 0.08); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; border-radius: 99px; background: #0c0d10; }
+.bar.em i { background: #06775a; }
+.shot.on .bar i, .device .bar i { width: var(--w); transition: width 0.9s cubic-bezier(.16, .85, .16, 1); }
+.pair { display: flex; gap: 8px; margin-top: 14px; }
+.pair .ask { margin: 0; font-size: 12px; padding: 8px 12px; }
+.ink {
+  border: 0; border-radius: 999px; background: #0c0d10; color: #fff;
+  font: inherit; font-size: 12.5px; font-weight: 650; padding: 8px 14px;
+}
 
 .sources { margin-top: 28px; color: var(--faint); font-family: var(--mono); font-size: 13px; letter-spacing: 0.01em; }
 
@@ -330,7 +358,9 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
   .hero { grid-template-columns: 1fr; min-height: 0; }
   .stage { min-height: 0; margin-top: 28px; }
   .ring { width: 140%; opacity: 0.7; }
-  .moment, .rule, .about { grid-template-columns: 1fr; gap: 8px; }
+  .film { overflow-x: auto; justify-content: flex-start; scroll-snap-type: x mandatory; padding: 0 var(--gut) 8px; gap: 14px; }
+  .shot, .shot.on, .shot:first-child, .shot:last-child { transform: none; scroll-snap-align: center; }
+  .rule, .about { grid-template-columns: 1fr; gap: 8px; }
 }
 @media (max-width: 640px) {
   h1 { font-size: 64px; }
@@ -399,26 +429,51 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
   <section id="work">
     <div class="wrap">
       <p class="kicker">The work</p>
-      <h2>In the model. Already on the cell.</h2>
-      <p class="intro">Ask it there, with the workbook open. The same question works from Claude or ChatGPT. It reads what is signed, and it still cannot write the model.</p>
-      <div class="moments">
-        <article class="moment">
-          <span class="num">01</span>
-          <h3>Ask</h3>
-          <p>On the cell you have open, or under the drivers that move an output. Gregory speaks first: what the cell is, whether it is signed, what it feeds. <strong>A figure the record does not hold is withheld.</strong></p>
-        </article>
-        <article class="moment">
-          <span class="num">02</span>
-          <h3>Read</h3>
-          <p>A transcript, a contract, an export. Gregory proposes the change with the quote beside it. <strong>Fill with Gregory</strong> drafts the source into the signature. What it cannot ground, it flags.</p>
-        </article>
-        <article class="moment">
-          <span class="num">03</span>
-          <h3>Sign</h3>
-          <p>The inputs that move the output get a signature &mdash; who, when, from what, and what it replaced. Stale is one click: <strong>Still true?</strong> The AI proposes. You decide.</p>
-        </article>
-      </div>
-      <p class="sources">Calls &middot; emails &middot; contracts &middot; PDFs &middot; exports &middot; bank statements &middot; chats &middot; your notes &middot; a signed package for the month &middot; the same Gregory inside Claude and ChatGPT</p>
+      <h2>The pane, on the number.</h2>
+      <p class="intro">Ask it there, with the workbook open. It ranks what moves the answer, reads the call, and waits for you to sign.</p>
+    </div>
+    <div class="film" id="film">
+      <article class="shot on">
+        <div class="mini">
+          <div class="device-aurora" aria-hidden="true"></div>
+          <p class="file">acme_2027_model.xlsx</p>
+          <div class="island"><span class="room on"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="2.5" width="15" height="15" rx="2.5"/><rect class="fill" x="10.5" y="10.5" width="7" height="7" rx="1.5"/><path d="M2.5 10.5h15M10.5 2.5v15"/></svg>Cell</span><span class="room"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 16.5V9M7.67 16.5V4.5M12.33 16.5v-5M17 16.5V7"/></svg>Model</span><span class="room"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.6l6.5 3.4v8L10 17.4 3.5 14V6z"/><path d="M3.5 6l6.5 3.4L16.5 6M10 9.4v8"/></svg>Package</span></div>
+          <p class="addr">Inputs!B7</p>
+          <p class="cell-name">Supplier deposit</p>
+          <p class="numeral">50%</p>
+          <p class="signed"><span class="dot"></span>Signed · Founder call · 12 Aug</p>
+          <div class="ask"><span class="spark">✦</span> Ask Gregory about this cell</div>
+        </div>
+        <p class="shot-cap"><span>01</span> Ask the cell</p>
+      </article>
+      <article class="shot">
+        <div class="mini">
+          <div class="device-aurora" aria-hidden="true"></div>
+          <p class="file">acme_2027_model.xlsx</p>
+          <div class="island"><span class="room"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="2.5" width="15" height="15" rx="2.5"/><rect class="fill" x="10.5" y="10.5" width="7" height="7" rx="1.5"/><path d="M2.5 10.5h15M10.5 2.5v15"/></svg>Cell</span><span class="room on"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 16.5V9M7.67 16.5V4.5M12.33 16.5v-5M17 16.5V7"/></svg>Model</span><span class="room"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 2.8l1.3 3.4L11.7 7.5 8.3 8.8 7 12.2 5.7 8.8 2.3 7.5l3.4-1.3z"/></svg>Review</span></div>
+          <p class="addr">What moves cash · 10 inputs · 8 signed</p>
+          <div class="rank">
+            <div class="rank-row"><span><b>Price per unit</b><small>Inputs!B4</small></span><span class="move">+2.9%</span><div class="bar"><i style="--w:92%"></i></div></div>
+            <div class="rank-row"><span><b>Opex — salaries</b><small>Inputs!C11</small></span><span class="move">−2.8%</span><div class="bar"><i style="--w:78%"></i></div></div>
+            <div class="rank-row"><span><b>Deposit</b><small>Inputs!B7</small></span><span class="move ok">signed</span><div class="bar em"><i style="--w:46%"></i></div></div>
+          </div>
+        </div>
+        <p class="shot-cap"><span>02</span> What moves it</p>
+      </article>
+      <article class="shot">
+        <div class="mini">
+          <div class="device-aurora" aria-hidden="true"></div>
+          <p class="file">Founder call · 12 Aug 2026</p>
+          <p class="quote" style="margin-top:14px">&ldquo;for the first three POs they want fifty percent up front&rdquo;</p>
+          <p class="cell-name" style="margin-top:14px">50% <span style="font-size:14px;font-weight:500;color:#5c6168">on Inputs!B7</span></p>
+          <p class="signed"><span class="dot wait"></span>Unsigned until you say so</p>
+          <div class="pair">
+            <div class="ask"><span class="spark">✦</span> Fill with Gregory</div>
+            <button class="ink" type="button">Sign</button>
+          </div>
+        </div>
+        <p class="shot-cap"><span>03</span> You sign</p>
+      </article>
     </div>
   </section>
 
@@ -510,7 +565,7 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
     model: {
       room: "model",
       lines: ["what moves cash", "deposit · signed", "price · no source · withheld"],
-      body: '<p class="addr">What moves cash</p><div class="drivers"><div class="driver"><span class="dot"></span><span><b>Deposit</b><small>Inputs!B7</small></span><span class="move ok">signed</span></div><div class="driver"><span class="dot wait"></span><span><b>Price</b><small>Inputs!B4</small></span><span class="move wait-word">unsigned</span></div><div class="driver"><span class="dot wait"></span><span><b>Doors</b><small>Inputs!C2</small></span><span class="move wait-word">unsigned</span></div></div>'
+      body: '<p class="addr">What moves cash · 10 inputs</p><div class="rank"><div class="rank-row"><span><b>Price per unit</b><small>Inputs!B4</small></span><span class="move">+2.9%</span><div class="bar"><i style="--w:92%"></i></div></div><div class="rank-row"><span><b>Opex — salaries</b><small>Inputs!C11</small></span><span class="move">−2.8%</span><div class="bar"><i style="--w:78%"></i></div></div><div class="rank-row"><span><b>Deposit</b><small>Inputs!B7</small></span><span class="move ok">signed</span><div class="bar em"><i style="--w:46%"></i></div></div></div>'
     },
     call: {
       room: "cell",
@@ -567,6 +622,13 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
 
   show("cell");
   if (!reduced) later(turn, 2800);
+
+  var shots = document.querySelectorAll("#film .shot");
+  var si = 0;
+  function arm() {
+    shots.forEach(function (shot, i) { shot.classList.toggle("on", i === si); });
+  }
+  if (!reduced && shots.length) setInterval(function () { si = (si + 1) % shots.length; arm(); }, 3400);
 })();
 </script>
 </body>
