@@ -117,6 +117,9 @@ h2 { font-weight: 650; font-size: clamp(32px, 4vw, 52px); letter-spacing: -0.04e
 .connects article:hover { transform: translateY(-4px); border-color: rgba(95, 214, 166, 0.45); }
 .connects h3 { font-size: 18px; font-weight: 650; letter-spacing: -0.03em; margin-bottom: 8px; }
 .connects p { color: var(--muted); font-size: 15px; }
+.later { margin-top: 72px; }
+.soon { font-size: 11px; font-weight: 650; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+.later .connects article { background: transparent; }
 .rules { margin-top: 28px; }
 .rule { padding: 20px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 20px; }
 .rule:last-child { border-bottom: 1px solid var(--line); }
@@ -247,10 +250,43 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
           <h3>The sources</h3>
           <p>Calls, email, contracts, PDFs, exports, bank statements, chat, your notes. A proposed number has to point at the words it came from.</p>
         </article>
-        <article>
-          <h3>Confido and Drivepoint</h3>
-          <p>Not connectors. They do their own work. Gregory sits on the workbook: the signed assumptions those numbers rest on.</p>
-        </article>
+      </div>
+      <div class="later">
+        <p class="kicker">Later</p>
+        <h2>The CPG stack, when the feed is live.</h2>
+        <p class="intro">Not connected yet. A weekly distributor or POS export can already be read into the month. A live feed from the system that produced it is the work ahead.</p>
+        <div class="connects">
+          <article>
+            <p class="soon">Later</p>
+            <h3>QuickBooks</h3>
+            <p>The books, as a feed. Today they arrive as an export.</p>
+          </article>
+          <article>
+            <p class="soon">Later</p>
+            <h3>Confido</h3>
+            <p>Deductions, cash application, trade. Gregory does not talk to it yet.</p>
+          </article>
+          <article>
+            <p class="soon">Later</p>
+            <h3>Drivepoint</h3>
+            <p>The planning agent in the sheet. Not a connector.</p>
+          </article>
+          <article>
+            <p class="soon">Later</p>
+            <h3>KeHE and UNFI</h3>
+            <p>Distributor reports. A file can be read now. A standing connection is not built.</p>
+          </article>
+          <article>
+            <p class="soon">Later</p>
+            <h3>SPINS and Crisp</h3>
+            <p>Retail measurement. Same rule: the export can land, the feed cannot.</p>
+          </article>
+          <article>
+            <p class="soon">Later</p>
+            <h3>Walmart, Shopify, Amazon</h3>
+            <p>The portals a brand sells through. Named here so the list is the whole stack, not a promise.</p>
+          </article>
+        </div>
       </div>
     </div>
   </section>
