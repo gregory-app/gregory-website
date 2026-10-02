@@ -100,6 +100,23 @@ h2 { font-weight: 650; font-size: clamp(32px, 4vw, 52px); letter-spacing: -0.04e
 }
 .gallery figcaption { margin-top: 12px; font-weight: 650; letter-spacing: -0.02em; }
 .gallery figcaption span { display: block; margin-top: 2px; font-weight: 400; color: var(--muted); font-size: 14px; }
+.marquee {
+  position: relative; z-index: 1; overflow: hidden; border-block: 1px solid var(--line); padding: 18px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.track { display: flex; width: max-content; animation: reel 36s linear infinite; }
+.track span { padding-right: 48px; font-size: 22px; font-weight: 650; letter-spacing: -0.04em; color: var(--faint); }
+@keyframes reel { to { transform: translateX(-50%); } }
+.connects { margin-top: 36px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.connects article {
+  padding: 22px; border-radius: 18px; border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  transition: transform 0.35s ease, border-color 0.35s ease;
+}
+.connects article:hover { transform: translateY(-4px); border-color: rgba(95, 214, 166, 0.45); }
+.connects h3 { font-size: 18px; font-weight: 650; letter-spacing: -0.03em; margin-bottom: 8px; }
+.connects p { color: var(--muted); font-size: 15px; }
 .rules { margin-top: 28px; }
 .rule { padding: 20px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 20px; }
 .rule:last-child { border-bottom: 1px solid var(--line); }
@@ -125,7 +142,7 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
 }
 @media (max-width: 900px) {
   .links { display: none; }
-  .hero, .gallery, .rule, .about { grid-template-columns: 1fr; }
+  .hero, .gallery, .connects, .rule, .about { grid-template-columns: 1fr; }
   .hero { min-height: 0; }
   .stage { max-width: 420px; }
 }
@@ -144,6 +161,7 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
     </a>
     <div class="links">
       <a href="#work">Work</a>
+      <a href="#connect">Connect</a>
       <a href="#rules">Rules</a>
       <a href="#about">About</a>
     </div>
@@ -176,6 +194,12 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
       </div>
     </div>
   </div>
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      <span>Excel</span><span>Google Sheets</span><span>Claude</span><span>ChatGPT</span><span>Microsoft 365</span><span>OneDrive</span><span>Google Drive</span><span>Email</span><span>Calls</span><span>PDFs</span>
+      <span>Excel</span><span>Google Sheets</span><span>Claude</span><span>ChatGPT</span><span>Microsoft 365</span><span>OneDrive</span><span>Google Drive</span><span>Email</span><span>Calls</span><span>PDFs</span>
+    </div>
+  </div>
   <section id="work">
     <div class="wrap">
       <p class="kicker">The pane</p>
@@ -194,6 +218,39 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; }
           <img src="media/sign.png" alt="An unsigned cell, with Fill with Gregory and Sign.">
           <figcaption>You sign<span>Fill with Gregory drafts the source. You still sign.</span></figcaption>
         </figure>
+      </div>
+    </div>
+  </section>
+  <section id="connect">
+    <div class="wrap">
+      <p class="kicker">Connected</p>
+      <h2>Ask from the tools you already open.</h2>
+      <p class="intro">The names are the places the work already lives. Gregory connects where a signature has to travel.</p>
+      <div class="connects">
+        <article>
+          <h3>Claude</h3>
+          <p>Paste Gregory in as a connector. It reads what is signed, drafts, and proposes. It never approves, signs, or writes the workbook.</p>
+        </article>
+        <article>
+          <h3>ChatGPT</h3>
+          <p>The same door. ChatGPT asks before anything is written into Gregory. The number in the file still waits for you.</p>
+        </article>
+        <article>
+          <h3>Microsoft 365</h3>
+          <p>Excel is the daily surface. A connected account opens the spreadsheets in OneDrive — your files, a folder, a search.</p>
+        </article>
+        <article>
+          <h3>Google Drive</h3>
+          <p>Choose a Sheet in Drive, or the files already picked for that client. Sheets in, Sheets out. Gregory never converts the file.</p>
+        </article>
+        <article>
+          <h3>The sources</h3>
+          <p>Calls, email, contracts, PDFs, exports, bank statements, chat, your notes. A proposed number has to point at the words it came from.</p>
+        </article>
+        <article>
+          <h3>Confido and Drivepoint</h3>
+          <p>Not connectors. They do their own work. Gregory sits on the workbook: the signed assumptions those numbers rest on.</p>
+        </article>
       </div>
     </div>
   </section>
