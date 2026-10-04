@@ -210,40 +210,35 @@ h2 { font-weight: 650; font-size: clamp(32px, 4vw, 52px); letter-spacing: -0.04e
 .motion .reveal.in { animation: rise 1s var(--ease) both; animation-delay: calc(var(--d, 0) * 90ms); }
 @keyframes rise { from { opacity: 0; translate: 0 26px; } to { opacity: 1; translate: 0 0; } }
 
-.reel-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
-.reel-ctrl { display: flex; align-items: center; gap: 8px; flex: none; }
-.reel-ctrl button {
-  width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--line); display: grid; place-items: center;
-  background: rgba(255,255,255,.04); color: var(--ink); font-size: 18px; cursor: pointer;
-  transition: border-color .2s ease, background-color .2s ease, transform .2s var(--ease);
+/* The pane, one screen at a time: the shot on one side, the list saying which on the other. */
+.show { display: grid; grid-template-columns: minmax(280px, 400px) minmax(0, 1fr); gap: clamp(32px, 7vw, 104px); align-items: center; }
+.show-stage { position: relative; }
+.show-stage::before { content: ""; position: absolute; inset: 6% -20% -2%; z-index: -1; border-radius: 50%; pointer-events: none; background: radial-gradient(closest-side, rgba(16,185,129,.2), rgba(59,91,255,.1) 55%, transparent); filter: blur(24px); }
+.show-shots { position: relative; aspect-ratio: 320 / 560; border-radius: 28px; overflow: hidden; background: #0b0b0e; box-shadow: 0 44px 110px -40px rgba(0,0,0,.95), 0 0 0 1px rgba(255,255,255,.08); }
+.show-shots img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; opacity: 0; transition: opacity .7s ease, transform 1s var(--ease), filter .7s ease; }
+.show-shots img.on { opacity: 1; }
+.motion .show-shots img { transform: translateY(16px) scale(.985); filter: blur(6px); }
+.motion .show-shots img.on { transform: none; filter: none; }
+.show-cap { display: none; }
+.show-list { position: relative; margin-top: 36px; border-top: 1px solid var(--hair); }
+.show-list [role=tab] {
+  position: relative; display: grid; width: 100%; padding: 17px 0 17px 24px; border: 0; border-bottom: 1px solid var(--hair);
+  background: none; color: var(--faint); font: inherit; text-align: left; cursor: pointer; transition: color .3s ease;
 }
-.reel-ctrl button:hover { border-color: rgba(95, 214, 166, 0.55); background: rgba(255,255,255,.08); }
-.reel-ctrl button:active { transform: scale(.94); }
-.reel-meter { display: grid; justify-items: center; gap: 7px; min-width: 5em; }
-.reel-count { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; color: var(--faint); text-align: center; }
-.reel-bar { width: 48px; height: 2px; border-radius: 2px; background: rgba(255,255,255,.12); overflow: hidden; }
-.reel-bar span { display: block; height: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
-.reel-bar span.run { animation: fill var(--dwell, 3.4s) linear forwards; }
-@keyframes fill { to { transform: scaleX(1); } }
-.reel { margin: 28px calc(50% - 50vw) 0; }
-.reel-track {
-  display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory;
-  scrollbar-width: none; padding: 8px 6vw 36px;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-}
-.reel-track::-webkit-scrollbar { display: none; }
-.reel-track figure { flex: 0 0 300px; scroll-snap-align: center; margin: 0; transition: opacity .6s ease, transform .8s var(--ease); }
-.motion .reel-track figure { opacity: .42; transform: scale(.955); }
-.motion .reel-track figure.on { opacity: 1; transform: none; }
-.reel-track img {
-  width: 100%; display: block; aspect-ratio: 320 / 560; object-fit: cover; object-position: top center;
-  border-radius: 28px; transition: box-shadow .8s ease;
-  box-shadow: 0 36px 80px -32px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.08);
-}
-.reel-track figure.on img { box-shadow: 0 40px 90px -30px rgba(0,0,0,.95), 0 0 0 1px rgba(95,214,166,.32), 0 0 70px -24px rgba(16,185,129,.45); }
-.reel-track figcaption { margin-top: 14px; font-weight: 650; letter-spacing: -0.02em; }
-.reel-track figcaption span { display: block; margin-top: 2px; font-weight: 400; color: var(--muted); font-size: 14px; }
+.show-list [role=tab]:hover { color: var(--muted); }
+.show-list [role=tab].on { color: var(--ink); }
+.show-list [role=tab]::before { content: ""; position: absolute; left: 0; top: 19px; bottom: 19px; width: 2px; border-radius: 2px; background: rgba(255,255,255,.1); }
+.show-t { font-size: 18px; font-weight: 650; letter-spacing: -0.02em; }
+.show-d { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .55s var(--ease); }
+.show-d > span { overflow: hidden; color: var(--muted); font-size: 15px; }
+.show-d > span::before { content: ""; display: block; height: 4px; }
+.show-list [role=tab].on .show-d { grid-template-rows: 1fr; }
+.show-bar { position: absolute; left: 0; top: 19px; bottom: 19px; width: 2px; border-radius: 2px; background: var(--accent); transform-origin: 50% 0; transform: scaleY(0); }
+.show-list [role=tab].on .show-bar { transform: none; }
+.motion .show-list:not(.held) [role=tab].on .show-bar { animation: dwell 5s linear both; }
+.motion .show:hover .show-bar { animation-play-state: paused; }
+@keyframes dwell { from { transform: scaleY(0); } }
+@keyframes dwellx { from { transform: scaleX(0); } }
 
 /* Bento: each tile shows the rule it states, in the pane's own furniture. */
 .bento { margin-top: 40px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; }
@@ -411,16 +406,17 @@ html:not(.motion) .flow-svg .comet { display: none; }
 .connects .logo.glyph { background: rgba(95,214,166,.1); box-shadow: inset 0 0 0 1px rgba(95,214,166,.3); color: var(--accent); }
 .connects h3 { font-size: 18px; font-weight: 650; letter-spacing: -0.03em; }
 .connects p { color: var(--muted); font-size: 15px; }
-.later { margin-top: 72px; }
-.logo-row { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.logo-row span {
-  height: 64px; padding: 0 18px; border-radius: 16px; background: #fff;
-  display: inline-flex; align-items: center; justify-content: center;
-  transition: transform .45s var(--ease);
+.data { margin-top: 72px; }
+.data-grid { margin-top: 28px; list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.data-grid li { display: grid; gap: 10px; justify-items: center; }
+.data-logo {
+  width: 100%; height: 76px; border-radius: 18px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 9px; padding: 0 16px;
+  box-shadow: 0 14px 34px -18px rgba(0,0,0,.8); transition: transform .45s var(--ease), box-shadow .45s ease;
 }
-.logo-row img { height: 26px; width: auto; max-width: 132px; object-fit: contain; display: block; filter: grayscale(1); opacity: .5; transition: filter .45s ease, opacity .45s ease; }
-.logo-row span:hover { transform: translateY(-2px); }
-.logo-row span:hover img { filter: none; opacity: 1; }
+.data-logo img { height: 28px; width: auto; max-width: 100%; min-width: 0; object-fit: contain; display: block; }
+.data-logo b { color: #1c1c1c; font-size: 16px; font-weight: 650; letter-spacing: -0.03em; white-space: nowrap; }
+.data-grid li:hover .data-logo { transform: translateY(-3px); box-shadow: 0 22px 40px -18px rgba(0,0,0,.9), 0 0 0 1px rgba(95,214,166,.5); }
+.data-k { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
 
 .rules-wrap { margin-top: 32px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr); gap: clamp(24px, 4.5vw, 64px); align-items: start; }
 .rule { padding: 22px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 46px minmax(0, 1fr); column-gap: 10px; row-gap: 6px; }
@@ -494,13 +490,26 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; overflow: hidden; 
 }
 @media (max-width: 1100px) {
   .node.book small { display: none; }
+  .data-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 @media (max-width: 900px) {
   .links { display: none; }
   .hero, .connects, .rules-wrap, .scene-pair { grid-template-columns: 1fr; }
   .w7, .w5 { grid-column: 1 / -1; }
-  .reel-track figure { flex-basis: 78vw; }
-  .reel-head { flex-direction: column; align-items: flex-start; }
+  .show { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .show-copy { order: -1; }
+  .show-stage { width: min(100%, 360px); margin: 0 auto; }
+  .show-cap { display: block; margin-top: 18px; text-align: center; color: var(--muted); font-size: 15px; }
+  .show-list { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin-top: 24px; padding: 2px; border: 0; }
+  .show-list::-webkit-scrollbar { display: none; }
+  .show-list [role=tab] { flex: none; width: auto; padding: 9px 15px 11px; border: 0; border-radius: 999px; background: rgba(255,255,255,.04); box-shadow: inset 0 0 0 1px var(--hair); }
+  .show-list [role=tab].on { background: rgba(255,255,255,.1); }
+  .show-list [role=tab]::before, .show-d { display: none; }
+  .show-t { font-size: 14px; }
+  .show-bar { top: auto; bottom: 4px; left: 15px; right: 15px; width: auto; height: 2px; transform-origin: 0 50%; }
+  .motion .show-list:not(.held) [role=tab].on .show-bar { animation-name: dwellx; }
+  .data-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .data-logo { height: 64px; }
   .hero { min-height: 0; }
   .stage { max-width: 420px; }
   .chips { position: relative; left: auto; bottom: auto; margin: -18px 0 0 14px; }
@@ -609,49 +618,30 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; overflow: hidden; 
     </div>
   </div>
   <section id="work">
-    <div class="wrap">
-      <div class="reel-head">
-        <div>
-          <p class="kicker reveal"><span class="ix">01</span>The pane</p>
-          <h2 class="reveal" style="--d:1">Shot in the app.</h2>
-        </div>
-        <div class="reel-ctrl reveal" style="--d:2">
-          <button type="button" id="reel-prev" aria-label="Previous screen">‹</button>
-          <div class="reel-meter">
-            <span class="reel-count" id="reel-count">01 / 06</span>
-            <span class="reel-bar" aria-hidden="true"><span id="reel-bar"></span></span>
-          </div>
-          <button type="button" id="reel-next" aria-label="Next screen">›</button>
-        </div>
-      </div>
-      <p class="intro reveal" style="--d:2">The Excel pane. Model, the cell, the signature, the table, Review, and Chat.</p>
-      <div class="reel reveal" style="--d:3">
-      <div class="reel-track" id="reel">
-        <figure class="on">
-          <img src="media/model.png" alt="What moves the answer, with the drivers under Cash.">
-          <figcaption>What moves the answer<span>The inputs that move Cash, and how far.</span></figcaption>
-        </figure>
-        <figure>
+    <div class="wrap show">
+      <div class="show-stage reveal" style="--d:2">
+        <div class="show-shots" id="show-shots" role="tabpanel" aria-label="The Excel pane">
+          <img class="on" src="media/model.png" alt="What moves the answer, with the drivers under Cash.">
           <img src="media/cell.png" alt="A signed cell, price per unit, with its source.">
-          <figcaption>The cell<span>Signed, with the source, and Ask Gregory.</span></figcaption>
-        </figure>
-        <figure>
           <img src="media/sign.png" alt="An unsigned cell, with Fill with Gregory and Sign.">
-          <figcaption>You sign<span>Fill with Gregory drafts the source. You still sign.</span></figcaption>
-        </figure>
-        <figure>
           <img src="media/table.png" alt="A sensitivity table: opening cash against price per unit, Cash at every point.">
-          <figcaption>The table<span>Opening cash against price. Cash at every point.</span></figcaption>
-        </figure>
-        <figure>
           <img src="media/review.png" alt="Review: one note from Gregory, and what is worth checking.">
-          <figcaption>Review<span>One note open. What is worth checking.</span></figcaption>
-        </figure>
-        <figure>
           <img src="media/chat.png" alt="Chat about a finding: a question, Gregory's answer, the cell unchanged.">
-          <figcaption>Chat<span>Ask about the finding. The cell is not changed.</span></figcaption>
-        </figure>
+        </div>
+        <p class="show-cap" id="show-cap" aria-hidden="true">The inputs that move Cash, and how far.</p>
       </div>
+      <div class="show-copy">
+        <p class="kicker reveal"><span class="ix">01</span>The pane</p>
+        <h2 class="reveal" style="--d:1">Shot in the app.</h2>
+        <p class="intro reveal" style="--d:2">The Excel pane. Model, the cell, the signature, the table, Review, and Chat.</p>
+        <div class="show-list reveal demo" style="--d:3" id="show-list" role="tablist" aria-label="Screens in the pane">
+          <button type="button" role="tab" aria-selected="true" class="on" aria-controls="show-shots"><span class="show-t">What moves the answer</span><span class="show-d"><span>The inputs that move Cash, and how far.</span></span><span class="show-bar" aria-hidden="true"></span></button>
+          <button type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="show-shots"><span class="show-t">The cell</span><span class="show-d"><span>Signed, with the source, and Ask Gregory.</span></span><span class="show-bar" aria-hidden="true"></span></button>
+          <button type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="show-shots"><span class="show-t">You sign</span><span class="show-d"><span>Fill with Gregory drafts the source. You still sign.</span></span><span class="show-bar" aria-hidden="true"></span></button>
+          <button type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="show-shots"><span class="show-t">The table</span><span class="show-d"><span>Opening cash against price. Cash at every point.</span></span><span class="show-bar" aria-hidden="true"></span></button>
+          <button type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="show-shots"><span class="show-t">Review</span><span class="show-d"><span>One note open. What is worth checking.</span></span><span class="show-bar" aria-hidden="true"></span></button>
+          <button type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="show-shots"><span class="show-t">Chat</span><span class="show-d"><span>Ask about the finding. The cell is not changed.</span></span><span class="show-bar" aria-hidden="true"></span></button>
+        </div>
       </div>
     </div>
   </section>
@@ -729,7 +719,7 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; overflow: hidden; 
           <span class="node src" data-node="src">Email</span>
           <span class="node src" data-node="src">Contracts</span>
           <span class="node src" data-node="src">PDFs</span>
-          <span class="node src" data-node="src">Exports</span>
+          <span class="node src" data-node="src">Data sources</span>
         </div>
         <span class="flow-tag tag-in">a quote</span>
         <div class="flow-mid">
@@ -775,22 +765,22 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; overflow: hidden; 
           <p>Calls, email, contracts, PDFs, exports, bank statements, chat, your notes. A proposed number has to point at the words it came from.</p>
         </article>
       </div>
-      <div class="later">
-        <p class="kicker reveal">Later</p>
-        <h2 class="reveal" style="--d:1">Named. Not connected.</h2>
-        <p class="intro reveal" style="--d:2">A weekly export can already be read into the month. A live feed from the system that produced it is not built.</p>
-        <div class="logo-row reveal" style="--d:3">
-          <span><img src="media/logos/quickbooks.svg" alt="QuickBooks"></span>
-          <span><img src="media/logos/confido-on-light.svg" alt="Confido"></span>
-          <span><img src="media/logos/drivepoint.svg" alt="Drivepoint"></span>
-          <span><img src="media/logos/kehe.png" alt="KeHE"></span>
-          <span><img src="media/logos/unfi.svg" alt="UNFI"></span>
-          <span><img src="media/logos/spins.png" alt="SPINS"></span>
-          <span><img src="media/logos/crisp.png" alt="Crisp"></span>
-          <span><img src="media/logos/walmart.svg" alt="Walmart"></span>
-          <span><img src="media/logos/shopify.svg" alt="Shopify"></span>
-          <span><img src="media/logos/amazon.svg" alt="Amazon"></span>
-        </div>
+      <div class="data">
+        <p class="kicker reveal">Data sources</p>
+        <h2 class="reveal" style="--d:1">Your data, connected.</h2>
+        <p class="intro reveal" style="--d:2">Accounting, commerce, distributors, sell-through and trade spend. Their reports are read into the month, and a number from them points at the report it came from.</p>
+        <ul class="data-grid reveal" style="--d:3">
+          <li><span class="data-logo"><img src="media/logos/quickbooks.svg" alt=""><b>QuickBooks</b></span><span class="data-k">Accounting</span></li>
+          <li><span class="data-logo"><img src="media/logos/shopify.svg" alt=""><b>Shopify</b></span><span class="data-k">Commerce</span></li>
+          <li><span class="data-logo"><img src="media/logos/amazon.svg" alt=""><b>Amazon</b></span><span class="data-k">Marketplace</span></li>
+          <li><span class="data-logo"><img src="media/logos/walmart.svg" alt="Walmart"></span><span class="data-k">Retail</span></li>
+          <li><span class="data-logo"><img src="media/logos/kehe.png" alt=""><b>KeHE</b></span><span class="data-k">Distributor</span></li>
+          <li><span class="data-logo"><img src="media/logos/unfi.svg" alt="UNFI"></span><span class="data-k">Distributor</span></li>
+          <li><span class="data-logo"><img src="media/logos/spins.png" alt=""><b>SPINS</b></span><span class="data-k">Sell-through</span></li>
+          <li><span class="data-logo"><img src="media/logos/crisp.png" alt=""><b>Crisp</b></span><span class="data-k">Retail data</span></li>
+          <li><span class="data-logo"><img src="media/logos/confido-on-light.svg" alt="Confido"></span><span class="data-k">Trade spend</span></li>
+          <li><span class="data-logo"><img src="media/logos/drivepoint.svg" alt="Drivepoint"></span><span class="data-k">Planning</span></li>
+        </ul>
       </div>
     </div>
   </section>
@@ -1083,58 +1073,43 @@ footer { position: relative; z-index: 1; padding: 8px 0 36px; overflow: hidden; 
     fill();
   });
 
-  // The pane shots: one in focus, a meter for how long it stays, and the count follows a swipe.
+  // The pane's screens: one in view, the list says which, and each holds until its line fills.
   run(function () {
-    var track = document.getElementById("reel");
-    if (!track) return;
-    var figs = Array.prototype.slice.call(track.querySelectorAll("figure"));
-    var count = document.getElementById("reel-count");
-    var bar = document.getElementById("reel-bar");
-    var DWELL = 3400;
-    var i = 0, timer = 0, settle = 0, hold = 0, lock = 0, seen = false, hover = false;
-    function mark(n) {
-      i = n;
-      figs.forEach(function (f, k) { f.classList.toggle("on", k === n); });
-      count.textContent = pad(n + 1) + " / " + pad(figs.length);
+    var list = document.getElementById("show-list");
+    if (!list) return;
+    var tabs = Array.prototype.slice.call(list.querySelectorAll("[role=tab]"));
+    var shots = document.querySelectorAll("#show-shots img");
+    var cap = document.getElementById("show-cap");
+    var i = 0;
+    function pick(n, chosen) {
+      i = (n + tabs.length) % tabs.length;
+      tabs.forEach(function (t, k) {
+        var on = k === i;
+        t.classList.toggle("on", on);
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        t.tabIndex = on ? 0 : -1;
+      });
+      shots.forEach(function (img, k) { img.classList.toggle("on", k === i); });
+      cap.textContent = tabs[i].querySelector(".show-d").textContent;
+      if (list.scrollWidth > list.clientWidth) {
+        var t = tabs[i];
+        list.scrollTo({ left: t.offsetLeft - (list.clientWidth - t.offsetWidth) / 2, behavior: reduced ? "auto" : "smooth" });
+      }
+      if (chosen) list.classList.add("held");
     }
-    function go(n) {
-      n = (n + figs.length) % figs.length;
-      var fig = figs[n];
-      lock = Date.now() + 900;
-      track.scrollTo({ left: fig.offsetLeft - (track.clientWidth - fig.offsetWidth) / 2, behavior: reduced ? "auto" : "smooth" });
-      mark(n);
-    }
-    function arm() {
-      clearTimeout(timer);
-      bar.classList.remove("run");
-      if (reduced || !seen || hover) return;
-      var wait = hold - Date.now();
-      if (wait > 0) { timer = setTimeout(arm, wait); return; }
-      void bar.offsetWidth;
-      bar.style.setProperty("--dwell", DWELL + "ms");
-      bar.classList.add("run");
-      timer = setTimeout(function () { go(i + 1); arm(); }, DWELL);
-    }
-    function pause(ms) { hold = Date.now() + ms; arm(); }
-    document.getElementById("reel-next").addEventListener("click", function () { go(i + 1); pause(6000); });
-    document.getElementById("reel-prev").addEventListener("click", function () { go(i - 1); pause(6000); });
-    track.addEventListener("pointerdown", function () { pause(8000); });
-    track.addEventListener("pointerenter", function () { hover = true; arm(); });
-    track.addEventListener("pointerleave", function () { hover = false; arm(); });
-    track.addEventListener("scroll", function () {
-      clearTimeout(settle);
-      settle = setTimeout(function () {
-        if (Date.now() < lock) return;
-        var mid = track.scrollLeft + track.clientWidth / 2, best = i, gap = Infinity;
-        figs.forEach(function (f, k) {
-          var d = Math.abs(f.offsetLeft + f.offsetWidth / 2 - mid);
-          if (d < gap) { gap = d; best = k; }
-        });
-        if (best !== i) { mark(best); pause(8000); }
-      }, 140);
-    }, { passive: true });
-    if (hasIO) new IntersectionObserver(function (e) { seen = e[0].isIntersecting; arm(); }, { threshold: 0.35 }).observe(track);
-    mark(0);
+    tabs.forEach(function (t, k) {
+      t.addEventListener("click", function () { pick(k, true); });
+      t.querySelector(".show-bar").addEventListener("animationend", function () {
+        if (k === i && !list.classList.contains("held")) pick(i + 1);
+      });
+    });
+    list.addEventListener("keydown", function (e) {
+      var step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+      if (!step) return;
+      e.preventDefault();
+      pick(i + step, true);
+      tabs[i].focus();
+    });
   });
 
   // The flow's paths, drawn between the nodes wherever the layout puts them.
