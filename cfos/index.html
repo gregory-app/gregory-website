@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gregory for CFOs — the AI on the cell</title>
+<meta name="description" content="Gregory for fractional CFOs: the AI in Excel, on the number a forecast turns on. It has read the file, the call, and what is signed. Each client’s month arrives on its own. You sign. It never writes the cell itself.">
+<meta property="og:title" content="Gregory for CFOs — the AI on the cell">
+<meta property="og:description" content="Gregory for fractional CFOs: the AI in Excel, on the number a forecast turns on. It has read the file, the call, and what is signed. Each client’s month arrives on its own. You sign. It never writes the cell itself.">
+<meta property="og:url" content="https://gregory.work/cfos/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#070708">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2306775a'/%3E%3Cpath d='M8.2 12.6 10.6 15l4.2-4.6' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M17.4 12.2h6.2M8.2 17.6h15.2M8.2 21.2h9.4' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script>
+/* Motion is opt-in: without script, or under reduced motion, every section is simply there. */
+if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("motion");
+</script>
+<link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="sky" id="sky" aria-hidden="true">
+  <div class="field"><span class="a"></span><span class="b"></span><span class="c"></span><span class="d"></span></div>
+  <canvas id="aurora"></canvas>
+</div>
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="/">
+      <span class="mark" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.2 6 9.2l3.4-3.8"/><path d="M12.4 7h4M4 12.5h12M4 15.6h7.5"/></svg>
+      </span>
+      Gregory
+    </a>
+    <nav class="links" aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#web">Web</a>
+      <a href="#why">Why</a>
+      <a href="#month">Month</a>
+      <a href="#connect">Connect</a>
+      <a href="#rules">Rules</a>
+    </nav>
+    <a class="btn" href="#contact">Get Gregory</a>
+  </div>
+  <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+</header>
+<main id="main">
+  <div class="wrap hero">
+    <div>
+      <p class="badge"><span class="spark" aria-hidden="true">✦</span>For fractional CFOs</p>
+      <h1>
+        <span>Ask the</span>
+        <span class="cycle-row">
+          <span class="cycle-slot"><em id="cycle-word">model</em><span class="period">.</span></span>
+          <small class="cycle-index" id="cycle-index">01 / 03</small>
+        </span>
+      </h1>
+      <p class="lede">Stop chasing sources. Gregory sits in Excel on the number a forecast actually turns on. It has read the file, the call, and what is signed, and each client’s month arrives on its own. A figure it cannot point at, it withholds. You sign. It never writes the cell itself.</p>
+      <div class="actions">
+        <a class="btn" href="#contact">Get Gregory</a>
+        <a class="btn ghost" href="#work">See it work</a>
+      </div>
+      <p class="mono">Excel · Google Sheets · Claude · ChatGPT</p>
+    </div>
+    <div class="stage demo" id="stage">
+      <div class="halo" aria-hidden="true"></div>
+      <div class="tilt">
+        <div class="stack" id="stack">
+          <img class="shot on" data-shot="model" src="/media/model.png" alt="The Excel pane on Model: what moves the answer, the drivers under Cash.">
+          <img class="shot" data-shot="cell" src="/media/cell.png" alt="The Excel pane on a signed cell: price per unit, its source, Ask Gregory.">
+          <img class="shot" data-shot="call" src="/media/sign.png" alt="An unsigned cell: Fill with Gregory, then Sign.">
+        </div>
+      </div>
+      <div class="chips" aria-hidden="true">
+        <div class="chip on" data-for="model">
+          <p class="chip-k">Target · Cash</p>
+          <p class="chip-big" id="tick">66,202</p>
+          <p class="chip-line"><span class="up">+120</span>Price per unit moved 1%</p>
+        </div>
+        <div class="chip" data-for="cell">
+          <p class="chip-k">Inputs!B3 · Price per unit</p>
+          <p class="chip-line"><span class="dot ok"></span><b>Signed</b> · Toy price list · 5 Oct 2026</p>
+          <p class="chip-m">7f3a91c2e04b</p>
+        </div>
+        <div class="chip" data-for="call">
+          <p class="chip-k"><span class="spark">✦</span>Fill with Gregory</p>
+          <p class="chip-q">“Landed cost comes in at <mark>2.10</mark> a unit.”</p>
+          <p class="chip-m">From the call, word for word.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="marquee demo" aria-hidden="true">
+    <div class="track" id="track">
+      <span><img src="/media/logos/microsoftexcel.svg" alt="Excel"></span>
+      <span><img src="/media/logos/googlesheets.svg" alt="Google Sheets"></span>
+      <span><img src="/media/logos/anthropic.svg" alt="Claude"></span>
+      <span><img src="/media/logos/openai.svg" alt="ChatGPT"></span>
+      <span><img src="/media/logos/microsoft.svg" alt="Microsoft 365"></span>
+      <span><img src="/media/logos/microsoftonedrive.svg" alt="OneDrive"></span>
+      <span><img src="/media/logos/googledrive-color.svg" alt="Google Drive"></span>
+      <span class="word">Email</span>
+      <span class="word">Calls</span>
+      <span class="word">PDFs</span>
+    </div>
+  </div>
+  <section id="work">
+    <div class="wrap show">
+      <div class="show-stage reveal" style="--d:2">
+        <div class="show-shots" id="show-shots" role="tabpanel" aria-label="The Excel pane">
+          <img class="on" src="/media/model.png" alt="What moves the answer, with the drivers under Cash.">
+          <img src="/media/table.png" alt="A sensitivity table: opening cash against price per unit, Cash at every point, coloured by how far it moved." loading="lazy">
+          <img src="/media/run.png" alt="After a run in Excel: Cash at 68,582, up 3.8%, and the drivers ranked." loading="lazy">
+          <img src="/media/cell.png" alt="A signed cell, price per unit, with its source." loading="lazy">
+          <img src="/media/sign.png" alt="An unsigned cell, with Fill with Gregory and Sign." loading="lazy">
+          <img src="/media/review.png" alt="Review: one note from Gregory, and what is worth checking." loading="lazy">
+          <img src="/media/chat.png" alt="Chat about a finding: a question, Gregory's answer, the cell unchanged." loading="lazy">
+          <img src="/media/month.png" alt="The month in the pane: August from QuickBooks, the totals tie, the CFO's rule, Run the rule now and Revoke." loading="lazy">
+        </div>
+        <p class="show-cap" id="show-cap" aria-hidden="true">The inputs that move Cash, and how far.</p>
+      </div>
+      <div class="show-copy">
+        <p class="kicker reveal"><span class="ix">01</span>The pane</p>
+        <h2 class="reveal" style="--d:1">Shot in the app.</h2>
+        <p class="intro reveal" style="--d:2">The Excel pane, on a toy model: what moves the answer, the table, the cell, the signature, Review, Chat, and the month.</p>
+        <div class="show-list reveal demo" style="--d:3" id="show-list" role="tablist" aria-label="Screens in the pane">
+          <button type="button" role="tab" aria-selected="true" class="on" aria-controls="show-shots"><span class="show-t">What moves the answer</span><span class="show-d"><span>The inputs that move Cash, and how far.</span></span><span class="show-bar" aria-hidden="true"></span></button>
+          <button type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="show-shots"><span class="show-t">The table</span><span class="show-d"><span>Opening cash against price. Cash at every point.</span></span><span class="show-bar" aria-hidden="true"></span></button>
+          <button type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="show-shots"><span class="show-t">After a run</span><span class="show-d"><span>Every driver put back. Cash moved 3.8%.</span></span><span class="show-bar" aria-hidden="true"></span></button>
+          <button type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="show-shots"><span class="show-t">The cell</span><span class="show-d"><span>Signed, with the source, and Ask Gregory.</span></span><span class="show-bar" aria-hidden="true"></span></button>
+          <button type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="show-shots"><span class="show-t">You sign</span><span class="show-d"><span>Fill with Gregory drafts the source. You still sign.</span></span><span class="show-bar" aria-hidden="true"></span></button>
+          <button type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="show-shots"><span class="show-t">Review</span><span class="show-d"><span>One note open. What is worth checking.</span></span><span class="show-bar" aria-hidden="true"></span></button>
+          <button type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="show-shots"><span class="show-t">Chat</span><span class="show-d"><span>Ask about the finding. The cell is not changed.</span></span><span class="show-bar" aria-hidden="true"></span></button>
+          <button type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="show-shots"><span class="show-t">The month</span><span class="show-d"><span>QuickBooks read, the totals tie, your rule ran.</span></span><span class="show-bar" aria-hidden="true"></span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="web" class="glow">
+    <div class="wrap">
+      <p class="kicker reveal"><span class="ix">02</span>On the web</p>
+      <h2 class="reveal" style="--d:1">Every client, without opening Excel.</h2>
+      <p class="intro reveal" style="--d:2">The web app draws each client’s model: actual, forecast and budget, month by month, and the faint line of what you signed. Shape a view, then make it a package.</p>
+      <figure class="term browser reveal" style="--d:3">
+        <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>Gregory · Bluebird Coffee · Analytics</span></div>
+        <img src="/media/web/charts.webp" width="1800" height="1035" loading="lazy" alt="Analytics on the web: net revenue, gross profit, margin, EBITDA and cash, actual against forecast and budget, with the line signed on 4 October.">
+      </figure>
+      <p class="shot-note">Bluebird Coffee is a demo company. Its numbers are made up.</p>
+    </div>
+  </section>
+  <section id="why" class="glow">
+    <div class="wrap">
+      <p class="kicker reveal"><span class="ix">03</span>Why it stays</p>
+      <h2 class="reveal" style="--d:1">Why it stays open.</h2>
+      <p class="intro reveal" style="--d:2">The book stays yours. A number without a source does not land.</p>
+      <div class="bento">
+        <article class="tile w7 reveal">
+          <div class="viz viz-sheet demo" aria-hidden="true">
+            <div class="sheet">
+              <div class="r h"><span></span><span>A</span><span class="on">B</span><span>C</span></div>
+              <div class="r"><span>2</span><span class="t">Input</span><span class="t n">Value</span><span></span></div>
+              <div class="r cur"><span>3</span><span>Price per unit</span><span class="n sel">4.99</span><span></span></div>
+              <div class="r"><span>4</span><span>Landed cost per unit</span><span class="n">2.1</span><span></span></div>
+              <div class="r"><span>5</span><span>Trade rate</span><span class="n">12.0%</span><span></span></div>
+            </div>
+            <div class="bubble q"><span class="spark">✦</span><span class="typed">Why 4.99?</span></div>
+            <div class="bubble a">The toy price list.<span class="sig"><span class="dot ok"></span>Signed 2 Oct</span></div>
+          </div>
+          <h3>On the cell you have open.</h3>
+          <p>Ask there. The answer is the file, the call, or what was signed. It does not take you to another model.</p>
+        </article>
+        <article class="tile w5 reveal" style="--d:1">
+          <div class="viz viz-quote demo" aria-hidden="true">
+            <div class="prop">
+              <div class="prop-k">From the call · 2 Oct</div>
+              <div class="prop-q">“Landed cost comes in at <mark>2.10</mark> a unit.”</div>
+              <div class="prop-line"><span>Landed cost per unit</span><b class="val got">2.1</b><span class="tag ok">quoted</span></div>
+            </div>
+            <div class="prop gap">
+              <div class="prop-line"><span>Doors</span><b class="val none"></b><span class="tag wait">no source</span></div>
+              <div class="prop-note">Flagged as a gap. No number is proposed.</div>
+            </div>
+          </div>
+          <h3>No source, no number.</h3>
+          <p>A figure it cannot point at, it withholds. The gap stays a gap.</p>
+        </article>
+        <article class="tile w5 reveal">
+          <div class="viz viz-sign demo" aria-hidden="true">
+            <div class="vs-addr">Inputs!B4</div>
+            <div class="vs-name">Landed cost per unit</div>
+            <div class="vs-num">2.1</div>
+            <div class="status">
+              <span class="st un"><span class="st-l"><span class="dot wait"></span><b>Unsigned</b></span><span class="st-s">Nobody stands behind this yet.</span></span>
+              <span class="st ok"><span class="st-l"><span class="dot ok"></span><b>Signed</b> · From the call · 2 Oct 2026</span><span class="st-s"><code>c41e08b97d25</code></span></span>
+            </div>
+            <div class="acts">
+              <span class="pill fill"><span class="spark">✦</span>Fill with Gregory</span>
+              <span class="pill sign">Sign<svg class="cursor" viewBox="0 0 24 24"><path d="M5 3l14 8-6.2 1.6L10 19z" fill="#fff" stroke="#0c0d10" stroke-width="1.4" stroke-linejoin="round"/></svg></span>
+            </div>
+          </div>
+          <h3>You still sign.</h3>
+          <p>Fill can draft where a number came from. The cell changes only when a person decides.</p>
+        </article>
+        <div class="tile w7 scores reveal" style="--d:1">
+          <div><strong>0</strong><span>Writes without you. Nothing applies on its own.</span></div>
+          <div><strong>1</strong><span>Path that can change the workbook. It runs through the gate.</span></div>
+          <div><strong>A quote</strong><span>Or the number does not land. Word for word, from the source.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="month">
+    <div class="wrap">
+      <p class="kicker reveal"><span class="ix">04</span>The month</p>
+      <h2 class="reveal" style="--d:1">The month comes to you.</h2>
+      <p class="intro reveal" style="--d:2">Connect a client’s QuickBooks, Xero or Shopify once. On the pull day you set, Gregory reads one report from each and lines the actuals up against the rows they belong to.</p>
+      <div class="month-wrap">
+        <figure class="term browser reveal" style="--d:2">
+          <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>Gregory · Bluebird Coffee · This month</span></div>
+          <img src="/media/web/month.webp" width="1130" height="494" loading="lazy" alt="This month: the QuickBooks pull for September, eight lines matched, none ambiguous, eight rows waiting.">
+        </figure>
+        <div class="reveal" style="--d:3">
+          <article class="rule"><span class="rule-n">01</span><h3><svg class="ck" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="8.2" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M6.4 10.2 8.8 12.6 13.8 7.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>One report a month, from each source.</h3><p>Read straight from the vendor on each client’s pull day, matched to the rows it sums into. No warehouse, no export to chase.</p></article>
+          <article class="rule"><span class="rule-n">02</span><h3><svg class="ck" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="8.2" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M6.4 10.2 8.8 12.6 13.8 7.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Written only under a rule you signed.</h3><p>Sign a rule once per source and the month applies on its own, through the same gate as every other change. Without one, it waits for you. A file on a desktop always waits.</p></article>
+          <article class="rule"><span class="rule-n">03</span><h3><svg class="ck" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="8.2" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M6.4 10.2 8.8 12.6 13.8 7.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>What moved, and one way back.</h3><p>Each month says what was pulled, what was written, and what still waits. Reverse this month puts the prior numbers back, through the gate.</p></article>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="connect" class="glow">
+    <div class="wrap">
+      <p class="kicker reveal"><span class="ix">05</span>Connected</p>
+      <h2 class="reveal" style="--d:1">Ask from the tools you already open.</h2>
+      <p class="intro reveal" style="--d:2">The names are the places the work already lives. Gregory connects where a signature has to travel.</p>
+      <div class="flow reveal demo" id="flow" aria-hidden="true">
+        <svg class="flow-svg" id="flow-svg"></svg>
+        <div class="flow-col flow-in">
+          <p class="flow-cap">The sources</p>
+          <span class="node src" data-node="src">Calls</span>
+          <span class="node src" data-node="src">Email</span>
+          <span class="node src" data-node="src">Contracts</span>
+          <span class="node src" data-node="src">PDFs</span>
+          <span class="node src" data-node="src">Data sources</span>
+        </div>
+        <span class="flow-tag tag-in">a quote</span>
+        <div class="flow-mid">
+          <span class="node ai ai1" data-node="claude"><span class="lg"><img src="/media/logos/anthropic.svg" alt=""></span><span class="nm">Claude</span></span>
+          <span class="node ai ai2" data-node="chatgpt"><span class="lg"><img src="/media/logos/openai.svg" alt=""></span><span class="nm">ChatGPT</span></span>
+          <span class="flow-tag tag-ai">read · draft · propose</span>
+          <div class="gate" data-node="gate">
+            <span class="mark"><svg width="24" height="24" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.2 6 9.2l3.4-3.8"/><path d="M12.4 7h4M4 12.5h12M4 15.6h7.5"/></svg></span>
+            <b>Gregory</b>
+            <small>the signed record</small>
+          </div>
+        </div>
+        <span class="flow-tag tag-out">you decide</span>
+        <div class="flow-col flow-out">
+          <p class="flow-cap">The workbook</p>
+          <span class="node book" data-node="excel"><span class="lg"><img src="/media/logos/microsoftexcel.svg" alt=""></span><span class="nt">Excel<small>OneDrive · Microsoft 365</small></span></span>
+          <span class="node book" data-node="sheets"><span class="lg"><img src="/media/logos/googlesheets.svg" alt=""></span><span class="nt">Google Sheets<small>Google Drive</small></span></span>
+        </div>
+      </div>
+      <div class="connects">
+        <article class="reveal" data-node="claude">
+          <div class="head"><div class="logo"><img src="/media/logos/anthropic.svg" alt=""></div><h3>Claude</h3></div>
+          <p>Paste Gregory in as a connector. It reads what is signed, drafts, and proposes. It never approves, signs, or writes the workbook.</p>
+        </article>
+        <article class="reveal" style="--d:1" data-node="chatgpt">
+          <div class="head"><div class="logo"><img src="/media/logos/openai.svg" alt=""></div><h3>ChatGPT</h3></div>
+          <p>The same door. ChatGPT asks before anything is written into Gregory. The number in the file still waits for you.</p>
+        </article>
+        <article class="reveal" style="--d:2" data-node="excel">
+          <div class="head"><div class="logo"><img src="/media/logos/microsoft.svg" alt=""></div><h3>Microsoft 365</h3></div>
+          <p>Excel is the daily surface. A connected account opens the spreadsheets in OneDrive — your files, a folder, a search.</p>
+        </article>
+        <article class="reveal" data-node="sheets">
+          <div class="head"><div class="logo"><img src="/media/logos/googledrive-color.svg" alt=""></div><h3>Google Drive</h3></div>
+          <p>Choose a Sheet in Drive, or the files already picked for that client. Sheets in, Sheets out. Gregory never converts the file.</p>
+        </article>
+        <article class="reveal" style="--d:1" data-node="excel">
+          <div class="head"><div class="logo"><img src="/media/logos/microsoftexcel.svg" alt=""></div><h3>Excel</h3></div>
+          <p>The book you already run. Reads, proposes, writes back only through the gate.</p>
+        </article>
+        <article class="reveal" style="--d:2" data-node="src">
+          <div class="head"><div class="logo glyph" aria-hidden="true"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2.8h6.6L15 6.2v11H5z"/><path d="M11.4 2.8v3.6H15M7.6 10h4.8M7.6 13h3.4"/></svg></div><h3>The sources</h3></div>
+          <p>Calls, email, contracts, PDFs, exports, bank statements, chat, your notes. A proposed number has to point at the words it came from.</p>
+        </article>
+      </div>
+      <div class="data">
+        <p class="kicker reveal">Data sources</p>
+        <h2 class="reveal" style="--d:1">Your data, connected.</h2>
+        <p class="intro reveal" style="--d:2">Accounting, commerce, distributors, sell-through and trade spend. Their reports are read into the month, and a number from them points at the report it came from.</p>
+        <ul class="data-grid reveal" style="--d:3">
+          <li><span class="data-logo"><img src="/media/logos/quickbooks.svg" alt=""><b>QuickBooks</b></span><span class="data-k">Accounting</span></li>
+          <li><span class="data-logo"><img src="/media/logos/shopify.svg" alt=""><b>Shopify</b></span><span class="data-k">Commerce</span></li>
+          <li><span class="data-logo"><img src="/media/logos/amazon.svg" alt=""><b>Amazon</b></span><span class="data-k">Marketplace</span></li>
+          <li><span class="data-logo"><img src="/media/logos/walmart.svg" alt="Walmart"></span><span class="data-k">Retail</span></li>
+          <li><span class="data-logo"><img src="/media/logos/kehe.png" alt=""><b>KeHE</b></span><span class="data-k">Distributor</span></li>
+          <li><span class="data-logo"><img src="/media/logos/unfi.svg" alt="UNFI"></span><span class="data-k">Distributor</span></li>
+          <li><span class="data-logo"><img src="/media/logos/spins.png" alt=""><b>SPINS</b></span><span class="data-k">Sell-through</span></li>
+          <li><span class="data-logo"><img src="/media/logos/crisp.png" alt=""><b>Crisp</b></span><span class="data-k">Retail data</span></li>
+          <li><span class="data-logo"><img src="/media/logos/confido-on-light.svg" alt="Confido"></span><span class="data-k">Trade spend</span></li>
+          <li><span class="data-logo"><img src="/media/logos/drivepoint.svg" alt="Drivepoint"></span><span class="data-k">Planning</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section id="rules" class="glow">
+    <div class="wrap">
+      <p class="kicker reveal"><span class="ix">06</span>Non-negotiables</p>
+      <h2 class="reveal" style="--d:1">Enforced in code.</h2>
+      <div class="rules-wrap">
+        <div class="rules">
+          <article class="rule reveal"><span class="rule-n">01</span><h3><svg class="ck" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="8.2" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M6.4 10.2 8.8 12.6 13.8 7.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Nothing writes without approval.</h3><p>The only path that changes a workbook runs through changes a person decided. There is no auto-apply, and no way around the gate.</p></article>
+          <article class="rule reveal" style="--d:1"><span class="rule-n">02</span><h3><svg class="ck" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="8.2" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M6.4 10.2 8.8 12.6 13.8 7.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>The workbook stays yours.</h3><p>What Gregory leaves in the file uses native features — named ranges, notes, a hidden sheet. No macros, and no add-in required to open it.</p></article>
+          <article class="rule reveal" style="--d:2"><span class="rule-n">03</span><h3><svg class="ck" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="8.2" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M6.4 10.2 8.8 12.6 13.8 7.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Excel in, Excel out. Sheets in, Sheets out.</h3><p>A model lives on one platform for its whole life. Gregory never converts the file into something the client cannot open.</p></article>
+          <article class="rule reveal" style="--d:3"><span class="rule-n">04</span><h3><svg class="ck" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="8.2" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M6.4 10.2 8.8 12.6 13.8 7.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>No number without a quote.</h3><p>A proposed value has to point at the source, word for word. What cannot be grounded is flagged as a gap. Approved changes reach the cell as the number you approved.</p></article>
+          <article class="rule reveal" style="--d:4"><span class="rule-n">05</span><h3><svg class="ck" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="8.2" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M6.4 10.2 8.8 12.6 13.8 7.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Client data stays where the engagement allows.</h3><p>Per-engagement flags control cloud processing and AI use. Calls send the minimum text needed, and client values never appear in logs.</p></article>
+        </div>
+        <figure class="term reveal" style="--d:2">
+          <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>gregory · tests/architecture</span></div>
+          <div class="term-body">
+            <p class="tl cmd"><span class="pr" aria-hidden="true">$</span><span class="typed">pytest tests/architecture</span></p>
+            <p class="tl" style="--i:0"><span class="ok" aria-hidden="true">✓</span>test_gate_is_sole_constructor</p>
+            <p class="tl" style="--i:1"><span class="ok" aria-hidden="true">✓</span>test_core_is_pure</p>
+            <p class="tl" style="--i:2"><span class="ok" aria-hidden="true">✓</span>test_adapters_dont_decide</p>
+            <p class="tl" style="--i:3"><span class="ok" aria-hidden="true">✓</span>test_the_web_makes_no_decisions</p>
+            <p class="tl" style="--i:4"><span class="ok" aria-hidden="true">✓</span>test_the_sign_in_never_reaches_the_gate</p>
+            <p class="tl sum" style="--i:5"><span class="ok">passed</span>on every pull request and every push to main. A red run does not deploy.<span class="caret" aria-hidden="true"></span></p>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+  <section id="who" class="live">
+    <article class="scene scene-wide">
+      <img class="place" src="/media/places/nyc.jpg" alt="Manhattan at dusk, the Empire State Building over the city.">
+      <div class="scene-shade"></div>
+      <div class="wrap">
+      <div class="scene-copy">
+        <p class="badge reveal"><span class="live-dot" aria-hidden="true"></span>Live</p>
+        <h2 class="reveal" style="--d:1">Gregory is live in the grid.</h2>
+        <p class="lede reveal" style="--d:2">Open it on your own clients’ files, or on the book a finance team already keeps. You sign. It never writes the cell itself.</p>
+        <div class="actions reveal" style="--d:3">
+          <a class="btn" href="#contact">Get Gregory</a>
+          <a class="btn ghost" href="mailto:hello@gregory.work">hello@gregory.work</a>
+        </div>
+        <p class="cross reveal" style="--d:4">Running a startup without a CFO? <a href="/startups/">Gregory for startups</a></p>
+      </div>
+      </div>
+    </article>
+  </section>
+  <section id="team" class="contact">
+    <div class="wrap">
+      <div class="built reveal">
+        <p class="built-k">Built by people from</p>
+        <ul class="built-row">
+          <li>MIT</li>
+          <li>USC</li>
+          <li>Goldman Sachs</li>
+          <li>Moelis</li>
+          <li>Soros Fund Management</li>
+        </ul>
+        <p class="built-y"><strong>20+</strong> years of experience, combined.</p>
+      </div>
+      <div class="contact-grid" id="contact">
+        <div class="contact-copy">
+          <p class="kicker reveal">Talk to us</p>
+          <h2 class="reveal" style="--d:1">We’ll get back to you.</h2>
+          <p class="intro reveal" style="--d:2">Tell us who you are and what you keep the numbers in. One of us writes back.</p>
+          <p class="cross reveal" style="--d:3">Or write to <a href="mailto:hello@gregory.work">hello@gregory.work</a></p>
+        </div>
+        <form class="contact-form reveal" style="--d:2" id="contact-form" data-to="hello@gregory.work" data-subject="Gregory for CFOs" novalidate>
+          <label class="f"><span>Name</span><input name="name" autocomplete="name" required></label>
+          <label class="f"><span>Work email</span><input type="email" name="email" autocomplete="email" required></label>
+          <label class="f"><span>Company</span><input name="company" autocomplete="organization"></label>
+          <label class="f"><span>I am</span><select name="role">
+            <option value="cfo" selected>A fractional CFO</option>
+            <option value="startup">A startup</option>
+            <option value="team">A finance team</option>
+            <option value="other">Something else</option>
+          </select></label>
+          <label class="f wide"><span>What should we know? <em>Optional</em></span><textarea name="note" rows="4"></textarea></label>
+          <div class="f wide send">
+            <button class="btn" type="submit">Send</button>
+            <p class="form-note" id="form-note" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="wordmark" aria-hidden="true">Gregory</div>
+    <div class="foot">
+      <span>© 2026 Gregory</span>
+      <nav aria-label="Pages"><a href="/cfos/">For CFOs</a><a href="/startups/">For startups</a><a href="mailto:hello@gregory.work">hello@gregory.work</a></nav>
+    </div>
+  </div>
+</footer>
+<script src="/site.js"></script>
+</body>
+</html>
