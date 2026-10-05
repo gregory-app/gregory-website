@@ -3,7 +3,13 @@ name: Deploy site to GitHub Pages
 on:
   push:
     branches: [main]
+  # Run by hand, the job can name its runner: when GitHub's hosted runners do not
+  # take jobs (a billing hold, 2026-10-05), a one-off runner on a Mac deploys instead.
   workflow_dispatch:
+    inputs:
+      runner:
+        description: Runner label (ubuntu-latest, or a self-hosted runner's label)
+        default: ubuntu-latest
 
 permissions:
   contents: read
@@ -16,7 +22,7 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.runner || 'ubuntu-latest' }}
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
