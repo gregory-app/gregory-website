@@ -573,3 +573,24 @@ a.scene:hover .go { transform: translateX(3px); }
 .month-wrap { margin-top: 32px; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(24px, 4.5vw, 64px); align-items: start; }
 @media (max-width: 900px) { .month-wrap { grid-template-columns: 1fr; } }
 .tile .pic.natural img { height: auto; }
+
+/* One page (6 Oct): the web app's carousel, wide, under the pane's; the doors close the page. */
+.webshow { margin-top: 32px; }
+.webshow .browser { margin: 0; }
+.webshow .show-shots { aspect-ratio: 16 / 10; border-radius: 0; box-shadow: none; background: #0b0b0e; }
+.webshow .show-shots img { object-position: top left; }
+.webshow .show-cap { display: block; margin-top: 16px; color: var(--muted); font-size: 15px; }
+.webshow .show-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; padding: 2px; border: 0; }
+.webshow .show-list [role=tab] { flex: none; width: auto; padding: 9px 15px 11px; border: 0; border-radius: 999px; background: rgba(255,255,255,.04); box-shadow: inset 0 0 0 1px var(--hair); }
+.webshow .show-list [role=tab].on { background: rgba(255,255,255,.1); }
+.webshow .show-list [role=tab]::before, .webshow .show-d { display: none; }
+.webshow .show-t { font-size: 14px; }
+.webshow .show-bar { top: auto; bottom: 4px; left: 15px; right: 15px; width: auto; height: 2px; transform-origin: 0 50%; transform: scaleX(0); }
+.webshow .show-list [role=tab].on .show-bar { transform: none; }
+.motion .webshow .show-list:not(.held) [role=tab].on .show-bar { animation-name: dwellx; }
+.motion .webshow:hover .show-bar { animation-play-state: paused; }
+.doors { margin-top: 18px; }
+.doors .scene { scroll-margin-top: 96px; }
+.built-row img { display: block; height: var(--h, 32px); width: auto; filter: brightness(0) invert(1); opacity: .72; }
+@media (max-width: 900px) { .webshow .show-list { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; } }
+.doors .scene-shade { background: linear-gradient(180deg, rgba(7,7,8,.18) 0%, rgba(7,7,8,.62) 46%, rgba(7,7,8,.93) 100%); }

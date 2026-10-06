@@ -215,42 +215,45 @@
     fill();
   });
 
-  // The pane's screens: one in view, the list says which, and each holds until its line fills.
+  // Each carousel (the pane's screens, the web app's): one shot in view, its list says which,
+  // and each holds until its line fills. A carousel is the section around a .show-list.
   run(function () {
-    var list = document.getElementById("show-list");
-    if (!list) return;
-    var tabs = Array.prototype.slice.call(list.querySelectorAll("[role=tab]"));
-    var shots = document.querySelectorAll("#show-shots img");
-    var cap = document.getElementById("show-cap");
-    var i = 0;
-    function pick(n, chosen) {
-      i = (n + tabs.length) % tabs.length;
-      tabs.forEach(function (t, k) {
-        var on = k === i;
-        t.classList.toggle("on", on);
-        t.setAttribute("aria-selected", on ? "true" : "false");
-        t.tabIndex = on ? 0 : -1;
-      });
-      shots.forEach(function (img, k) { img.classList.toggle("on", k === i); });
-      cap.textContent = tabs[i].querySelector(".show-d").textContent;
-      if (list.scrollWidth > list.clientWidth) {
-        var t = tabs[i];
-        list.scrollTo({ left: t.offsetLeft - (list.clientWidth - t.offsetWidth) / 2, behavior: reduced ? "auto" : "smooth" });
+    document.querySelectorAll(".show-list").forEach(function (list) {
+      var root = list.closest("section") || document;
+      var tabs = Array.prototype.slice.call(list.querySelectorAll("[role=tab]"));
+      var shots = root.querySelectorAll(".show-shots img");
+      var cap = root.querySelector(".show-cap");
+      var i = 0;
+      function pick(n, chosen) {
+        i = (n + tabs.length) % tabs.length;
+        tabs.forEach(function (t, k) {
+          var on = k === i;
+          t.classList.toggle("on", on);
+          t.setAttribute("aria-selected", on ? "true" : "false");
+          t.tabIndex = on ? 0 : -1;
+        });
+        shots.forEach(function (img, k) { img.classList.toggle("on", k === i); });
+        if (cap) cap.textContent = tabs[i].querySelector(".show-d").textContent;
+        if (list.scrollWidth > list.clientWidth) {
+          var t = tabs[i];
+          list.scrollTo({ left: t.offsetLeft - (list.clientWidth - t.offsetWidth) / 2, behavior: reduced ? "auto" : "smooth" });
+        }
+        if (chosen) list.classList.add("held");
       }
-      if (chosen) list.classList.add("held");
-    }
-    tabs.forEach(function (t, k) {
-      t.addEventListener("click", function () { pick(k, true); });
-      t.querySelector(".show-bar").addEventListener("animationend", function () {
-        if (k === i && !list.classList.contains("held")) pick(i + 1);
+      tabs.forEach(function (t, k) {
+        t.addEventListener("click", function () { pick(k, true); });
+        t.querySelector(".show-bar").addEventListener("animationend", function () {
+          if (k === i && !list.classList.contains("held")) pick(i + 1);
+        });
       });
-    });
-    list.addEventListener("keydown", function (e) {
-      var step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
-      if (!step) return;
-      e.preventDefault();
-      pick(i + step, true);
-      tabs[i].focus();
+      list.addEventListener("keydown", function (e) {
+        var step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+        if (!step) return;
+        e.preventDefault();
+        pick(i + step, true);
+        tabs[i].focus();
+      });
+      if (cap) cap.textContent = tabs[0].querySelector(".show-d").textContent;
     });
   });
 
@@ -344,6 +347,10 @@
     var to = form.getAttribute("data-to");
     function say(text, kind) { note.textContent = text; note.className = "form-note" + (kind ? " " + kind : ""); }
     if (!form.getAttribute("data-endpoint")) say("Opens your email app with this filled in, addressed to " + to + ".");
+    // A door that leads here says who is writing: "I am" is filled in on the way.
+    document.querySelectorAll("a[data-role]").forEach(function (a) {
+      a.addEventListener("click", function () { if (form.elements.role) form.elements.role.value = a.getAttribute("data-role"); });
+    });
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var bad = null;

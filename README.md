@@ -2,26 +2,28 @@
 
 Marketing site for Gregory — the AI on the cell. Ask it in Excel. It
 answers from the file and what is signed, and it never writes the model
-itself. Three static pages, no build step:
+itself. One static page, no build step (`index.html`): the hero, the pane in Excel,
+the web app, the month, why it stays open, what it connects, the rules, and two doors —
+for fractional CFOs and for startups — before who built it and the form. `cfos/` and
+`startups/` only forward to those doors (`/#for-cfos`, `/#for-startups`): the site was
+two pages for a day (6 October 2026) and a link may have gone out.
 
-- `index.html` — the home: the hero, then two doors.
-- `cfos/index.html` — `/cfos/`, the Excel add-in for fractional CFOs.
-- `startups/index.html` — `/startups/`, the web app for startups (early access).
-
-Every page links `/site.css` and `/site.js`, so styles and motion live in one
-place. Paths are absolute (`/media/…`); preview with a server at the repo root
+The page links `/site.css` and `/site.js`, so styles and motion live in their own
+files. Paths are absolute (`/media/…`); preview with a server at the repo root
 (`python3 -m http.server`), not by opening the file.
 
-**The form** at the bottom of every page (`#contact-form`) posts JSON (name,
+**The form** at the bottom of the page (`#contact-form`) posts JSON (name,
 email, company, role, note, page) to the URL in its `data-endpoint` attribute
 when one is set. Without one it opens the visitor's own email app addressed to
 `data-to`, so nothing goes to a third party until an endpoint is chosen.
 
 **Shots.** `media/*.png` are the Excel pane (640×1440, the pane harness in
-`gregory-app/gregory`); `media/web/*.png` are the web app on the synthetic demo
-company (`make demo-web`). Never a real client's file: this is a public page.
+`gregory-app/gregory`); `media/web/*.webp` are the web app on the synthetic demo
+practice (`make demo-web`). `media/logos/` holds the tools' marks and, for "Built by
+people from", MIT, USC, Goldman Sachs, Moelis and Soros Fund Management (Wikimedia
+Commons files, shown in white). Never a real client's file: this is a public page.
 
-Each page is a dark stage: a display headline, a living aurora, and the
+The page is a dark stage: a display headline, a living aurora, and the
 pane floating in it. Emerald is still a signature. Aurora is still Gregory.
 
 Motion has three rules. The colour moves only in the hero (a WebGL canvas of
